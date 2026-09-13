@@ -19,7 +19,6 @@ body{
   color:#111;
 }
 
-/* HEADER */
 header{
   background:#111;
   color:white;
@@ -61,7 +60,6 @@ nav a{
   cursor:pointer;
 }
 
-/* HERO */
 .hero{
   background:linear-gradient(135deg,#111,#292929);
   color:white;
@@ -108,7 +106,6 @@ nav a{
   cursor:pointer;
 }
 
-/* CATEGORIES */
 .categories{
   display:flex;
   gap:12px;
@@ -124,7 +121,6 @@ nav a{
   box-shadow:0 3px 10px #0001;
 }
 
-/* SECTION */
 section{
   padding:25px 6%;
 }
@@ -135,7 +131,6 @@ section{
   margin-bottom:20px;
 }
 
-/* EMPTY */
 .empty{
   background:white;
   border-radius:18px;
@@ -150,7 +145,6 @@ section{
   margin-bottom:15px;
 }
 
-/* SELL */
 .sell{
   background:#111;
   color:white;
@@ -178,7 +172,6 @@ section{
   font-weight:bold;
 }
 
-/* MODAL */
 .modal{
   display:none;
   position:fixed;
@@ -211,8 +204,7 @@ section{
   margin-bottom:20px;
 }
 
-.modal-box input,
-.modal-box select{
+.modal-box input{
   width:100%;
   padding:14px;
   margin-bottom:13px;
@@ -237,7 +229,26 @@ section{
   cursor:pointer;
 }
 
-/* FOOTER */
+#userInfo{
+  display:none;
+  align-items:center;
+  gap:10px;
+}
+
+#userEmail{
+  color:#fff;
+  font-size:13px;
+}
+
+.logout-btn{
+  background:#ff3b30;
+  color:white;
+  border:0;
+  padding:9px 14px;
+  border-radius:20px;
+  cursor:pointer;
+}
+
 footer{
   background:#111;
   color:#aaa;
@@ -263,6 +274,10 @@ footer strong{
   header{
     padding:0 4%;
   }
+
+  #userEmail{
+    display:none;
+  }
 }
 </style>
 </head>
@@ -282,9 +297,19 @@ footer strong{
     <a href="#live">🔴 Live</a>
   </nav>
 
-  <button class="login-btn" onclick="openLogin()">
+  <button
+    class="login-btn"
+    id="loginButton"
+    onclick="openLogin()">
     چوونەژوورەوە
   </button>
+
+  <div id="userInfo">
+    <span id="userEmail"></span>
+    <button class="logout-btn" onclick="logout()">
+      دەرچوون
+    </button>
+  </div>
 
 </header>
 
@@ -308,7 +333,7 @@ footer strong{
       placeholder="ناوی کاڵا بگەڕێ..."
     >
 
-    <button onclick="search()">
+    <button onclick="searchProduct()">
       گەڕان
     </button>
 
@@ -328,8 +353,6 @@ footer strong{
 
 </div>
 
-
-<!-- AUCTION -->
 
 <section id="auction">
 
@@ -355,8 +378,6 @@ footer strong{
 </section>
 
 
-<!-- DIRECT SALE -->
-
 <section id="shop">
 
   <div class="title">
@@ -379,8 +400,6 @@ footer strong{
 
 </section>
 
-
-<!-- LIVE -->
 
 <section id="live">
 
@@ -405,8 +424,6 @@ footer strong{
 
 </section>
 
-
-<!-- SELL -->
 
 <div class="sell">
 
@@ -437,8 +454,6 @@ footer strong{
 </footer>
 
 
-<!-- LOGIN MODAL -->
-
 <div class="modal" id="loginModal">
 
   <div class="modal-box">
@@ -454,7 +469,7 @@ footer strong{
     <input
       id="name"
       type="text"
-      placeholder="ناوی بەکارهێنەر"
+      placeholder="ناوی تەواو"
       style="display:none;"
     >
 
@@ -470,15 +485,14 @@ footer strong{
       placeholder="وشەی نهێنی"
     >
 
-    <button onclick="login()">
+    <button id="authButton" onclick="handleAuth()">
       چوونەژوورەوە
     </button>
 
     <div
       class="switch"
       id="switchText"
-      onclick="registerMode()"
-    >
+      onclick="registerMode()">
       هەژمارت نییە؟ هەژمار دروست بکە
     </div>
 
@@ -487,12 +501,29 @@ footer strong{
 </div>
 
 
+<!-- SUPABASE -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
+
+const SUPABASE_URL =
+"https://wpjqvpcqaufrpstnziad.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+"sb_publishable_9ALxJWahJqUFvtMXR7-5TA_XHBIF6ZK";
+
+const supabaseClient =
+supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+
 
 let register = false;
 
 
-/* LOGIN */
+/* OPEN LOGIN */
 
 function openLogin(){
 
@@ -502,7 +533,7 @@ function openLogin(){
 }
 
 
-/* CLOSE */
+/* CLOSE LOGIN */
 
 function closeLogin(){
 
@@ -525,7 +556,7 @@ function registerMode(){
     document.getElementById("formTitle");
 
   const button =
-    document.querySelector(".modal-box button");
+    document.getElementById("authButton");
 
   const text =
     document.getElementById("switchText");
@@ -561,12 +592,12 @@ function registerMode(){
 }
 
 
-/* LOGIN DEMO */
+/* AUTH */
 
-function login(){
+async function handleAuth(){
 
   const email =
-    document.getElementById("email").value;
+    document.getElementById("email").value.trim();
 
   const password =
     document.getElementById("password").value;
@@ -578,60 +609,205 @@ function login(){
     );
 
     return;
-
   }
+
 
   if(register){
 
     const name =
-      document.getElementById("name").value;
+      document.getElementById("name").value.trim();
 
     if(!name){
 
-      alert("تکایە ناوت بنووسە.");
+      alert("تکایە ناوی تەواوت بنووسە.");
 
       return;
-
     }
 
+
+    const { data, error } =
+      await supabaseClient.auth.signUp({
+
+        email: email,
+
+        password: password,
+
+        options: {
+          data: {
+            full_name: name
+          }
+        }
+
+      });
+
+
+    if(error){
+
+      alert(
+        "هەڵە لە دروستکردنی هەژمار:\n" +
+        error.message
+      );
+
+      return;
+    }
+
+
     alert(
-      "هەژمارەکەت بە سەرکەوتوویی دروست کرا."
+      "هەژمارەکەت دروست کرا ✅\n\n" +
+      "ئەگەر Email Confirmation چالاک بێت، " +
+      "ئیمەیڵەکەت بپشکنە و لینکەکە کرتە لێ بکە."
     );
+
+
+    register = false;
+
+    registerMode();
 
   }else{
 
-    alert(
-      "ئەمە تەنها ڕووکاری Login ـە.\n\n" +
-      "بۆ Login ـی ڕاستەقینە پێویستە Database " +
-      "و Backend زیاد بکرێت."
-    );
+
+    const { data, error } =
+      await supabaseClient.auth.signInWithPassword({
+
+        email: email,
+
+        password: password
+
+      });
+
+
+    if(error){
+
+      alert(
+        "Login سەرکەوتوو نەبوو:\n" +
+        error.message
+      );
+
+      return;
+    }
+
+
+    alert("بەخێربێیتەوە ✅");
+
+    closeLogin();
+
+    updateUserUI(data.user);
 
   }
 
 }
+
+
+/* LOGOUT */
+
+async function logout(){
+
+  const { error } =
+    await supabaseClient.auth.signOut();
+
+  if(error){
+
+    alert(error.message);
+
+    return;
+  }
+
+  updateUserUI(null);
+
+  alert("بە سەرکەوتوویی دەرچوویت.");
+
+}
+
+
+/* USER UI */
+
+function updateUserUI(user){
+
+  const loginButton =
+    document.getElementById("loginButton");
+
+  const userInfo =
+    document.getElementById("userInfo");
+
+  const userEmail =
+    document.getElementById("userEmail");
+
+
+  if(user){
+
+    loginButton.style.display = "none";
+
+    userInfo.style.display = "flex";
+
+    userEmail.innerText =
+      user.email;
+
+  }else{
+
+    loginButton.style.display = "block";
+
+    userInfo.style.display = "none";
+
+    userEmail.innerText = "";
+
+  }
+
+}
+
+
+/* CHECK LOGIN */
+
+async function checkUser(){
+
+  const { data } =
+    await supabaseClient.auth.getSession();
+
+  updateUserUI(data.session?.user || null);
+
+}
+
+
+/* AUTH STATE */
+
+supabaseClient.auth.onAuthStateChange(
+  function(event, session){
+
+    updateUserUI(
+      session?.user || null
+    );
+
+  }
+);
 
 
 /* SEARCH */
 
-function search(){
+function searchProduct(){
 
   const value =
-    document.getElementById("searchInput").value;
+    document.getElementById("searchInput").value.trim();
 
   if(!value){
 
-    alert("تکایە ناوی کاڵا بنووسە.");
+    alert(
+      "تکایە ناوی کاڵا بنووسە."
+    );
 
     return;
-
   }
 
   alert(
-    "گەڕان بۆ: " + value +
+    "گەڕان بۆ: " +
+    value +
     "\n\nهێشتا هیچ کاڵایەک نەدۆزرایەوە."
   );
 
 }
+
+
+/* START */
+
+checkUser();
 
 </script>
 
