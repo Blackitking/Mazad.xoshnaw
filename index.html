@@ -2,7 +2,7 @@
 <html lang="ku" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>XOSHNAW MARKET</title>
 
@@ -15,7 +15,7 @@
 }
 
 body{
-  background:#f4f5f7;
+  background:#f3f4f6;
   color:#151515;
   padding-bottom:85px;
 }
@@ -30,21 +30,21 @@ button{
 }
 
 header{
-  background:#111;
-  color:#fff;
-  padding:16px 20px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
   position:sticky;
   top:0;
   z-index:1000;
+  background:#111;
+  color:white;
+  padding:14px 18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
 .logo{
-  font-size:21px;
-  font-weight:bold;
   color:#ffd400;
+  font-size:20px;
+  font-weight:bold;
 }
 
 .header-user{
@@ -56,7 +56,7 @@ header{
 .header-user button{
   background:#ffd400;
   color:#111;
-  padding:8px 13px;
+  padding:8px 12px;
   border-radius:8px;
   font-weight:bold;
 }
@@ -76,8 +76,8 @@ header{
 
 .hero{
   background:linear-gradient(135deg,#111,#292929);
-  color:white;
-  padding:30px 20px;
+  color:#fff;
+  padding:30px 22px;
   border-radius:18px;
   margin-bottom:20px;
 }
@@ -93,8 +93,8 @@ header{
 }
 
 .section-title{
-  margin:22px 0 14px;
   font-size:21px;
+  margin:22px 0 14px;
 }
 
 .grid{
@@ -104,7 +104,7 @@ header{
 }
 
 .card{
-  background:white;
+  background:#fff;
   border-radius:15px;
   overflow:hidden;
   box-shadow:0 3px 14px rgba(0,0,0,.08);
@@ -134,8 +134,9 @@ header{
 .price{
   font-size:19px;
   font-weight:bold;
-  color:#111;
   margin:10px 0;
+  direction:ltr;
+  text-align:right;
 }
 
 .badge{
@@ -147,12 +148,12 @@ header{
   margin-bottom:8px;
 }
 
-.badge.auction{
-  background:#fff0b0;
-}
-
 .badge.sale{
   background:#d9f8df;
+}
+
+.badge.auction{
+  background:#fff0a8;
 }
 
 .badge.pending{
@@ -206,7 +207,7 @@ header{
 }
 
 .form-box{
-  background:white;
+  background:#fff;
   padding:20px;
   border-radius:16px;
   box-shadow:0 3px 15px rgba(0,0,0,.07);
@@ -239,12 +240,6 @@ header{
   resize:vertical;
 }
 
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus{
-  border-color:#ffd400;
-}
-
 .notice{
   padding:14px;
   border-radius:10px;
@@ -261,9 +256,30 @@ header{
   background:#ffd7d7;
 }
 
+.empty{
+  background:#fff;
+  padding:30px;
+  border-radius:15px;
+  text-align:center;
+  color:#777;
+}
+
+.profile-header{
+  background:#111;
+  color:#fff;
+  border-radius:17px;
+  padding:22px;
+  margin-bottom:18px;
+}
+
+.profile-header h2{
+  color:#ffd400;
+  margin-bottom:7px;
+}
+
 .profile-box{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
   gap:14px;
   margin-bottom:20px;
 }
@@ -281,24 +297,10 @@ header{
   margin-top:8px;
 }
 
-.profile-header{
-  background:#111;
-  color:white;
-  border-radius:17px;
-  padding:22px;
-  margin-bottom:18px;
-}
-
-.profile-header h2{
-  color:#ffd400;
-  margin-bottom:7px;
-}
-
 .verify-box{
   border:2px solid #eee;
   border-radius:14px;
   padding:18px;
-  margin-top:15px;
 }
 
 .bottom-nav{
@@ -308,16 +310,15 @@ header{
   left:0;
   height:72px;
   background:#111;
-  display:flex;
-  justify-content:center;
   z-index:2000;
   box-shadow:0 -3px 15px rgba(0,0,0,.2);
 }
 
 .nav-inner{
   width:min(700px,100%);
+  height:100%;
+  margin:auto;
   display:flex;
-  justify-content:space-around;
 }
 
 .nav-item{
@@ -356,8 +357,8 @@ header{
 }
 
 .modal-box{
-  background:white;
-  width:min(450px,100%);
+  background:#fff;
+  width:min(460px,100%);
   max-height:90vh;
   overflow:auto;
   border-radius:18px;
@@ -372,10 +373,10 @@ header{
 }
 
 .close{
-  background:#eee;
   width:35px;
   height:35px;
   border-radius:50%;
+  background:#eee;
   font-size:20px;
 }
 
@@ -401,12 +402,98 @@ header{
   display:none!important;
 }
 
+/* LIVE */
+
+.live-panel{
+  background:#111;
+  color:#fff;
+  margin-top:20px;
+  border-radius:17px;
+  padding:20px;
+}
+
+.live-panel h2{
+  color:#ff3030;
+  margin-bottom:8px;
+}
+
+.live-panel p{
+  color:#bbb;
+  line-height:1.8;
+}
+
+.btn-live{
+  background:#e53935;
+  color:#fff;
+  padding:12px 18px;
+  border-radius:10px;
+  font-weight:bold;
+  margin-top:15px;
+}
+
+.live-status{
+  background:#222;
+  padding:15px;
+  border-radius:10px;
+  margin-top:15px;
+  line-height:1.8;
+}
+
+/* BID */
+
+.bid-area{
+  margin-top:12px;
+}
+
+.bid-box{
+  display:flex;
+  align-items:center;
+  gap:5px;
+  background:#1677ff;
+  padding:5px;
+  border-radius:10px;
+  width:max-content;
+}
+
+.bid-box button{
+  width:36px;
+  height:36px;
+  border-radius:7px;
+  background:#fff;
+  color:#1677ff;
+  font-size:23px;
+  font-weight:bold;
+}
+
+.bid-price{
+  min-width:115px;
+  height:36px;
+  background:#fff;
+  color:#111;
+  border-radius:7px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+  direction:ltr;
+}
+
+.bid-submit{
+  width:100%;
+  margin-top:8px;
+  background:#1677ff;
+  color:#fff;
+  padding:10px;
+  border-radius:9px;
+  font-weight:bold;
+}
+
 .admin-box{
   background:#111;
-  color:white;
+  color:#fff;
   padding:20px;
   border-radius:16px;
-  margin-top:20px;
+  margin-bottom:20px;
 }
 
 .admin-box h3{
@@ -422,27 +509,8 @@ header{
 }
 
 .admin-item p{
-  line-height:1.8;
   color:#ddd;
-}
-
-.favorite{
-  background:#ffeded!important;
-}
-
-.empty{
-  background:white;
-  padding:30px;
-  border-radius:15px;
-  text-align:center;
-  color:#777;
-}
-
-.file-note{
-  font-size:12px;
-  color:#777;
-  margin-top:5px;
-  line-height:1.7;
+  line-height:1.8;
 }
 
 footer{
@@ -452,12 +520,17 @@ footer{
 }
 
 @media(max-width:600px){
+
   header{
     padding:13px;
   }
 
   .logo{
     font-size:17px;
+  }
+
+  .header-user span{
+    display:none;
   }
 
   .hero{
@@ -474,165 +547,278 @@ footer{
 <body>
 
 <header>
-  <div class="logo">XOSHNAW MARKET</div>
+
+  <div class="logo">
+    XOSHNAW MARKET
+  </div>
 
   <div class="header-user">
-    <span id="headerUser">میوان</span>
-    <button id="authButton" onclick="openAuth()">چوونەژوورەوە</button>
+
+    <span id="headerUser">
+      میوان
+    </span>
+
+    <button id="authButton"
+            onclick="openAuth()">
+      چوونەژوورەوە
+    </button>
+
   </div>
+
 </header>
 
 
 <main class="container">
 
-  <!-- HOME -->
-  <section id="home" class="section active">
 
-    <div class="hero">
-      <h1>بەخێربێیت بۆ XOSHNAW MARKET</h1>
-      <p>
-        شوێنێک بۆ کڕین، فرۆشتن و مەزادی کاڵاکان.
-        کاڵاکانت زیاد بکە و بە شێوەی فرۆشتنی ڕاستەوخۆ یان مەزاد بفرۆشە.
-      </p>
+<!-- HOME -->
+
+<section id="home" class="section active">
+
+  <div class="hero">
+
+    <h1>
+      بەخێربێیت بۆ XOSHNAW MARKET
+    </h1>
+
+    <p>
+      شوێنێک بۆ کڕین، فرۆشتن، مەزاد و Live.
+    </p>
+
+  </div>
+
+
+  <h2 class="section-title">
+    🛒 نوێترین کاڵاکان
+  </h2>
+
+  <div id="homeProducts"
+       class="grid">
+  </div>
+
+
+  <div class="live-panel">
+
+    <h2>
+      🔴 XOSHNAW LIVE
+    </h2>
+
+    <p>
+      بەکارهێنەرانی پشتڕاستکراو دەتوانن Live بکەنەوە.
+    </p>
+
+    <button class="btn-live"
+            onclick="startLive()">
+      🔴 Live بکەرەوە
+    </button>
+
+    <div id="liveStatus"
+         class="live-status hidden">
     </div>
 
-    <h2 class="section-title">نوێترین کاڵاکان</h2>
-    <div id="homeProducts" class="grid"></div>
+  </div>
 
-    <div id="liveBox" class="form-box" style="margin-top:20px">
-      <h2>🔴 Live</h2>
-      <p style="margin-top:8px;line-height:1.8">
-        بەشی Live ـی XOSHNAW MARKET بە زوویی چالاک دەکرێت.
-      </p>
-      <div style="margin-top:10px">
-        👁️ بینەر: <strong id="viewerCount">0</strong>
-      </div>
+</section>
+
+
+<!-- MARKET -->
+
+<section id="market"
+         class="section">
+
+  <h2 class="section-title">
+    🛒 بازاڕ
+  </h2>
+
+  <div class="form-box">
+
+    <div class="form-group">
+
+      <label>
+        گەڕان بۆ کاڵا
+      </label>
+
+      <input id="marketSearch"
+             type="text"
+             placeholder="ناوی کاڵا..."
+             oninput="renderMarket()">
+
     </div>
 
-  </section>
+  </div>
+
+  <div id="marketProducts"
+       class="grid">
+  </div>
+
+</section>
 
 
-  <!-- MARKET -->
-  <section id="market" class="section">
+<!-- ADD PRODUCT -->
 
-    <h2 class="section-title">🛒 بازاڕ</h2>
+<section id="addProduct"
+         class="section">
 
-    <div class="form-box">
+  <h2 class="section-title">
+    ➕ دانانی کاڵا
+  </h2>
+
+  <div id="addProductMessage">
+  </div>
+
+  <div id="addProductFormBox"
+       class="form-box">
+
+    <form id="productForm">
+
       <div class="form-group">
-        <label>گەڕان بۆ کاڵا</label>
-        <input id="marketSearch"
-               type="text"
-               placeholder="ناوی کاڵا بنووسە..."
-               oninput="renderMarket()">
-      </div>
-    </div>
 
-    <div id="marketProducts" class="grid"></div>
+        <label>
+          ناوی کاڵا
+        </label>
 
-  </section>
+        <input id="productName"
+               required
+               placeholder="بۆ نموونە iPhone 15">
 
-
-  <!-- ADD PRODUCT -->
-  <section id="addProduct" class="section">
-
-    <h2 class="section-title">➕ دانانی کاڵا</h2>
-
-    <div id="addProductMessage"></div>
-
-    <div id="addProductFormBox" class="form-box">
-
-      <div class="notice">
-        تێبینی: بۆ دانانی کاڵا، ناسنامە لێرە داوا ناکرێت.
-        تەنها ئەگەر هەژمارەکەت پشتڕاست نەکرابێتەوە، دەبێت لە Profile پشتڕاستکردنەوەکە تەواو بکەیت.
       </div>
 
-      <form id="productForm">
+
+      <div class="form-group">
+
+        <label>
+          وەسفی کاڵا
+        </label>
+
+        <textarea id="productDescription"
+                  required
+                  placeholder="وەسفی کاڵاکە..."></textarea>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          جۆری فرۆشتن
+        </label>
+
+        <select id="productType"
+                onchange="toggleAuctionFields()">
+
+          <option value="sale">
+            فرۆشتنی ڕاستەوخۆ
+          </option>
+
+          <option value="auction">
+            مەزاد
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label id="priceLabel">
+          نرخ بە دۆلار
+        </label>
+
+        <input id="productPrice"
+               type="number"
+               min="1"
+               step="1"
+               required
+               placeholder="0">
+
+      </div>
+
+
+      <div id="auctionFields"
+           class="hidden">
 
         <div class="form-group">
-          <label>ناوی کاڵا</label>
-          <input id="productName" required placeholder="بۆ نموونە iPhone 15">
-        </div>
 
-        <div class="form-group">
-          <label>وەسفی کاڵا</label>
-          <textarea id="productDescription"
-                    required
-                    placeholder="زانیارییەکانی کاڵا..."></textarea>
-        </div>
+          <label>
+            کۆتایی مەزاد
+          </label>
 
-        <div class="form-group">
-          <label>جۆری فرۆشتن</label>
-          <select id="productType" onchange="toggleAuctionFields()">
-            <option value="sale">فرۆشتنی ڕاستەوخۆ</option>
-            <option value="auction">مەزاد</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label id="priceLabel">نرخ</label>
-          <input id="productPrice"
-                 type="number"
-                 min="0"
-                 required
-                 placeholder="0">
-        </div>
-
-        <div id="auctionFields" class="hidden">
-
-          <div class="form-group">
-            <label>کۆتایی مەزاد</label>
-            <input id="auctionEnd" type="datetime-local">
-          </div>
+          <input id="auctionEnd"
+                 type="datetime-local">
 
         </div>
 
-        <div class="form-group">
-          <label>وێنەی کاڵا</label>
-          <input id="productImage"
-                 type="file"
-                 accept="image/*">
-          <div class="file-note">
-            وێنەی کاڵاکە هەڵبژێرە.
-          </div>
-        </div>
-
-        <button class="btn btn-primary" type="submit">
-          دانانی کاڵا بۆ پەسەندکردن
-        </button>
-
-      </form>
-
-    </div>
-
-  </section>
+      </div>
 
 
-  <!-- FAVORITES -->
-  <section id="favorites" class="section">
+      <div class="form-group">
 
-    <h2 class="section-title">❤️ Favorites</h2>
+        <label>
+          وێنەی کاڵا
+        </label>
 
-    <div id="favoriteProducts" class="grid"></div>
+        <input id="productImage"
+               type="file"
+               accept="image/*">
 
-  </section>
-
-
-  <!-- PROFILE -->
-  <section id="profile" class="section">
-
-    <div id="profileContent"></div>
-
-  </section>
+      </div>
 
 
-  <!-- ADMIN -->
-  <section id="admin" class="section">
+      <button class="btn btn-primary"
+              type="submit">
 
-    <h2 class="section-title">🛡️ Super Admin</h2>
+        دانانی کاڵا
 
-    <div id="adminContent"></div>
+      </button>
 
-  </section>
+    </form>
+
+  </div>
+
+</section>
+
+
+<!-- FAVORITES -->
+
+<section id="favorites"
+         class="section">
+
+  <h2 class="section-title">
+    ❤️ دڵخوازەکان
+  </h2>
+
+  <div id="favoriteProducts"
+       class="grid">
+  </div>
+
+</section>
+
+
+<!-- PROFILE -->
+
+<section id="profile"
+         class="section">
+
+  <div id="profileContent">
+  </div>
+
+</section>
+
+
+<!-- ADMIN -->
+
+<section id="admin"
+         class="section">
+
+  <h2 class="section-title">
+    🛡️ Admin Panel
+  </h2>
+
+  <div id="adminContent">
+  </div>
+
+</section>
 
 </main>
 
@@ -643,33 +829,58 @@ footer{
 
 
 <!-- BOTTOM NAV -->
+
 <nav class="bottom-nav">
 
   <div class="nav-inner">
 
-    <button class="nav-item active" data-section="home" onclick="showSection('home')">
+    <button class="nav-item active"
+            data-section="home"
+            onclick="showSection('home')">
+
       <span>🏠</span>
       سەرەتا
+
     </button>
 
-    <button class="nav-item" data-section="market" onclick="showSection('market')">
+
+    <button class="nav-item"
+            data-section="market"
+            onclick="showSection('market')">
+
       <span>🛒</span>
       بازاڕ
+
     </button>
 
-    <button class="nav-item" data-section="addProduct" onclick="showSection('addProduct')">
+
+    <button class="nav-item"
+            data-section="addProduct"
+            onclick="showSection('addProduct')">
+
       <span>➕</span>
       دانانی کاڵا
+
     </button>
 
-    <button class="nav-item" data-section="favorites" onclick="showSection('favorites')">
+
+    <button class="nav-item"
+            data-section="favorites"
+            onclick="showSection('favorites')">
+
       <span>❤️</span>
-      دڵخوازەکان
+      دڵخواز
+
     </button>
 
-    <button class="nav-item" data-section="profile" onclick="showSection('profile')">
+
+    <button class="nav-item"
+            data-section="profile"
+            onclick="showSection('profile')">
+
       <span>👤</span>
       Profile
+
     </button>
 
   </div>
@@ -677,127 +888,208 @@ footer{
 </nav>
 
 
-<!-- AUTH MODAL -->
-<div id="authModal" class="modal">
+<!-- AUTH -->
+
+<div id="authModal"
+     class="modal">
 
   <div class="modal-box">
 
     <div class="modal-head">
-      <h2>هەژماری XOSHNAW</h2>
-      <button class="close" onclick="closeAuth()">×</button>
+
+      <h2>
+        هەژماری XOSHNAW
+      </h2>
+
+      <button class="close"
+              onclick="closeAuth()">
+        ×
+      </button>
+
     </div>
 
+
     <div class="tabs">
+
       <button id="loginTab"
               class="active"
               onclick="showAuthTab('login')">
+
         چوونەژوورەوە
+
       </button>
+
 
       <button id="registerTab"
               onclick="showAuthTab('register')">
+
         دروستکردنی هەژمار
+
       </button>
+
     </div>
 
 
-    <!-- LOGIN -->
     <form id="loginForm">
 
       <div class="form-group">
-        <label>ئیمەیڵ</label>
+
+        <label>
+          ئیمەیڵ
+        </label>
+
         <input id="loginEmail"
                type="email"
-               required
-               placeholder="example@email.com">
+               required>
+
       </div>
 
+
       <div class="form-group">
-        <label>وشەی نهێنی</label>
+
+        <label>
+          وشەی نهێنی
+        </label>
+
         <input id="loginPassword"
                type="password"
                required>
+
       </div>
 
-      <button class="btn btn-dark" style="width:100%">
+
+      <button class="btn btn-dark"
+              style="width:100%">
+
         چوونەژوورەوە
+
       </button>
 
     </form>
 
 
-    <!-- REGISTER -->
-    <form id="registerForm" class="hidden">
+    <form id="registerForm"
+          class="hidden">
 
       <div class="form-group">
-        <label>ناو</label>
+
+        <label>
+          ناو
+        </label>
+
         <input id="registerName"
-               required
-               placeholder="ناوی تەواو">
+               required>
+
       </div>
 
+
       <div class="form-group">
-        <label>ئیمەیڵ</label>
+
+        <label>
+          ئیمەیڵ
+        </label>
+
         <input id="registerEmail"
                type="email"
-               required
-               placeholder="example@email.com">
+               required>
+
       </div>
 
+
       <div class="form-group">
-        <label>ژمارەی مۆبایل</label>
+
+        <label>
+          ژمارەی مۆبایل
+        </label>
+
         <input id="registerPhone"
-               type="tel"
-               placeholder="07xxxxxxxxx">
+               type="tel">
+
       </div>
 
+
       <div class="form-group">
-        <label>وشەی نهێنی</label>
+
+        <label>
+          وشەی نهێنی
+        </label>
+
         <input id="registerPassword"
                type="password"
                minlength="6"
                required>
+
       </div>
 
+
       <div class="form-group">
-        <label>دووبارەی وشەی نهێنی</label>
+
+        <label>
+          دووبارەی وشەی نهێنی
+        </label>
+
         <input id="registerPassword2"
                type="password"
                minlength="6"
                required>
+
       </div>
 
-      <button class="btn btn-primary" style="width:100%">
+
+      <button class="btn btn-primary"
+              style="width:100%">
+
         دروستکردنی هەژمار
+
       </button>
 
     </form>
 
-    <div id="authMessage" style="margin-top:12px"></div>
+
+    <div id="authMessage"
+         style="margin-top:12px">
+    </div>
 
   </div>
 
 </div>
 
 
-<!-- VERIFICATION MODAL -->
-<div id="verificationModal" class="modal">
+<!-- VERIFICATION -->
+
+<div id="verificationModal"
+     class="modal">
 
   <div class="modal-box">
 
     <div class="modal-head">
-      <h2>🪪 پشتڕاستکردنەوەی ناسنامە</h2>
-      <button class="close" onclick="closeVerification()">×</button>
+
+      <h2>
+        🪪 پشتڕاستکردنەوە
+      </h2>
+
+      <button class="close"
+              onclick="closeVerification()">
+        ×
+      </button>
+
     </div>
 
+
     <div class="notice">
-      بۆ پاراستنی بازاڕ و بەکارهێنەران، تکایە ناسنامەکەت پشتڕاست بکەرەوە.
+
+      تکایە بەڵگەنامەی ناسنامەکەت بنێرە بۆ پشتڕاستکردنەوە.
+
     </div>
+
 
     <form id="verificationForm">
 
       <div class="form-group">
-        <label>جۆری بەڵگەنامە</label>
+
+        <label>
+          جۆری بەڵگەنامە
+        </label>
 
         <select id="documentType"
                 onchange="toggleDocumentType()">
@@ -818,40 +1110,56 @@ footer{
       <div id="nationalIdFields">
 
         <div class="form-group">
-          <label>ناسنامە - ڕووی پێشەوە</label>
+
+          <label>
+            ناسنامە - ڕووی پێشەوە
+          </label>
+
           <input id="idFront"
                  type="file"
                  accept="image/*">
+
         </div>
 
+
         <div class="form-group">
-          <label>ناسنامە - ڕووی دواوە</label>
+
+          <label>
+            ناسنامە - ڕووی دواوە
+          </label>
+
           <input id="idBack"
                  type="file"
                  accept="image/*">
+
         </div>
 
       </div>
 
 
-      <div id="passportFields" class="hidden">
+      <div id="passportFields"
+           class="hidden">
 
         <div class="form-group">
-          <label>وێنەی پاسپۆرت</label>
+
+          <label>
+            پاسپۆرت
+          </label>
+
           <input id="passport"
                  type="file"
                  accept="image/*">
+
         </div>
 
       </div>
 
-      <div class="file-note">
-        لە وەشانی ڕاستەقینەی سایتدا ئەم بەڵگەنامانە دەبێت بە شێوەی پارێزراو لە سێرڤەر هەڵبگیرێن.
-      </div>
 
       <button class="btn btn-primary"
-              style="width:100%;margin-top:15px">
-        ناردنی بۆ پشتڕاستکردنەوە
+              style="width:100%">
+
+        ناردن
+
       </button>
 
     </form>
@@ -863,179 +1171,248 @@ footer{
 
 <script>
 
-const SUPER_ADMIN_EMAIL = "lawaking24@gmail.com";
+const SUPER_ADMIN_EMAIL =
+  "lawaking24@gmail.com";
+
 
 const KEYS = {
-  users: "xoshUsers",
-  currentUser: "xoshCurrentUser",
-  products: "xoshProducts",
-  bids: "xoshBids",
-  winners: "xoshWinners"
+  users:"xoshUsers",
+  currentUser:"xoshCurrentUser",
+  products:"xoshProducts",
+  bids:"xoshBids",
+  winners:"xoshWinners",
+  live:"xoshLive"
 };
 
 
 function getData(key){
+
   try{
-    return JSON.parse(localStorage.getItem(key) || "[]");
+    return JSON.parse(
+      localStorage.getItem(key) || "[]"
+    );
   }catch(e){
     return [];
   }
+
 }
 
 
 function saveData(key,data){
-  localStorage.setItem(key,JSON.stringify(data));
-}
 
+  localStorage.setItem(
+    key,
+    JSON.stringify(data)
+  );
 
-function getCurrentUser(){
-  const id = localStorage.getItem(KEYS.currentUser);
-
-  if(!id) return null;
-
-  const users = getData(KEYS.users);
-
-  return users.find(u => u.id === id) || null;
-}
-
-
-function setCurrentUser(id){
-  localStorage.setItem(KEYS.currentUser,id);
-}
-
-
-function logout(){
-  localStorage.removeItem(KEYS.currentUser);
-
-  updateHeader();
-  renderProfile();
-  showSection("home");
 }
 
 
 function generateId(){
-  return Date.now().toString(36) + Math.random().toString(36).substring(2,8);
+
+  return Date.now().toString(36) +
+    Math.random()
+      .toString(36)
+      .substring(2,9);
+
 }
 
 
 function escapeHtml(value){
+
   return String(value ?? "")
     .replaceAll("&","&amp;")
     .replaceAll("<","&lt;")
     .replaceAll(">","&gt;")
     .replaceAll('"',"&quot;")
     .replaceAll("'","&#039;");
+
 }
 
 
-function formatMoney(number){
-  return Number(number || 0).toLocaleString("en-US") + " $";
+function money(value){
+
+  return "$" +
+    Number(value || 0)
+      .toLocaleString("en-US");
+
 }
 
 
-function formatDate(date){
-  if(!date) return "-";
+function getCurrentUser(){
 
-  return new Date(date).toLocaleString("ku-IQ");
+  const id =
+    localStorage.getItem(
+      KEYS.currentUser
+    );
+
+  if(!id) return null;
+
+  return getData(KEYS.users)
+    .find(u => u.id === id) || null;
+
 }
 
 
-/* =========================
-   NAVIGATION
-========================= */
+function updateHeader(){
+
+  const user =
+    getCurrentUser();
+
+  const name =
+    document.getElementById(
+      "headerUser"
+    );
+
+  const button =
+    document.getElementById(
+      "authButton"
+    );
+
+
+  if(user){
+
+    name.textContent =
+      user.name;
+
+    button.textContent =
+      "دەرچوون";
+
+    button.onclick =
+      logout;
+
+  }else{
+
+    name.textContent =
+      "میوان";
+
+    button.textContent =
+      "چوونەژوورەوە";
+
+    button.onclick =
+      openAuth;
+
+  }
+
+}
+
+
+/* NAV */
 
 function showSection(id){
 
   if(id === "addProduct"){
 
-    const user = getCurrentUser();
+    const user =
+      getCurrentUser();
 
     if(!user){
+
       openAuth();
       return;
+
     }
 
-    if(!user.verified){
-      document.getElementById("addProductMessage").innerHTML = `
-        <div class="notice">
-          بۆ دانانی کاڵا، پێویستە یەکەم جار هەژمارەکەت پشتڕاست بکەیتەوە.
-          <br><br>
-          <button class="btn btn-primary"
-                  onclick="openVerification()">
-            پشتڕاستکردنەوەی ناسنامە
-          </button>
-        </div>
-      `;
-    }else{
-      document.getElementById("addProductMessage").innerHTML = "";
-    }
+    /*
+      هیچ ناسنامەیەک لێرە داوا ناکرێت.
+      ئەگەر user هەبێت، دەتوانێت
+      فرمەکەی دانانی کاڵا ببینێت.
+    */
+
   }
 
-  if(id === "profile"){
+
+  if(id === "profile")
     renderProfile();
-  }
 
-  if(id === "market"){
+  if(id === "market")
     renderMarket();
-  }
 
-  if(id === "favorites"){
+  if(id === "favorites")
     renderFavorites();
-  }
 
-  if(id === "admin"){
+  if(id === "admin")
     renderAdmin();
-  }
 
-  document.querySelectorAll(".section")
-    .forEach(s => s.classList.remove("active"));
 
-  const target = document.getElementById(id);
+  document
+    .querySelectorAll(".section")
+    .forEach(s =>
+      s.classList.remove("active")
+    );
 
-  if(target){
+
+  const target =
+    document.getElementById(id);
+
+  if(target)
     target.classList.add("active");
-  }
 
-  document.querySelectorAll(".nav-item")
+
+  document
+    .querySelectorAll(".nav-item")
     .forEach(btn => {
 
       btn.classList.remove("active");
 
-      if(btn.dataset.section === id){
+      if(btn.dataset.section === id)
         btn.classList.add("active");
-      }
 
     });
+
 
   window.scrollTo({
     top:0,
     behavior:"smooth"
   });
+
 }
 
 
-/* =========================
-   AUTH
-========================= */
+/* AUTH */
 
 function openAuth(){
-  document.getElementById("authModal").classList.add("show");
+
+  document
+    .getElementById("authModal")
+    .classList.add("show");
+
   showAuthTab("login");
+
 }
 
 
 function closeAuth(){
-  document.getElementById("authModal").classList.remove("show");
+
+  document
+    .getElementById("authModal")
+    .classList.remove("show");
+
 }
 
 
 function showAuthTab(tab){
 
-  const login = document.getElementById("loginForm");
-  const register = document.getElementById("registerForm");
+  const login =
+    document.getElementById(
+      "loginForm"
+    );
 
-  const loginTab = document.getElementById("loginTab");
-  const registerTab = document.getElementById("registerTab");
+  const register =
+    document.getElementById(
+      "registerForm"
+    );
+
+  const loginTab =
+    document.getElementById(
+      "loginTab"
+    );
+
+  const registerTab =
+    document.getElementById(
+      "registerTab"
+    );
+
 
   if(tab === "login"){
 
@@ -1055,254 +1432,308 @@ function showAuthTab(tab){
 
   }
 
-  document.getElementById("authMessage").innerHTML = "";
+
+  document.getElementById(
+    "authMessage"
+  ).innerHTML = "";
+
 }
 
 
 async function hashPassword(password){
 
-  const data = new TextEncoder().encode(password);
+  const data =
+    new TextEncoder()
+      .encode(password);
 
-  const hash = await crypto.subtle.digest(
-    "SHA-256",
-    data
-  );
+  const hash =
+    await crypto.subtle.digest(
+      "SHA-256",
+      data
+    );
 
-  return Array.from(new Uint8Array(hash))
-    .map(b => b.toString(16).padStart(2,"0"))
+  return Array
+    .from(new Uint8Array(hash))
+    .map(
+      b =>
+        b.toString(16)
+         .padStart(2,"0")
+    )
     .join("");
+
 }
 
 
 /* REGISTER */
 
-document.getElementById("registerForm")
-.addEventListener("submit",async function(e){
+document
+  .getElementById("registerForm")
+  .addEventListener(
+    "submit",
+    async function(e){
 
-  e.preventDefault();
-
-  const name =
-    document.getElementById("registerName").value.trim();
-
-  const email =
-    document.getElementById("registerEmail").value.trim().toLowerCase();
-
-  const phone =
-    document.getElementById("registerPhone").value.trim();
-
-  const password =
-    document.getElementById("registerPassword").value;
-
-  const password2 =
-    document.getElementById("registerPassword2").value;
-
-  const message =
-    document.getElementById("authMessage");
+      e.preventDefault();
 
 
-  if(password !== password2){
-
-    message.innerHTML =
-      `<div class="notice error">وشە نهێنییەکان یەکسان نین.</div>`;
-
-    return;
-  }
-
-
-  const users = getData(KEYS.users);
+      const name =
+        document
+          .getElementById(
+            "registerName"
+          )
+          .value
+          .trim();
 
 
-  if(users.some(u => u.email === email)){
-
-    message.innerHTML =
-      `<div class="notice error">ئەم ئیمەیڵە پێشتر بەکارهاتووە.</div>`;
-
-    return;
-  }
-
-
-  const passwordHash =
-    await hashPassword(password);
+      const email =
+        document
+          .getElementById(
+            "registerEmail"
+          )
+          .value
+          .trim()
+          .toLowerCase();
 
 
-  const isSuperAdmin =
-    email === SUPER_ADMIN_EMAIL;
+      const phone =
+        document
+          .getElementById(
+            "registerPhone"
+          )
+          .value
+          .trim();
 
 
-  const user = {
-
-    id: generateId(),
-
-    name,
-
-    email,
-
-    phone,
-
-    passwordHash,
-
-    role: isSuperAdmin
-      ? "superadmin"
-      : "user",
-
-    verified: isSuperAdmin,
-
-    verificationStatus:
-      isSuperAdmin
-        ? "approved"
-        : "required",
-
-    verification: null,
-
-    favorites: [],
-
-    createdAt: new Date().toISOString()
-
-  };
+      const password =
+        document
+          .getElementById(
+            "registerPassword"
+          )
+          .value;
 
 
-  users.push(user);
-
-  saveData(KEYS.users,users);
-
-  setCurrentUser(user.id);
-
-  closeAuth();
-
-  updateHeader();
-
-  renderProfile();
-
-  showSection("profile");
+      const password2 =
+        document
+          .getElementById(
+            "registerPassword2"
+          )
+          .value;
 
 
-  if(!isSuperAdmin){
+      const message =
+        document.getElementById(
+          "authMessage"
+        );
 
-    setTimeout(() => {
 
-      alert(
-        "هەژمارەکەت دروستکرا. ئێستا تکایە ناسنامەکەت پشتڕاست بکەرەوە."
+      if(password !== password2){
+
+        message.innerHTML =
+          `<div class="notice error">
+             وشە نهێنییەکان یەکسان نین.
+           </div>`;
+
+        return;
+
+      }
+
+
+      const users =
+        getData(KEYS.users);
+
+
+      if(users.some(
+        u => u.email === email
+      )){
+
+        message.innerHTML =
+          `<div class="notice error">
+             ئەم ئیمەیڵە پێشتر بەکارهاتووە.
+           </div>`;
+
+        return;
+
+      }
+
+
+      const passwordHash =
+        await hashPassword(password);
+
+
+      const superAdmin =
+        email ===
+        SUPER_ADMIN_EMAIL;
+
+
+      const user = {
+
+        id:generateId(),
+
+        name,
+
+        email,
+
+        phone,
+
+        passwordHash,
+
+        role:
+          superAdmin
+            ? "superadmin"
+            : "user",
+
+        verified:
+          superAdmin,
+
+        verificationStatus:
+          superAdmin
+            ? "approved"
+            : "required",
+
+        verification:null,
+
+        favorites:[],
+
+        createdAt:
+          new Date().toISOString()
+
+      };
+
+
+      users.push(user);
+
+      saveData(
+        KEYS.users,
+        users
       );
 
-      openVerification();
 
-    },300);
+      localStorage.setItem(
+        KEYS.currentUser,
+        user.id
+      );
 
-  }else{
 
-    alert("بەخێربێیت Super Admin.");
+      closeAuth();
 
-  }
+      updateHeader();
 
-});
+      renderProfile();
+
+      showSection("profile");
+
+
+      if(!superAdmin){
+
+        setTimeout(
+          () => openVerification(),
+          300
+        );
+
+      }else{
+
+        alert(
+          "بەخێربێیت Super Admin."
+        );
+
+      }
+
+    }
+  );
 
 
 /* LOGIN */
 
-document.getElementById("loginForm")
-.addEventListener("submit",async function(e){
+document
+  .getElementById("loginForm")
+  .addEventListener(
+    "submit",
+    async function(e){
 
-  e.preventDefault();
-
-  const email =
-    document.getElementById("loginEmail")
-      .value.trim()
-      .toLowerCase();
-
-  const password =
-    document.getElementById("loginPassword")
-      .value;
-
-  const passwordHash =
-    await hashPassword(password);
-
-  const users =
-    getData(KEYS.users);
+      e.preventDefault();
 
 
-  let user =
-    users.find(u =>
-      u.email === email &&
-      u.passwordHash === passwordHash
-    );
+      const email =
+        document
+          .getElementById(
+            "loginEmail"
+          )
+          .value
+          .trim()
+          .toLowerCase();
 
 
-  /*
-    ئەگەر Super Admin یەکەم جارە
-    هەژمارەکەی نییە، لە Register دروستی بکە.
-  */
-
-  if(!user){
-
-    document.getElementById("authMessage").innerHTML =
-      `<div class="notice error">
-        ئیمەیڵ یان وشەی نهێنی هەڵەیە.
-      </div>`;
-
-    return;
-  }
+      const password =
+        document
+          .getElementById(
+            "loginPassword"
+          )
+          .value;
 
 
-  setCurrentUser(user.id);
+      const passwordHash =
+        await hashPassword(password);
 
-  closeAuth();
+
+      const user =
+        getData(KEYS.users)
+          .find(
+            u =>
+              u.email === email &&
+              u.passwordHash === passwordHash
+          );
+
+
+      if(!user){
+
+        document
+          .getElementById(
+            "authMessage"
+          )
+          .innerHTML =
+          `<div class="notice error">
+             ئیمەیڵ یان وشەی نهێنی هەڵەیە.
+           </div>`;
+
+        return;
+
+      }
+
+
+      localStorage.setItem(
+        KEYS.currentUser,
+        user.id
+      );
+
+
+      closeAuth();
+
+      updateHeader();
+
+      showSection("profile");
+
+    }
+  );
+
+
+function logout(){
+
+  localStorage.removeItem(
+    KEYS.currentUser
+  );
 
   updateHeader();
 
-  showSection("profile");
-
-});
-
-
-/* =========================
-   HEADER
-========================= */
-
-function updateHeader(){
-
-  const user = getCurrentUser();
-
-  const headerUser =
-    document.getElementById("headerUser");
-
-  const authButton =
-    document.getElementById("authButton");
-
-
-  if(user){
-
-    headerUser.textContent =
-      user.name;
-
-    authButton.textContent =
-      "چوونەدەرەوە";
-
-    authButton.onclick =
-      logout;
-
-  }else{
-
-    headerUser.textContent =
-      "میوان";
-
-    authButton.textContent =
-      "چوونەژوورەوە";
-
-    authButton.onclick =
-      openAuth;
-
-  }
+  showSection("home");
 
 }
 
 
-/* =========================
-   VERIFICATION
-========================= */
+/* VERIFICATION */
 
 function openVerification(){
 
-  const user = getCurrentUser();
+  const user =
+    getCurrentUser();
 
   if(!user){
 
@@ -1311,7 +1742,11 @@ function openVerification(){
 
   }
 
-  document.getElementById("verificationModal")
+
+  document
+    .getElementById(
+      "verificationModal"
+    )
     .classList.add("show");
 
 }
@@ -1319,7 +1754,10 @@ function openVerification(){
 
 function closeVerification(){
 
-  document.getElementById("verificationModal")
+  document
+    .getElementById(
+      "verificationModal"
+    )
     .classList.remove("show");
 
 }
@@ -1328,17 +1766,25 @@ function closeVerification(){
 function toggleDocumentType(){
 
   const type =
-    document.getElementById("documentType").value;
+    document.getElementById(
+      "documentType"
+    ).value;
+
 
   document
-    .getElementById("nationalIdFields")
+    .getElementById(
+      "nationalIdFields"
+    )
     .classList.toggle(
       "hidden",
       type !== "national_id"
     );
 
+
   document
-    .getElementById("passportFields")
+    .getElementById(
+      "passportFields"
+    )
     .classList.toggle(
       "hidden",
       type !== "passport"
@@ -1347,164 +1793,208 @@ function toggleDocumentType(){
 }
 
 
-/* VERIFICATION SUBMIT */
+document
+  .getElementById("verificationForm")
+  .addEventListener(
+    "submit",
+    function(e){
 
-document.getElementById("verificationForm")
-.addEventListener("submit",function(e){
-
-  e.preventDefault();
-
-  const user = getCurrentUser();
-
-  if(!user){
-
-    closeVerification();
-    openAuth();
-    return;
-
-  }
+      e.preventDefault();
 
 
-  const type =
-    document.getElementById("documentType").value;
+      const user =
+        getCurrentUser();
+
+      if(!user){
+
+        closeVerification();
+        openAuth();
+        return;
+
+      }
 
 
-  let valid = false;
-
-  let files = {};
-
-
-  if(type === "national_id"){
-
-    const front =
-      document.getElementById("idFront").files[0];
-
-    const back =
-      document.getElementById("idBack").files[0];
+      const type =
+        document.getElementById(
+          "documentType"
+        ).value;
 
 
-    if(front && back){
+      let files = {};
 
-      valid = true;
 
-      files = {
-        front: front.name,
-        back: back.name
+      if(type === "national_id"){
+
+        const front =
+          document.getElementById(
+            "idFront"
+          ).files[0];
+
+        const back =
+          document.getElementById(
+            "idBack"
+          ).files[0];
+
+
+        if(!front || !back){
+
+          alert(
+            "ڕووی پێشەوە و دواوەی ناسنامە هەردووکی پێویستن."
+          );
+
+          return;
+
+        }
+
+
+        files = {
+          front:front.name,
+          back:back.name
+        };
+
+
+      }else{
+
+        const passport =
+          document.getElementById(
+            "passport"
+          ).files[0];
+
+
+        if(!passport){
+
+          alert(
+            "تکایە وێنەی پاسپۆرت هەڵبژێرە."
+          );
+
+          return;
+
+        }
+
+
+        files = {
+          passport:passport.name
+        };
+
+      }
+
+
+      const users =
+        getData(KEYS.users);
+
+
+      const index =
+        users.findIndex(
+          u => u.id === user.id
+        );
+
+
+      users[index].verification = {
+        type,
+        files,
+        submittedAt:
+          new Date().toISOString()
       };
 
+
+      users[index].verificationStatus =
+        "pending";
+
+      users[index].verified =
+        false;
+
+
+      saveData(
+        KEYS.users,
+        users
+      );
+
+
+      closeVerification();
+
+      renderProfile();
+
+
+      alert(
+        "داواکارییەکەت نێردرا بۆ Admin."
+      );
+
     }
-
-  }else{
-
-    const passport =
-      document.getElementById("passport").files[0];
-
-
-    if(passport){
-
-      valid = true;
-
-      files = {
-        passport: passport.name
-      };
-
-    }
-
-  }
-
-
-  if(!valid){
-
-    alert(
-      "تکایە هەموو بەڵگەنامە پێویستەکان هەڵبژێرە."
-    );
-
-    return;
-
-  }
-
-
-  const users =
-    getData(KEYS.users);
-
-  const index =
-    users.findIndex(u => u.id === user.id);
-
-
-  users[index].verification = {
-
-    type,
-
-    files,
-
-    submittedAt:
-      new Date().toISOString()
-
-  };
-
-
-  users[index].verificationStatus =
-    "pending";
-
-  users[index].verified =
-    false;
-
-
-  saveData(KEYS.users,users);
-
-
-  closeVerification();
-
-  renderProfile();
-
-  alert(
-    "داواکاری پشتڕاستکردنەوەکەت نێردرا بۆ Super Admin."
   );
 
-});
 
-
-/* =========================
-   PRODUCTS
-========================= */
+/* PRODUCTS */
 
 function getProducts(){
-  return getData(KEYS.products);
+
+  return getData(
+    KEYS.products
+  );
+
 }
 
 
 function getApprovedProducts(){
 
   return getProducts()
-    .filter(p =>
-      p.status === "approved" &&
-      p.closed !== true
+    .filter(
+      p =>
+        p.status === "approved" &&
+        p.closed !== true
     );
 
 }
 
+
+function getHighestBid(productId){
+
+  const product =
+    getProducts()
+      .find(
+        p => p.id === productId
+      );
+
+
+  const bids =
+    getData(KEYS.bids)
+      .filter(
+        b =>
+          b.productId === productId
+      );
+
+
+  if(!bids.length)
+    return Number(
+      product?.price || 0
+    );
+
+
+  return Math.max(
+    Number(product?.price || 0),
+    ...bids.map(
+      b => Number(b.amount)
+    )
+  );
+
+}
+
+
+/* PRODUCT CARD */
 
 function renderProductCard(product){
 
   const user =
     getCurrentUser();
 
+
   const favorites =
     user?.favorites || [];
 
+
   const isFavorite =
-    favorites.includes(product.id);
-
-
-  const bids =
-    getData(KEYS.bids)
-      .filter(b => b.productId === product.id);
-
-
-  const highestBid =
-    bids.length
-      ? Math.max(...bids.map(b => Number(b.amount)))
-      : Number(product.price);
+    favorites.includes(
+      product.id
+    );
 
 
   const image =
@@ -1512,17 +2002,70 @@ function renderProductCard(product){
     "https://via.placeholder.com/600x400?text=XOSHNAW+MARKET";
 
 
-  let priceText = "";
+  let body = "";
+
 
   if(product.type === "auction"){
 
-    priceText =
-      `نرخی ئێستا: ${formatMoney(highestBid)}`;
+    const current =
+      getHighestBid(product.id);
+
+
+    body = `
+
+      <div class="price">
+        ${money(current)}
+      </div>
+
+      <div class="bid-area">
+
+        <div class="bid-box">
+
+          <button
+            onclick="changeBid('${product.id}',-1)">
+            −
+          </button>
+
+          <div
+            class="bid-price"
+            id="bid-${product.id}">
+            ${money(current)}
+          </div>
+
+          <button
+            onclick="changeBid('${product.id}',1)">
+            +
+          </button>
+
+        </div>
+
+        <button
+          class="bid-submit"
+          onclick="submitBid('${product.id}')">
+          🔨 Bid
+        </button>
+
+      </div>
+
+    `;
 
   }else{
 
-    priceText =
-      formatMoney(product.price);
+    body = `
+
+      <div class="price">
+        ${money(product.price)}
+      </div>
+
+      <button
+        class="btn btn-primary"
+        onclick="buyProduct('${product.id}')">
+
+        🛒 کڕین
+
+      </button>
+
+    `;
 
   }
 
@@ -1534,66 +2077,49 @@ function renderProductCard(product){
       <img
         class="product-image"
         src="${image}"
-        alt="${escapeHtml(product.name)}"
-      >
+        alt="${escapeHtml(product.name)}">
 
       <div class="product-body">
 
-        <span class="badge ${product.type}">
+        <span class="badge ${
+          product.type === "auction"
+            ? "auction"
+            : "sale"
+        }">
+
           ${
             product.type === "auction"
               ? "مەزاد"
               : "فرۆشتنی ڕاستەوخۆ"
           }
+
         </span>
 
-        <h3>${escapeHtml(product.name)}</h3>
+
+        <h3>
+          ${escapeHtml(product.name)}
+        </h3>
+
 
         <p>
           ${escapeHtml(product.description)}
         </p>
 
-        <div class="price">
-          ${priceText}
-        </div>
 
-        ${
-          product.type === "auction"
-          ? `
-            <div style="font-size:13px;color:#777">
-              کۆتایی: ${formatDate(product.auctionEnd)}
-            </div>
-          `
-          : ""
-        }
+        ${body}
+
 
         <div class="actions">
 
-          ${
-            product.type === "auction"
-            ? `
-              <button
-                class="btn btn-primary"
-                onclick="placeBid('${product.id}')">
-                🔨 مەزاد
-              </button>
-            `
-            : `
-              <button
-                class="btn btn-primary"
-                onclick="buyProduct('${product.id}')">
-                🛒 کڕین
-              </button>
-            `
-          }
-
-
           <button
-            class="btn btn-light ${isFavorite ? "favorite" : ""}"
+            class="btn btn-light"
             onclick="toggleFavorite('${product.id}')">
 
-            ${isFavorite ? "❤️" : "🤍"}
-            ${isFavorite ? "دڵخوازە" : "دڵخواز"}
+            ${
+              isFavorite
+                ? "❤️ دڵخوازە"
+                : "🤍 دڵخواز"
+            }
 
           </button>
 
@@ -1608,19 +2134,26 @@ function renderProductCard(product){
 }
 
 
+/* HOME */
+
 function renderHome(){
+
+  const container =
+    document.getElementById(
+      "homeProducts"
+    );
+
 
   const products =
     getApprovedProducts();
-
-  const container =
-    document.getElementById("homeProducts");
 
 
   if(!products.length){
 
     container.innerHTML =
-      `<div class="empty">هێشتا هیچ کاڵایەکی پەسەندکراو نییە.</div>`;
+      `<div class="empty">
+        هێشتا هیچ کاڵایەکی پەسەندکراو نییە.
+      </div>`;
 
     return;
 
@@ -1629,18 +2162,27 @@ function renderHome(){
 
   container.innerHTML =
     products
-      .slice(0,6)
+      .slice(0,8)
       .map(renderProductCard)
       .join("");
 
 }
 
 
+/* MARKET */
+
 function renderMarket(){
 
+  const container =
+    document.getElementById(
+      "marketProducts"
+    );
+
+
   const search =
-    document.getElementById("marketSearch")
-      ?.value
+    document.getElementById(
+      "marketSearch"
+    )?.value
       .trim()
       .toLowerCase() || "";
 
@@ -1652,22 +2194,25 @@ function renderMarket(){
   if(search){
 
     products =
-      products.filter(p =>
-        p.name.toLowerCase().includes(search) ||
-        p.description.toLowerCase().includes(search)
+      products.filter(
+        p =>
+          p.name
+            .toLowerCase()
+            .includes(search) ||
+          p.description
+            .toLowerCase()
+            .includes(search)
       );
 
   }
 
 
-  const container =
-    document.getElementById("marketProducts");
-
-
   if(!products.length){
 
     container.innerHTML =
-      `<div class="empty">هیچ کاڵایەک نەدۆزرایەوە.</div>`;
+      `<div class="empty">
+        هیچ کاڵایەک نەدۆزرایەوە.
+      </div>`;
 
     return;
 
@@ -1675,199 +2220,236 @@ function renderMarket(){
 
 
   container.innerHTML =
-    products.map(renderProductCard).join("");
+    products
+      .map(renderProductCard)
+      .join("");
 
 }
 
 
-/* =========================
-   ADD PRODUCT
-========================= */
+/* ADD PRODUCT */
 
 function toggleAuctionFields(){
 
   const type =
-    document.getElementById("productType").value;
+    document.getElementById(
+      "productType"
+    ).value;
+
 
   const fields =
-    document.getElementById("auctionFields");
+    document.getElementById(
+      "auctionFields"
+    );
+
 
   const label =
-    document.getElementById("priceLabel");
+    document.getElementById(
+      "priceLabel"
+    );
 
 
   if(type === "auction"){
 
-    fields.classList.remove("hidden");
+    fields.classList.remove(
+      "hidden"
+    );
 
     label.textContent =
-      "نرخی دەستپێکردنی مەزاد";
+      "نرخی دەستپێکردن بە دۆلار";
 
-    document.getElementById("auctionEnd").required = true;
+    document.getElementById(
+      "auctionEnd"
+    ).required = true;
 
   }else{
 
-    fields.classList.add("hidden");
+    fields.classList.add(
+      "hidden"
+    );
 
     label.textContent =
-      "نرخ";
+      "نرخ بە دۆلار";
 
-    document.getElementById("auctionEnd").required = false;
+    document.getElementById(
+      "auctionEnd"
+    ).required = false;
 
   }
 
 }
 
 
-document.getElementById("productForm")
-.addEventListener("submit",function(e){
+document
+  .getElementById("productForm")
+  .addEventListener(
+    "submit",
+    function(e){
 
-  e.preventDefault();
-
-  const user = getCurrentUser();
-
-
-  if(!user){
-
-    openAuth();
-    return;
-
-  }
+      e.preventDefault();
 
 
-  if(!user.verified){
-
-    document.getElementById("addProductMessage").innerHTML = `
-      <div class="notice error">
-        هەژمارەکەت هێشتا پشتڕاست نەکراوەتەوە.
-        <br><br>
-        <button class="btn btn-primary"
-                onclick="openVerification()">
-          پشتڕاستکردنەوەی ناسنامە
-        </button>
-      </div>
-    `;
-
-    return;
-
-  }
+      const user =
+        getCurrentUser();
 
 
-  const name =
-    document.getElementById("productName")
-      .value.trim();
+      if(!user){
 
-  const description =
-    document.getElementById("productDescription")
-      .value.trim();
+        openAuth();
+        return;
 
-  const type =
-    document.getElementById("productType")
-      .value;
-
-  const price =
-    Number(document.getElementById("productPrice")
-      .value);
-
-  const auctionEnd =
-    document.getElementById("auctionEnd")
-      .value;
+      }
 
 
-  const imageFile =
-    document.getElementById("productImage")
-      .files[0];
+      const name =
+        document
+          .getElementById(
+            "productName"
+          )
+          .value
+          .trim();
 
 
-  function saveProduct(image){
-
-    const products =
-      getProducts();
-
-
-    products.push({
-
-      id: generateId(),
-
-      sellerId: user.id,
-
-      sellerName: user.name,
-
-      name,
-
-      description,
-
-      type,
-
-      price,
-
-      auctionEnd:
-        type === "auction"
-          ? auctionEnd
-          : null,
-
-      image:
-
-        image ||
-        "https://via.placeholder.com/600x400?text=XOSHNAW+MARKET",
-
-      status:"pending",
-
-      closed:false,
-
-      createdAt:
-        new Date().toISOString()
-
-    });
+      const description =
+        document
+          .getElementById(
+            "productDescription"
+          )
+          .value
+          .trim();
 
 
-    saveData(KEYS.products,products);
+      const type =
+        document.getElementById(
+          "productType"
+        ).value;
 
 
-    document.getElementById("productForm").reset();
-
-    toggleAuctionFields();
-
-
-    document.getElementById("addProductMessage").innerHTML = `
-      <div class="notice success">
-        کاڵاکەت بە سەرکەوتوویی نێردرا بۆ پەسەندکردنی Super Admin.
-      </div>
-    `;
-
-  }
+      const price =
+        Number(
+          document.getElementById(
+            "productPrice"
+          ).value
+        );
 
 
-  if(imageFile){
-
-    const reader =
-      new FileReader();
-
-    reader.onload =
-      function(){
-
-        saveProduct(reader.result);
-
-      };
-
-    reader.readAsDataURL(imageFile);
-
-  }else{
-
-    saveProduct(null);
-
-  }
-
-});
+      const auctionEnd =
+        document.getElementById(
+          "auctionEnd"
+        ).value;
 
 
-/* =========================
-   FAVORITES
-========================= */
+      const imageFile =
+        document.getElementById(
+          "productImage"
+        ).files[0];
+
+
+      function saveProduct(image){
+
+        const products =
+          getProducts();
+
+
+        products.push({
+
+          id:generateId(),
+
+          sellerId:user.id,
+
+          sellerName:user.name,
+
+          name,
+
+          description,
+
+          type,
+
+          price,
+
+          auctionEnd:
+            type === "auction"
+              ? auctionEnd
+              : null,
+
+          image:
+            image ||
+            "https://via.placeholder.com/600x400?text=XOSHNAW+MARKET",
+
+          status:"pending",
+
+          closed:false,
+
+          createdAt:
+            new Date().toISOString()
+
+        });
+
+
+        saveData(
+          KEYS.products,
+          products
+        );
+
+
+        document
+          .getElementById(
+            "productForm"
+          )
+          .reset();
+
+
+        toggleAuctionFields();
+
+
+        document
+          .getElementById(
+            "addProductMessage"
+          )
+          .innerHTML =
+          `<div class="notice success">
+             کاڵاکەت نێردرا بۆ پەسەندکردن.
+           </div>`;
+
+      }
+
+
+      if(imageFile){
+
+        const reader =
+          new FileReader();
+
+
+        reader.onload =
+          function(){
+
+            saveProduct(
+              reader.result
+            );
+
+          };
+
+
+        reader.readAsDataURL(
+          imageFile
+        );
+
+      }else{
+
+        saveProduct(null);
+
+      }
+
+    }
+  );
+
+
+/* FAVORITES */
 
 function toggleFavorite(productId){
 
-  const user = getCurrentUser();
+  const user =
+    getCurrentUser();
 
 
   if(!user){
@@ -1881,34 +2463,51 @@ function toggleFavorite(productId){
   const users =
     getData(KEYS.users);
 
+
   const index =
-    users.findIndex(u => u.id === user.id);
+    users.findIndex(
+      u => u.id === user.id
+    );
 
 
-  if(index === -1) return;
+  if(index === -1)
+    return;
 
 
-  if(!Array.isArray(users[index].favorites)){
+  if(!Array.isArray(
+    users[index].favorites
+  )){
+
     users[index].favorites = [];
+
   }
 
 
   const position =
-    users[index].favorites.indexOf(productId);
+    users[index]
+      .favorites
+      .indexOf(productId);
 
 
   if(position === -1){
 
-    users[index].favorites.push(productId);
+    users[index]
+      .favorites
+      .push(productId);
 
   }else{
 
-    users[index].favorites.splice(position,1);
+    users[index]
+      .favorites
+      .splice(position,1);
 
   }
 
 
-  saveData(KEYS.users,users);
+  saveData(
+    KEYS.users,
+    users
+  );
 
 
   renderHome();
@@ -1920,37 +2519,41 @@ function toggleFavorite(productId){
 
 function renderFavorites(){
 
-  const user = getCurrentUser();
-
   const container =
-    document.getElementById("favoriteProducts");
+    document.getElementById(
+      "favoriteProducts"
+    );
+
+
+  const user =
+    getCurrentUser();
 
 
   if(!user){
 
-    container.innerHTML = `
-      <div class="empty">
-        بۆ بینینی دڵخوازەکانت، یەکەم جار بچۆ ژوورەوە.
-        <br><br>
-        <button class="btn btn-primary"
-                onclick="openAuth()">
+    container.innerHTML =
+      `<div class="empty">
+        <p>بۆ بینینی دڵخوازەکانت بچۆ ژوورەوە.</p>
+        <br>
+        <button
+          class="btn btn-primary"
+          onclick="openAuth()">
           چوونەژوورەوە
         </button>
-      </div>
-    `;
+      </div>`;
 
     return;
 
   }
 
 
-  const ids =
-    user.favorites || [];
-
-
   const products =
     getApprovedProducts()
-      .filter(p => ids.includes(p.id));
+      .filter(
+        p =>
+          (user.favorites || [])
+            .includes(p.id)
+      );
 
 
   if(!products.length){
@@ -1966,18 +2569,56 @@ function renderFavorites(){
 
 
   container.innerHTML =
-    products.map(renderProductCard).join("");
+    products
+      .map(renderProductCard)
+      .join("");
 
 }
 
 
-/* =========================
-   BIDS
-========================= */
+/* BID */
 
-function placeBid(productId){
+function changeBid(
+  productId,
+  direction
+){
 
-  const user = getCurrentUser();
+  const element =
+    document.getElementById(
+      "bid-" + productId
+    );
+
+
+  if(!element)
+    return;
+
+
+  let amount =
+    getHighestBid(productId);
+
+
+  /*
+    زیادکردن/کەمکردن بە $10
+  */
+
+  amount +=
+    direction * 10;
+
+
+  if(amount < 1)
+    amount = 1;
+
+
+  element.textContent =
+    money(amount);
+
+}
+
+
+function submitBid(productId){
+
+  const user =
+    getCurrentUser();
 
 
   if(!user){
@@ -1991,7 +2632,7 @@ function placeBid(productId){
   if(!user.verified){
 
     alert(
-      "بۆ بەشداری لە مەزاد، پێویستە هەژمارەکەت پشتڕاست بکرێتەوە."
+      "بۆ بەشداری لە مەزاد، هەژمارەکەت دەبێت پشتڕاست بکرێتەوە."
     );
 
     showSection("profile");
@@ -2000,47 +2641,41 @@ function placeBid(productId){
   }
 
 
-  const product =
-    getProducts()
-      .find(p => p.id === productId);
-
-
-  if(!product) return;
-
-
-  const bids =
-    getData(KEYS.bids)
-      .filter(b => b.productId === productId);
-
-
-  const current =
-    bids.length
-      ? Math.max(...bids.map(b => Number(b.amount)))
-      : Number(product.price);
-
-
-  const answer =
-    prompt(
-      `نرخی ئێستا ${formatMoney(current)} ـە.\nنرخی بەیدەکەت بنووسە:`
+  const element =
+    document.getElementById(
+      "bid-" + productId
     );
 
 
-  if(answer === null) return;
+  if(!element)
+    return;
 
 
   const amount =
-    Number(answer);
+    Number(
+      element.textContent
+        .replace("$","")
+        .replaceAll(",","")
+    );
 
 
-  if(!amount || amount <= current){
+  const current =
+    getHighestBid(productId);
+
+
+  if(amount <= current){
 
     alert(
-      "نرخەکەت دەبێت لە نرخی ئێستا زیاتر بێت."
+      "Bid ـەکەت دەبێت زیاتر بێت."
     );
 
     return;
 
   }
+
+
+  const bids =
+    getData(KEYS.bids);
 
 
   bids.push({
@@ -2061,37 +2696,28 @@ function placeBid(productId){
   });
 
 
-  /*
-    چونکە لێرە تەنها demo ـە،
-    هەموو bids ـەکە دەخەینەوە.
-  */
-
-  const allBids =
-    getData(KEYS.bids);
-
-  allBids.push(bids[bids.length - 1]);
-
-  saveData(KEYS.bids,allBids);
+  saveData(
+    KEYS.bids,
+    bids
+  );
 
 
   alert(
-    "بەیدەکەت بە سەرکەوتوویی تۆمارکرا."
+    "Bid ـەکەت تۆمارکرا."
   );
 
 
   renderHome();
   renderMarket();
+  renderProfile();
 
 }
 
 
-/* =========================
-   BUY
-========================= */
-
 function buyProduct(productId){
 
-  const user = getCurrentUser();
+  const user =
+    getCurrentUser();
 
 
   if(!user){
@@ -2104,27 +2730,31 @@ function buyProduct(productId){
 
   const product =
     getProducts()
-      .find(p => p.id === productId);
+      .find(
+        p => p.id === productId
+      );
 
 
-  if(!product) return;
+  if(!product)
+    return;
 
 
   alert(
-    `داواکاری کڕینی "${product.name}" تۆمارکرا.\n\nلە وەشانی سێرڤەری سایتدا ئەمە دەبێت بە سیستەمی پارەدان و Order تەواو بکرێت.`
+    `داواکاری کڕینی ${product.name} بە ${money(product.price)} تۆمارکرا.`
   );
 
 }
 
 
-/* =========================
-   PROFILE
-========================= */
+/* PROFILE */
 
 function renderProfile(){
 
   const container =
-    document.getElementById("profileContent");
+    document.getElementById(
+      "profileContent"
+    );
+
 
   const user =
     getCurrentUser();
@@ -2132,22 +2762,22 @@ function renderProfile(){
 
   if(!user){
 
-    container.innerHTML = `
-      <div class="empty">
+    container.innerHTML =
+      `<div class="empty">
 
         <h2>👤 Profile</h2>
 
         <p style="margin:12px 0">
-          بۆ بینینی Profile ـەکەت دەبێت بچیتە ژوورەوە.
+          تکایە یەکەم جار بچۆ ژوورەوە.
         </p>
 
-        <button class="btn btn-primary"
-                onclick="openAuth()">
+        <button
+          class="btn btn-primary"
+          onclick="openAuth()">
           چوونەژوورەوە
         </button>
 
-      </div>
-    `;
+      </div>`;
 
     return;
 
@@ -2156,40 +2786,53 @@ function renderProfile(){
 
   const products =
     getProducts()
-      .filter(p => p.sellerId === user.id);
+      .filter(
+        p =>
+          p.sellerId === user.id
+      );
 
 
   const bids =
     getData(KEYS.bids)
-      .filter(b => b.userId === user.id);
+      .filter(
+        b =>
+          b.userId === user.id
+      );
 
 
   const winners =
     getData(KEYS.winners)
-      .filter(w => w.userId === user.id);
+      .filter(
+        w =>
+          w.userId === user.id
+      );
 
 
-  let verificationText = "";
+  let status;
+
 
   if(user.verificationStatus === "approved"){
 
-    verificationText =
-      `<span class="badge approved">پشتڕاستکراوە ✓</span>`;
+    status =
+      `<span class="badge approved">
+        پشتڕاستکراوە ✓
+       </span>`;
 
-  }else if(user.verificationStatus === "pending"){
+  }else if(
+    user.verificationStatus === "pending"
+  ){
 
-    verificationText =
-      `<span class="badge pending">لە چاوەڕوانیدایە ⏳</span>`;
-
-  }else if(user.verificationStatus === "rejected"){
-
-    verificationText =
-      `<span class="badge rejected">ڕەتکراوەتەوە ✕</span>`;
+    status =
+      `<span class="badge pending">
+        لە چاوەڕوانیدایە ⏳
+       </span>`;
 
   }else{
 
-    verificationText =
-      `<span class="badge rejected">پشتڕاست نەکراوەتەوە</span>`;
+    status =
+      `<span class="badge rejected">
+        پشتڕاست نەکراوەتەوە
+       </span>`;
 
   }
 
@@ -2198,20 +2841,26 @@ function renderProfile(){
 
     <div class="profile-header">
 
-      <h2>${escapeHtml(user.name)}</h2>
+      <h2>
+        ${escapeHtml(user.name)}
+      </h2>
 
-      <p>${escapeHtml(user.email)}</p>
+      <p>
+        ${escapeHtml(user.email)}
+      </p>
 
-      <p style="margin-top:5px">
-        ${user.role === "superadmin"
-          ? "🛡️ Super Admin"
-          : user.role === "admin"
-            ? "👨‍💼 Admin"
-            : "👤 User"}
+      <p style="margin-top:6px">
+        ${
+          user.role === "superadmin"
+            ? "🛡️ Super Admin"
+            : user.role === "admin"
+              ? "👨‍💼 Admin"
+              : "👤 User"
+        }
       </p>
 
       <div style="margin-top:12px">
-        ${verificationText}
+        ${status}
       </div>
 
     </div>
@@ -2221,22 +2870,30 @@ function renderProfile(){
 
       <div class="stat">
         کاڵاکان
-        <strong>${products.length}</strong>
+        <strong>
+          ${products.length}
+        </strong>
       </div>
 
       <div class="stat">
-        مەزادەکان
-        <strong>${bids.length}</strong>
+        Bid ـەکان
+        <strong>
+          ${bids.length}
+        </strong>
       </div>
 
       <div class="stat">
         براوەکان
-        <strong>${winners.length}</strong>
+        <strong>
+          ${winners.length}
+        </strong>
       </div>
 
       <div class="stat">
         دڵخوازەکان
-        <strong>${(user.favorites || []).length}</strong>
+        <strong>
+          ${(user.favorites || []).length}
+        </strong>
       </div>
 
     </div>
@@ -2244,25 +2901,35 @@ function renderProfile(){
 
     <div class="form-box">
 
-      <h2>🪪 پشتڕاستکردنەوە</h2>
+      <h2>
+        🪪 پشتڕاستکردنەوە
+      </h2>
 
-      <p style="margin:10px 0;line-height:1.8">
-        دۆخی ناسنامە: ${verificationText}
+      <p style="margin:12px 0">
+        دۆخ:
+        ${status}
       </p>
 
       ${
         user.verified
+
         ? `
           <div class="notice success">
-            هەژمارەکەت پشتڕاستکراوەتەوە و دەتوانیت کاڵا دابنێیت.
+            هەژمارەکەت پشتڕاستکراوەتەوە.
           </div>
         `
+
         : `
-          <button class="btn btn-primary"
-                  onclick="openVerification()">
-            ${user.verificationStatus === "pending"
-              ? "پشکنینی دۆخی پشتڕاستکردنەوە"
-              : "پشتڕاستکردنەوەی ناسنامە"}
+          <button
+            class="btn btn-primary"
+            onclick="openVerification()">
+
+            ${
+              user.verificationStatus === "pending"
+                ? "پشکنینی دۆخ"
+                : "پشتڕاستکردنەوەی ناسنامە"
+            }
+
           </button>
         `
       }
@@ -2272,36 +2939,44 @@ function renderProfile(){
 
     <div class="form-box">
 
-      <h2>📦 کاڵاکانی من</h2>
+      <h2>
+        📦 کاڵاکانی من
+      </h2>
 
       <div style="margin-top:15px">
 
         ${
           products.length
-          ? products.map(p => `
 
-              <div class="admin-item"
-                   style="background:#f5f5f5;color:#111">
+          ? products.map(
+              p => `
 
-                <strong>
-                  ${escapeHtml(p.name)}
-                </strong>
+                <div class="notice">
 
-                <p>
-                  دۆخ:
+                  <strong>
+                    ${escapeHtml(p.name)}
+                  </strong>
+
+                  <br>
+
                   ${
                     p.status === "approved"
-                      ? "پەسەندکراوە"
+                      ? "✓ پەسەندکراوە"
                       : p.status === "rejected"
-                        ? "ڕەتکراوەتەوە"
-                        : "لە چاوەڕوانی پەسەندکردندایە"
+                        ? "✕ ڕەتکراوەتەوە"
+                        : "⏳ چاوەڕوانی پەسەندکردن"
                   }
-                </p>
 
-              </div>
+                </div>
 
-            `).join("")
-          : `<div class="empty">هێشتا کاڵات نییە.</div>`
+              `
+            ).join("")
+
+          : `
+            <div class="empty">
+              هێشتا کاڵات نییە.
+            </div>
+          `
         }
 
       </div>
@@ -2311,14 +2986,20 @@ function renderProfile(){
 
     <div class="form-box">
 
-      <h2>🔨 مەزادەکانی من</h2>
+      <h2>
+        🔨 مەزادەکانی من
+      </h2>
 
       <div style="margin-top:15px">
 
         ${
           bids.length
-          ? renderMyAuctions(bids)
-          : `<div class="empty">هێشتا هیچ بەیدێکت نییە.</div>`
+            ? renderMyAuctions(bids)
+            : `
+              <div class="empty">
+                هێشتا Bid ـێکت نییە.
+              </div>
+            `
         }
 
       </div>
@@ -2328,33 +3009,39 @@ function renderProfile(){
 
     <div class="form-box">
 
-      <h2>🏆 براوەکان</h2>
+      <h2>
+        🏆 براوەکان
+      </h2>
 
       <div style="margin-top:15px">
 
         ${
           winners.length
-          ? winners.map(w => `
 
-              <div class="notice success">
+            ? winners.map(
+                w => `
 
-                <strong>
-                  ${escapeHtml(w.productName)}
-                </strong>
+                  <div class="notice success">
 
-                <br>
+                    <strong>
+                      ${escapeHtml(w.productName)}
+                    </strong>
 
-                نرخی بردن:
-                ${formatMoney(w.amount)}
+                    <br>
 
-                <br>
+                    نرخی بردن:
+                    ${money(w.amount)}
 
-                ${formatDate(w.closedAt)}
+                  </div>
 
+                `
+              ).join("")
+
+            : `
+              <div class="empty">
+                هێشتا مەزادت نەبردووە.
               </div>
-
-            `).join("")
-          : `<div class="empty">هێشتا هیچ مەزادێکت نەبردووە.</div>`
+            `
         }
 
       </div>
@@ -2363,21 +3050,22 @@ function renderProfile(){
 
 
     ${
-      user.role === "superadmin" || user.role === "admin"
+      user.role === "superadmin" ||
+      user.role === "admin"
+
       ? `
         <div class="admin-box">
 
-          <h3>🛡️ بەشی بەڕێوەبەر</h3>
+          <h3>
+            🛡️ Admin Panel
+          </h3>
 
-          <p style="line-height:1.8;color:#ddd">
-            لێرە دەتوانیت پشتڕاستکردنەوەی بەکارهێنەران،
-            پەسەندکردنی کاڵاکان و بەڕێوەبردنی هەژمارەکان بکەیت.
-          </p>
+          <button
+            class="btn btn-primary"
+            onclick="showSection('admin')">
 
-          <button class="btn btn-primary"
-                  style="margin-top:12px"
-                  onclick="showSection('admin')">
             کردنەوەی Admin Panel
+
           </button>
 
         </div>
@@ -2386,10 +3074,12 @@ function renderProfile(){
     }
 
 
-    <button class="btn btn-danger"
-            style="margin-top:20px"
-            onclick="logout()">
+    <button
+      class="btn btn-danger"
+      onclick="logout()">
+
       چوونەدەرەوە
+
     </button>
 
   `;
@@ -2406,100 +3096,102 @@ function renderMyAuctions(bids){
   const grouped = {};
 
 
-  bids.forEach(b => {
+  bids.forEach(
+    b => {
 
-    if(!grouped[b.productId]){
-      grouped[b.productId] = b;
+      if(!grouped[b.productId])
+        grouped[b.productId] = b;
+
+      if(
+        Number(b.amount) >
+        Number(
+          grouped[b.productId].amount
+        )
+      ){
+
+        grouped[b.productId] = b;
+
+      }
+
     }
-
-    if(b.amount > grouped[b.productId].amount){
-      grouped[b.productId] = b;
-    }
-
-  });
+  );
 
 
   return Object.values(grouped)
-    .map(b => {
+    .map(
+      b => {
 
-      const product =
-        products.find(p => p.id === b.productId);
-
-      if(!product) return "";
-
-
-      const allBids =
-        getData(KEYS.bids)
-          .filter(x => x.productId === b.productId);
+        const product =
+          products.find(
+            p =>
+              p.id === b.productId
+          );
 
 
-      const highest =
-        Math.max(
-          ...allBids.map(x => Number(x.amount)),
-          Number(product.price)
-        );
+        if(!product)
+          return "";
 
 
-      const isWinner =
-        Number(b.amount) === highest;
+        const highest =
+          getHighestBid(
+            product.id
+          );
 
 
-      return `
+        return `
 
-        <div class="notice">
+          <div class="notice">
 
-          <strong>
-            ${escapeHtml(product.name)}
-          </strong>
+            <strong>
+              ${escapeHtml(product.name)}
+            </strong>
 
-          <br>
+            <br>
 
-          بەیدی من:
-          ${formatMoney(b.amount)}
+            Bid ـی تۆ:
+            ${money(b.amount)}
 
-          <br>
+            <br>
 
-          نرخی ئێستا:
-          ${formatMoney(highest)}
+            نرخی ئێستا:
+            ${money(highest)}
 
-          <br><br>
+          </div>
 
-          ${
-            isWinner
-              ? `<span class="badge approved">تۆ ئێستا پێشەنگیت 🏆</span>`
-              : `<span class="badge">کەسێکی تر پێشەنگە</span>`
-          }
+        `;
 
-        </div>
-
-      `;
-
-    })
+      }
+    )
     .join("");
 
 }
 
 
-/* =========================
-   ADMIN PANEL
-========================= */
+/* ADMIN */
 
 function renderAdmin(){
 
   const container =
-    document.getElementById("adminContent");
+    document.getElementById(
+      "adminContent"
+    );
 
-  const user =
+
+  const current =
     getCurrentUser();
 
 
-  if(!user ||
-     (user.role !== "superadmin" &&
-      user.role !== "admin")){
+  if(
+    !current ||
+    (
+      current.role !== "superadmin" &&
+      current.role !== "admin"
+    )
+  ){
 
     container.innerHTML =
       `<div class="empty">
-        دەستگەیشتنت بۆ ئەم بەشە نییە.
+        دەستگەیشتنت نییە.
       </div>`;
 
     return;
@@ -2516,14 +3208,16 @@ function renderAdmin(){
 
 
   const pendingProducts =
-    products.filter(p =>
-      p.status === "pending"
+    products.filter(
+      p =>
+        p.status === "pending"
     );
 
 
   const pendingUsers =
-    users.filter(u =>
-      u.verificationStatus === "pending"
+    users.filter(
+      u =>
+        u.verificationStatus === "pending"
     );
 
 
@@ -2531,57 +3225,62 @@ function renderAdmin(){
 
     <div class="admin-box">
 
-      <h3>📦 کاڵاکانی چاوەڕوانی</h3>
+      <h3>
+        📦 کاڵاکانی چاوەڕوان
+      </h3>
 
       ${
         pendingProducts.length
-        ? pendingProducts.map(p => `
 
-            <div class="admin-item">
+        ? pendingProducts.map(
+            p => `
 
-              <strong>
-                ${escapeHtml(p.name)}
-              </strong>
+              <div class="admin-item">
 
-              <p>
-                فرۆشیار:
-                ${escapeHtml(p.sellerName)}
-              </p>
+                <strong>
+                  ${escapeHtml(p.name)}
+                </strong>
 
-              <p>
-                جۆر:
-                ${
-                  p.type === "auction"
-                    ? "مەزاد"
-                    : "فرۆشتنی ڕاستەوخۆ"
-                }
-              </p>
+                <p>
+                  فرۆشیار:
+                  ${escapeHtml(p.sellerName)}
+                </p>
 
-              <p>
-                نرخ:
-                ${formatMoney(p.price)}
-              </p>
+                <p>
+                  نرخ:
+                  ${money(p.price)}
+                </p>
 
-              <div class="actions">
+                <div class="actions">
 
-                <button
-                  class="btn btn-green"
-                  onclick="approveProduct('${p.id}')">
-                  ✓ پەسەندکردن
-                </button>
+                  <button
+                    class="btn btn-green"
+                    onclick="approveProduct('${p.id}')">
 
-                <button
-                  class="btn btn-danger"
-                  onclick="rejectProduct('${p.id}')">
-                  ✕ ڕەتکردنەوە
-                </button>
+                    ✓ پەسەند
+
+                  </button>
+
+                  <button
+                    class="btn btn-danger"
+                    onclick="rejectProduct('${p.id}')">
+
+                    ✕ ڕەتکردنەوە
+
+                  </button>
+
+                </div>
 
               </div>
 
-            </div>
+            `
+          ).join("")
 
-          `).join("")
-        : `<div class="admin-item">هیچ کاڵایەکی چاوەڕوان نییە.</div>`
+        : `
+          <div class="admin-item">
+            هیچ کاڵایەکی چاوەڕوان نییە.
+          </div>
+        `
       }
 
     </div>
@@ -2589,77 +3288,15 @@ function renderAdmin(){
 
     <div class="admin-box">
 
-      <h3>🪪 داواکارییەکانی پشتڕاستکردنەوە</h3>
+      <h3>
+        🪪 پشتڕاستکردنەوەکان
+      </h3>
 
       ${
         pendingUsers.length
-        ? pendingUsers.map(u => `
 
-            <div class="admin-item">
-
-              <strong>
-                ${escapeHtml(u.name)}
-              </strong>
-
-              <p>
-                ${escapeHtml(u.email)}
-              </p>
-
-              <p>
-                جۆری بەڵگە:
-                ${
-                  u.verification?.type === "passport"
-                    ? "پاسپۆرت"
-                    : "ناسنامەی عێراقی"
-                }
-              </p>
-
-              <p>
-                فایلەکان:
-                ${
-                  Object.values(
-                    u.verification?.files || {}
-                  )
-                  .map(escapeHtml)
-                  .join(" ، ")
-                }
-              </p>
-
-              <div class="actions">
-
-                <button
-                  class="btn btn-green"
-                  onclick="approveVerification('${u.id}')">
-                  ✓ پەسەندکردن
-                </button>
-
-                <button
-                  class="btn btn-danger"
-                  onclick="rejectVerification('${u.id}')">
-                  ✕ ڕەتکردنەوە
-                </button>
-
-              </div>
-
-            </div>
-
-          `).join("")
-        : `<div class="admin-item">هیچ داواکارییەکی نوێ نییە.</div>`
-      }
-
-    </div>
-
-
-    ${
-      user.role === "superadmin"
-      ? `
-
-        <div class="admin-box">
-
-          <h3>👥 بەکارهێنەران</h3>
-
-          ${
-            users.map(u => `
+        ? pendingUsers.map(
+            u => `
 
               <div class="admin-item">
 
@@ -2672,24 +3309,82 @@ function renderAdmin(){
                 </p>
 
                 <p>
-                  Role:
-                  ${u.role}
-                </p>
-
-                <p>
-                  Verification:
                   ${
-                    u.verified
-                      ? "✓"
-                      : u.verificationStatus
+                    u.verification?.type === "passport"
+                      ? "پاسپۆرت"
+                      : "ناسنامەی عێراقی"
                   }
                 </p>
 
-                ${
-                  u.email !== SUPER_ADMIN_EMAIL
-                  ? `
-                    <div class="actions">
+                <div class="actions">
 
+                  <button
+                    class="btn btn-green"
+                    onclick="approveVerification('${u.id}')">
+
+                    ✓ پەسەند
+
+                  </button>
+
+                  <button
+                    class="btn btn-danger"
+                    onclick="rejectVerification('${u.id}')">
+
+                    ✕ ڕەتکردنەوە
+
+                  </button>
+
+                </div>
+
+              </div>
+
+            `
+          ).join("")
+
+        : `
+          <div class="admin-item">
+            هیچ داواکارییەکی نوێ نییە.
+          </div>
+        `
+      }
+
+    </div>
+
+
+    ${
+      current.role === "superadmin"
+
+      ? `
+
+        <div class="admin-box">
+
+          <h3>
+            👥 بەکارهێنەران
+          </h3>
+
+          ${
+            users.map(
+              u => `
+
+                <div class="admin-item">
+
+                  <strong>
+                    ${escapeHtml(u.name)}
+                  </strong>
+
+                  <p>
+                    ${escapeHtml(u.email)}
+                  </p>
+
+                  <p>
+                    Role:
+                    ${u.role}
+                  </p>
+
+                  ${
+                    u.email !== SUPER_ADMIN_EMAIL
+
+                    ? `
                       <button
                         class="btn btn-primary"
                         onclick="toggleAdminRole('${u.id}')">
@@ -2701,19 +3396,19 @@ function renderAdmin(){
                         }
 
                       </button>
+                    `
 
-                    </div>
-                  `
-                  : `
-                    <span class="badge approved">
-                      Super Admin
-                    </span>
-                  `
-                }
+                    : `
+                      <span class="badge approved">
+                        Super Admin
+                      </span>
+                    `
+                  }
 
-              </div>
+                </div>
 
-            `).join("")
+              `
+            ).join("")
           }
 
         </div>
@@ -2725,41 +3420,55 @@ function renderAdmin(){
 
     <div class="admin-box">
 
-      <h3>🔨 کۆتاییهێنان بە مەزاد</h3>
+      <h3>
+        🔨 کۆتاییهێنان بە مەزاد
+      </h3>
 
       ${
-        products.filter(p =>
-          p.type === "auction" &&
-          p.status === "approved" &&
-          !p.closed
-        ).map(p => `
+        products
+          .filter(
+            p =>
+              p.type === "auction" &&
+              p.status === "approved" &&
+              !p.closed
+          )
+          .map(
+            p => `
 
-          <div class="admin-item">
+              <div class="admin-item">
 
-            <strong>
-              ${escapeHtml(p.name)}
-            </strong>
+                <strong>
+                  ${escapeHtml(p.name)}
+                </strong>
 
-            <p>
-              نرخ:
-              ${formatMoney(getHighestBid(p.id))}
-            </p>
+                <p>
+                  نرخی ئێستا:
+                  ${money(
+                    getHighestBid(p.id)
+                  )}
+                </p>
 
-            <button
-              class="btn btn-primary"
-              onclick="closeAuction('${p.id}')">
+                <button
+                  class="btn btn-primary"
+                  onclick="closeAuction('${p.id}')">
 
-              کۆتاییهێنان بە مەزاد
+                  کۆتاییهێنان
 
-            </button>
+                </button>
 
-          </div>
+              </div>
 
-        `).join("")
-        ||
-        `<div class="admin-item">
-          هیچ مەزادێکی کراوە نییە.
-        </div>`
+            `
+          )
+          .join("")
+
+          ||
+
+          `
+            <div class="admin-item">
+              هیچ مەزادێکی کراوە نییە.
+            </div>
+          `
       }
 
     </div>
@@ -2774,15 +3483,26 @@ function approveProduct(id){
   const products =
     getProducts();
 
-  const index =
-    products.findIndex(p => p.id === id);
 
-  if(index === -1) return;
+  const index =
+    products.findIndex(
+      p => p.id === id
+    );
+
+
+  if(index === -1)
+    return;
+
 
   products[index].status =
     "approved";
 
-  saveData(KEYS.products,products);
+
+  saveData(
+    KEYS.products,
+    products
+  );
+
 
   renderAdmin();
   renderHome();
@@ -2796,30 +3516,46 @@ function rejectProduct(id){
   const products =
     getProducts();
 
-  const index =
-    products.findIndex(p => p.id === id);
 
-  if(index === -1) return;
+  const index =
+    products.findIndex(
+      p => p.id === id
+    );
+
+
+  if(index === -1)
+    return;
+
 
   products[index].status =
     "rejected";
 
-  saveData(KEYS.products,products);
+
+  saveData(
+    KEYS.products,
+    products
+  );
+
 
   renderAdmin();
 
 }
 
 
-function approveVerification(userId){
+function approveVerification(id){
 
   const users =
     getData(KEYS.users);
 
-  const index =
-    users.findIndex(u => u.id === userId);
 
-  if(index === -1) return;
+  const index =
+    users.findIndex(
+      u => u.id === id
+    );
+
+
+  if(index === -1)
+    return;
 
 
   users[index].verified =
@@ -2829,7 +3565,11 @@ function approveVerification(userId){
     "approved";
 
 
-  saveData(KEYS.users,users);
+  saveData(
+    KEYS.users,
+    users
+  );
+
 
   renderAdmin();
   renderProfile();
@@ -2837,15 +3577,20 @@ function approveVerification(userId){
 }
 
 
-function rejectVerification(userId){
+function rejectVerification(id){
 
   const users =
     getData(KEYS.users);
 
-  const index =
-    users.findIndex(u => u.id === userId);
 
-  if(index === -1) return;
+  const index =
+    users.findIndex(
+      u => u.id === id
+    );
+
+
+  if(index === -1)
+    return;
 
 
   users[index].verified =
@@ -2855,34 +3600,42 @@ function rejectVerification(userId){
     "rejected";
 
 
-  saveData(KEYS.users,users);
+  saveData(
+    KEYS.users,
+    users
+  );
+
 
   renderAdmin();
 
 }
 
 
-function toggleAdminRole(userId){
+function toggleAdminRole(id){
 
   const current =
     getCurrentUser();
 
-  if(!current ||
-     current.role !== "superadmin"){
 
+  if(
+    !current ||
+    current.role !== "superadmin"
+  )
     return;
-
-  }
 
 
   const users =
     getData(KEYS.users);
 
+
   const index =
-    users.findIndex(u => u.id === userId);
+    users.findIndex(
+      u => u.id === id
+    );
 
 
-  if(index === -1) return;
+  if(index === -1)
+    return;
 
 
   users[index].role =
@@ -2891,65 +3644,47 @@ function toggleAdminRole(userId){
       : "admin";
 
 
-  saveData(KEYS.users,users);
+  saveData(
+    KEYS.users,
+    users
+  );
+
 
   renderAdmin();
 
 }
 
 
-/* =========================
-   AUCTION WINNER
-========================= */
+/* AUCTION CLOSE */
 
-function getHighestBid(productId){
-
-  const product =
-    getProducts()
-      .find(p => p.id === productId);
-
-
-  const bids =
-    getData(KEYS.bids)
-      .filter(b => b.productId === productId);
-
-
-  if(!bids.length){
-    return Number(product?.price || 0);
-  }
-
-
-  return Math.max(
-    Number(product?.price || 0),
-    ...bids.map(b => Number(b.amount))
-  );
-
-}
-
-
-function closeAuction(productId){
+function closeAuction(id){
 
   const current =
     getCurrentUser();
 
 
-  if(!current ||
-     (current.role !== "superadmin" &&
-      current.role !== "admin")){
-
+  if(
+    !current ||
+    (
+      current.role !== "admin" &&
+      current.role !== "superadmin"
+    )
+  )
     return;
-
-  }
 
 
   const products =
     getProducts();
 
+
   const index =
-    products.findIndex(p => p.id === productId);
+    products.findIndex(
+      p => p.id === id
+    );
 
 
-  if(index === -1) return;
+  if(index === -1)
+    return;
 
 
   const product =
@@ -2958,112 +3693,233 @@ function closeAuction(productId){
 
   const bids =
     getData(KEYS.bids)
-      .filter(b => b.productId === productId);
-
-
-  if(!bids.length){
-
-    product.closed = true;
-
-    saveData(KEYS.products,products);
-
-    renderAdmin();
-
-    return;
-
-  }
-
-
-  const winner =
-    bids.reduce((a,b) =>
-      Number(a.amount) > Number(b.amount)
-        ? a
-        : b
-    );
+      .filter(
+        b =>
+          b.productId === id
+      );
 
 
   product.closed = true;
 
 
-  saveData(KEYS.products,products);
+  saveData(
+    KEYS.products,
+    products
+  );
 
 
-  const winners =
-    getData(KEYS.winners);
+  if(bids.length){
+
+    const winner =
+      bids.reduce(
+        (a,b) =>
+          Number(a.amount) >
+          Number(b.amount)
+            ? a
+            : b
+      );
 
 
-  winners.push({
-
-    id:generateId(),
-
-    productId,
-
-    productName:product.name,
-
-    userId:winner.userId,
-
-    userName:winner.userName,
-
-    amount:Number(winner.amount),
-
-    closedAt:
-      new Date().toISOString()
-
-  });
+    const winners =
+      getData(KEYS.winners);
 
 
-  saveData(KEYS.winners,winners);
+    winners.push({
+
+      id:generateId(),
+
+      productId:id,
+
+      productName:
+        product.name,
+
+      userId:
+        winner.userId,
+
+      userName:
+        winner.userName,
+
+      amount:
+        Number(winner.amount),
+
+      closedAt:
+        new Date().toISOString()
+
+    });
+
+
+    saveData(
+      KEYS.winners,
+      winners
+    );
+
+  }
 
 
   renderAdmin();
   renderHome();
   renderMarket();
 
+
   alert(
-    `مەزاد کۆتایی هات.\nبراوە: ${winner.userName}\nنرخ: ${formatMoney(winner.amount)}`
+    bids.length
+      ? "مەزاد کۆتایی هات و براوە دیاریکرا."
+      : "مەزاد کۆتایی هات بەبێ براوە."
   );
 
 }
 
 
-/* =========================
-   LIVE VIEWERS
-========================= */
+/* LIVE */
 
-let viewers =
-  Math.floor(Math.random() * 80) + 20;
+async function startLive(){
+
+  const user =
+    getCurrentUser();
 
 
-function updateViewers(){
+  if(!user){
 
-  viewers +=
-    Math.floor(Math.random() * 7) - 3;
+    openAuth();
+    return;
 
-  if(viewers < 1){
-    viewers = 1;
   }
 
-  document.getElementById("viewerCount")
-    .textContent = viewers;
+
+  if(!user.verified){
+
+    alert(
+      "تەنها ئەکاونتی پشتڕاستکراوە دەتوانێت Live بکات."
+    );
+
+    showSection("profile");
+    return;
+
+  }
+
+
+  const status =
+    document.getElementById(
+      "liveStatus"
+    );
+
+
+  /*
+    داواکاری کامێرا و مایک.
+    ئەمە دڵنیایی دەدات کە user
+    ڕێگەی کامێرا/مایکی هەیە.
+  */
+
+  try{
+
+    const stream =
+      await navigator.mediaDevices
+        .getUserMedia({
+          video:true,
+          audio:true
+        });
+
+
+    window.xoshLiveStream =
+      stream;
+
+
+    status.classList.remove(
+      "hidden"
+    );
+
+
+    status.innerHTML = `
+
+      <strong>
+        🔴 Live ئامادەیە
+      </strong>
+
+      <p style="margin-top:8px">
+        کامێرا و مایک دەستیان پێکرد.
+      </p>
+
+      <button
+        class="btn btn-danger"
+        style="margin-top:10px"
+        onclick="stopLive()">
+
+        کۆتاییهێنان بە Live
+
+      </button>
+
+    `;
+
+
+    const liveData =
+      getData(KEYS.live);
+
+
+    liveData.push({
+
+      id:generateId(),
+
+      userId:user.id,
+
+      userName:user.name,
+
+      startedAt:
+        new Date().toISOString(),
+
+      status:"live"
+
+    });
+
+
+    saveData(
+      KEYS.live,
+      liveData
+    );
+
+
+  }catch(error){
+
+    alert(
+      "نەتوانرا کامێرا/مایک بکرێتەوە. تکایە ڕێگەپێدان بدە."
+    );
+
+  }
 
 }
 
 
-setInterval(updateViewers,3000);
+function stopLive(){
+
+  if(window.xoshLiveStream){
+
+    window.xoshLiveStream
+      .getTracks()
+      .forEach(
+        track =>
+          track.stop()
+      );
+
+    window.xoshLiveStream =
+      null;
+
+  }
 
 
-/* =========================
-   INIT
-========================= */
+  const status =
+    document.getElementById(
+      "liveStatus"
+    );
+
+
+  status.innerHTML =
+    "Live کۆتایی هات.";
+
+}
+
+
+/* INIT */
 
 function init(){
-
-  /*
-    تەنها Super Admin email ـەکە
-    دیاریکراوە.
-    Password لە کاتی دروستکردنی
-    هەژمارەکە دیاری دەکرێت.
-  */
 
   updateHeader();
 
