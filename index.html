@@ -210,6 +210,11 @@ section{
   margin-bottom:13px;
   border:1px solid #ddd;
   border-radius:10px;
+  outline:none;
+}
+
+.modal-box input:focus{
+  border-color:#00e676;
 }
 
 .modal-box button{
@@ -220,6 +225,12 @@ section{
   background:#111;
   color:white;
   cursor:pointer;
+  font-weight:bold;
+}
+
+.modal-box button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
 }
 
 .switch{
@@ -227,6 +238,28 @@ section{
   margin-top:15px;
   color:#00a94f;
   cursor:pointer;
+}
+
+.error-message{
+  display:none;
+  background:#ffecec;
+  color:#d60000;
+  border-radius:10px;
+  padding:10px;
+  margin-bottom:13px;
+  text-align:center;
+  font-size:14px;
+}
+
+.success-message{
+  display:none;
+  background:#e9fff2;
+  color:#00843d;
+  border-radius:10px;
+  padding:10px;
+  margin-bottom:13px;
+  text-align:center;
+  font-size:14px;
 }
 
 #userInfo{
@@ -305,10 +338,15 @@ footer strong{
   </button>
 
   <div id="userInfo">
+
     <span id="userEmail"></span>
-    <button class="logout-btn" onclick="logout()">
+
+    <button
+      class="logout-btn"
+      onclick="logout()">
       دەرچوون
     </button>
+
   </div>
 
 </header>
@@ -454,6 +492,8 @@ footer strong{
 </footer>
 
 
+<!-- LOGIN / REGISTER -->
+
 <div class="modal" id="loginModal">
 
   <div class="modal-box">
@@ -466,6 +506,16 @@ footer strong{
       چوونەژوورەوە
     </h2>
 
+    <div
+      id="errorMessage"
+      class="error-message">
+    </div>
+
+    <div
+      id="successMessage"
+      class="success-message">
+    </div>
+
     <input
       id="name"
       type="text"
@@ -477,22 +527,26 @@ footer strong{
       id="email"
       type="email"
       placeholder="Email"
+      autocomplete="email"
     >
 
     <input
       id="password"
       type="password"
       placeholder="وشەی نهێنی"
+      autocomplete="current-password"
     >
 
-    <button id="authButton" onclick="handleAuth()">
+    <button
+      id="authButton"
+      onclick="handleAuth()">
       چوونەژوورەوە
     </button>
 
     <div
       class="switch"
       id="switchText"
-      onclick="registerMode()">
+      onclick="switchMode()">
       هەژمارت نییە؟ هەژمار دروست بکە
     </div>
 
@@ -523,9 +577,60 @@ supabase.createClient(
 let register = false;
 
 
-/* OPEN LOGIN */
+/* =========================
+   HELPERS
+========================= */
+
+function showError(message){
+
+  const box =
+    document.getElementById("errorMessage");
+
+  const success =
+    document.getElementById("successMessage");
+
+  success.style.display = "none";
+
+  box.innerText = message;
+
+  box.style.display = "block";
+}
+
+
+function showSuccess(message){
+
+  const box =
+    document.getElementById("successMessage");
+
+  const error =
+    document.getElementById("errorMessage");
+
+  error.style.display = "none";
+
+  box.innerText = message;
+
+  box.style.display = "block";
+}
+
+
+function clearMessages(){
+
+  document.getElementById("errorMessage").style.display =
+    "none";
+
+  document.getElementById("successMessage").style.display =
+    "none";
+
+}
+
+
+/* =========================
+   OPEN LOGIN
+========================= */
 
 function openLogin(){
+
+  clearMessages();
 
   document.getElementById("loginModal").style.display =
     "flex";
@@ -533,7 +638,9 @@ function openLogin(){
 }
 
 
-/* CLOSE LOGIN */
+/* =========================
+   CLOSE LOGIN
+========================= */
 
 function closeLogin(){
 
@@ -543,11 +650,15 @@ function closeLogin(){
 }
 
 
-/* REGISTER MODE */
+/* =========================
+   SWITCH LOGIN / REGISTER
+========================= */
 
-function registerMode(){
+function switchMode(){
 
   register = !register;
+
+  clearMessages();
 
   const name =
     document.getElementById("name");
@@ -560,6 +671,10 @@ function registerMode(){
 
   const text =
     document.getElementById("switchText");
+
+  const password =
+    document.getElementById("password");
+
 
   if(register){
 
@@ -574,6 +689,9 @@ function registerMode(){
     text.innerText =
       "هەژمارت هەیە؟ بچۆ ژوورەوە";
 
+    password.autocomplete =
+      "new-password";
+
   }else{
 
     name.style.display = "none";
@@ -587,24 +705,60 @@ function registerMode(){
     text.innerText =
       "هەژمارت نییە؟ هەژمار دروست بکە";
 
+    password.autocomplete =
+      "current-password";
+
   }
 
 }
 
 
-/* AUTH */
+/* =========================
+   RESET FORM TO LOGIN
+========================= */
+
+function resetToLogin(){
+
+  register = false;
+
+  document.getElementById("name").style.display =
+    "none";
+
+  document.getElementById("formTitle").innerText =
+    "چوونەژوورەوە";
+
+  document.getElementById("authButton").innerText =
+    "چوونەژوورەوە";
+
+  document.getElementById("switchText").innerText =
+    "هەژمارت نییە؟ هەژمار دروست بکە";
+
+}
+
+
+/* =========================
+   AUTH
+========================= */
 
 async function handleAuth(){
 
+  clearMessages();
+
   const email =
-    document.getElementById("email").value.trim();
+    document.getElementById("email").value
+    .trim()
+    .toLowerCase();
 
   const password =
     document.getElementById("password").value;
 
+  const button =
+    document.getElementById("authButton");
+
+
   if(!email || !password){
 
-    alert(
+    showError(
       "تکایە Email و وشەی نهێنی پڕ بکەرەوە."
     );
 
@@ -612,14 +766,44 @@ async function handleAuth(){
   }
 
 
+  if(password.length < 6){
+
+    showError(
+      "وشەی نهێنی دەبێت لانیکەم 6 پیت بێت."
+    );
+
+    return;
+  }
+
+
+  button.disabled = true;
+
+  button.innerText =
+    "چاوەڕوان بە...";
+
+
+  /* =========================
+     REGISTER
+  ========================= */
+
   if(register){
 
     const name =
-      document.getElementById("name").value.trim();
+      document.getElementById("name")
+      .value
+      .trim();
+
 
     if(!name){
 
-      alert("تکایە ناوی تەواوت بنووسە.");
+      button.disabled = false;
+
+      button.innerText =
+        "دروستکردنی هەژمار";
+
+      showError(
+        "تکایە ناوی تەواوت بنووسە."
+      );
 
       return;
     }
@@ -633,17 +817,27 @@ async function handleAuth(){
         password: password,
 
         options: {
+
           data: {
+
             full_name: name
+
           }
+
         }
 
       });
 
 
+    button.disabled = false;
+
+
     if(error){
 
-      alert(
+      button.innerText =
+        "دروستکردنی هەژمار";
+
+      showError(
         "هەڵە لە دروستکردنی هەژمار:\n" +
         error.message
       );
@@ -652,74 +846,148 @@ async function handleAuth(){
     }
 
 
-    alert(
-      "هەژمارەکەت دروست کرا ✅\n\n" +
-      "ئەگەر Email Confirmation چالاک بێت، " +
-      "ئیمەیڵەکەت بپشکنە و لینکەکە کرتە لێ بکە."
-    );
+    /*
+      ئەگەر Email Confirmation چالاک بێت
+    */
 
+    if(data.user && !data.session){
 
-    register = false;
-
-    registerMode();
-
-  }else{
-
-
-    const { data, error } =
-      await supabaseClient.auth.signInWithPassword({
-
-        email: email,
-
-        password: password
-
-      });
-
-
-    if(error){
-
-      alert(
-        "Login سەرکەوتوو نەبوو:\n" +
-        error.message
+      showSuccess(
+        "هەژمارەکەت دروست کرا ✅\n\n" +
+        "تکایە Email ـەکەت بپشکنە و لینکەکەی پشتڕاستکردنەوە بکەرەوە."
       );
 
-      return;
+    }else{
+
+      showSuccess(
+        "هەژمارەکەت بە سەرکەوتوویی دروست کرا ✅"
+      );
+
+      updateUserUI(data.user);
+
+      setTimeout(function(){
+
+        closeLogin();
+
+      },1000);
+
     }
 
 
-    alert("بەخێربێیتەوە ✅");
+    /*
+      گەڕانەوە بۆ Login
+    */
+
+    resetToLogin();
+
+    button.disabled = false;
+
+    return;
+  }
+
+
+  /* =========================
+     LOGIN
+  ========================= */
+
+  const { data, error } =
+    await supabaseClient.auth.signInWithPassword({
+
+      email: email,
+
+      password: password
+
+    });
+
+
+  button.disabled = false;
+
+  button.innerText =
+    "چوونەژوورەوە";
+
+
+  if(error){
+
+    console.log(
+      "LOGIN ERROR:",
+      error
+    );
+
+
+    if(
+      error.message
+      .toLowerCase()
+      .includes("email not confirmed")
+    ){
+
+      showError(
+        "Email ـەکەت هێشتا پشتڕاست نەکراوەتەوە.\n\n" +
+        "تکایە بچۆ ناو Email ـەکەت و لینکەکەی Confirm بکەرەوە."
+      );
+
+    }else{
+
+      showError(
+        "Email یان وشەی نهێنی هەڵەیە.\n\n" +
+        "تکایە دڵنیابە لە Email و Password ـەکەت."
+      );
+
+    }
+
+    return;
+  }
+
+
+  showSuccess(
+    "بەخێربێیتەوە لە XOSHNAW MARKET ✅"
+  );
+
+
+  updateUserUI(data.user);
+
+
+  setTimeout(function(){
 
     closeLogin();
 
-    updateUserUI(data.user);
-
-  }
+  },800);
 
 }
 
 
-/* LOGOUT */
+/* =========================
+   LOGOUT
+========================= */
 
 async function logout(){
 
   const { error } =
     await supabaseClient.auth.signOut();
 
+
   if(error){
 
-    alert(error.message);
+    alert(
+      "هەڵە لە دەرچوون:\n" +
+      error.message
+    );
 
     return;
   }
 
+
   updateUserUI(null);
 
-  alert("بە سەرکەوتوویی دەرچوویت.");
+  alert(
+    "بە سەرکەوتوویی دەرچوویت."
+  );
 
 }
 
 
-/* USER UI */
+/* =========================
+   USER UI
+========================= */
 
 function updateUserUI(user){
 
@@ -735,39 +1003,64 @@ function updateUserUI(user){
 
   if(user){
 
-    loginButton.style.display = "none";
+    loginButton.style.display =
+      "none";
 
-    userInfo.style.display = "flex";
+    userInfo.style.display =
+      "flex";
 
     userEmail.innerText =
-      user.email;
+      user.email || "";
 
   }else{
 
-    loginButton.style.display = "block";
+    loginButton.style.display =
+      "block";
 
-    userInfo.style.display = "none";
+    userInfo.style.display =
+      "none";
 
-    userEmail.innerText = "";
+    userEmail.innerText =
+      "";
 
   }
 
 }
 
 
-/* CHECK LOGIN */
+/* =========================
+   CHECK CURRENT USER
+========================= */
 
 async function checkUser(){
 
-  const { data } =
+  const { data, error } =
     await supabaseClient.auth.getSession();
 
-  updateUserUI(data.session?.user || null);
+
+  if(error){
+
+    console.log(
+      "SESSION ERROR:",
+      error
+    );
+
+    updateUserUI(null);
+
+    return;
+  }
+
+
+  updateUserUI(
+    data.session?.user || null
+  );
 
 }
 
 
-/* AUTH STATE */
+/* =========================
+   AUTH STATE
+========================= */
 
 supabaseClient.auth.onAuthStateChange(
   function(event, session){
@@ -780,12 +1073,18 @@ supabaseClient.auth.onAuthStateChange(
 );
 
 
-/* SEARCH */
+/* =========================
+   SEARCH
+========================= */
 
 function searchProduct(){
 
   const value =
-    document.getElementById("searchInput").value.trim();
+    document
+    .getElementById("searchInput")
+    .value
+    .trim();
+
 
   if(!value){
 
@@ -796,6 +1095,7 @@ function searchProduct(){
     return;
   }
 
+
   alert(
     "گەڕان بۆ: " +
     value +
@@ -805,7 +1105,9 @@ function searchProduct(){
 }
 
 
-/* START */
+/* =========================
+   START
+========================= */
 
 checkUser();
 
