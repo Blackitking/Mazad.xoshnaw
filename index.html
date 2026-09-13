@@ -7,6 +7,7 @@
 <title>XOSHNAW MARKET</title>
 
 <style>
+
 *{
   box-sizing:border-box;
   margin:0;
@@ -240,26 +241,25 @@ section{
   cursor:pointer;
 }
 
-.error-message{
+.message{
   display:none;
-  background:#ffecec;
-  color:#d60000;
+  padding:12px;
   border-radius:10px;
-  padding:10px;
-  margin-bottom:13px;
+  margin-bottom:15px;
   text-align:center;
+  white-space:pre-line;
+  line-height:1.7;
   font-size:14px;
 }
 
+.error-message{
+  background:#ffecec;
+  color:#c40000;
+}
+
 .success-message{
-  display:none;
-  background:#e9fff2;
+  background:#eafff2;
   color:#00843d;
-  border-radius:10px;
-  padding:10px;
-  margin-bottom:13px;
-  text-align:center;
-  font-size:14px;
 }
 
 #userInfo{
@@ -311,11 +311,15 @@ footer strong{
   #userEmail{
     display:none;
   }
+
 }
+
 </style>
 </head>
 
+
 <body>
+
 
 <header>
 
@@ -334,7 +338,9 @@ footer strong{
     class="login-btn"
     id="loginButton"
     onclick="openLogin()">
+
     چوونەژوورەوە
+
   </button>
 
   <div id="userInfo">
@@ -344,7 +350,9 @@ footer strong{
     <button
       class="logout-btn"
       onclick="logout()">
+
       دەرچوون
+
     </button>
 
   </div>
@@ -352,11 +360,14 @@ footer strong{
 </header>
 
 
+
 <section class="hero" id="home">
 
   <h1>
+
     بەخێربێیت بۆ
     <span>XOSHNAW MARKET</span>
+
   </h1>
 
   <p>
@@ -372,12 +383,15 @@ footer strong{
     >
 
     <button onclick="searchProduct()">
+
       گەڕان
+
     </button>
 
   </div>
 
 </section>
+
 
 
 <div class="categories">
@@ -392,15 +406,22 @@ footer strong{
 </div>
 
 
+
 <section id="auction">
 
   <div class="title">
-    <h2>🔨 مەزادی چالاک</h2>
+
+    <h2>
+      🔨 مەزادی چالاک
+    </h2>
+
   </div>
 
   <div class="empty">
 
-    <div class="icon">🔨</div>
+    <div class="icon">
+      🔨
+    </div>
 
     <h3>
       هێشتا هیچ مەزادێک نییە
@@ -416,15 +437,22 @@ footer strong{
 </section>
 
 
+
 <section id="shop">
 
   <div class="title">
-    <h2>🛒 فرۆشتنی ڕاستەوخۆ</h2>
+
+    <h2>
+      🛒 فرۆشتنی ڕاستەوخۆ
+    </h2>
+
   </div>
 
   <div class="empty">
 
-    <div class="icon">🛒</div>
+    <div class="icon">
+      🛒
+    </div>
 
     <h3>
       هێشتا هیچ کاڵایەک نییە
@@ -439,15 +467,22 @@ footer strong{
 </section>
 
 
+
 <section id="live">
 
   <div class="title">
-    <h2>🔴 Live</h2>
+
+    <h2>
+      🔴 Live
+    </h2>
+
   </div>
 
   <div class="empty">
 
-    <div class="icon">🔴</div>
+    <div class="icon">
+      🔴
+    </div>
 
     <h3>
       هیچ Live ـێک ئێستا نییە
@@ -463,6 +498,7 @@ footer strong{
 </section>
 
 
+
 <div class="sell">
 
   <h2>
@@ -475,46 +511,66 @@ footer strong{
   </p>
 
   <button onclick="openLogin()">
+
     دەستپێکردنی فرۆشتن
+
   </button>
 
 </div>
 
 
+
 <footer>
 
-  <strong>XOSHNAW MARKET</strong>
+  <strong>
+    XOSHNAW MARKET
+  </strong>
 
   <p style="margin-top:10px;">
+
     کڕین • فرۆشتن • مەزاد • Live
+
   </p>
 
 </footer>
 
 
-<!-- LOGIN / REGISTER -->
 
-<div class="modal" id="loginModal">
+<!-- LOGIN MODAL -->
+
+<div
+  class="modal"
+  id="loginModal">
 
   <div class="modal-box">
 
-    <div class="close" onclick="closeLogin()">
+    <div
+      class="close"
+      onclick="closeLogin()">
+
       ×
+
     </div>
 
+
     <h2 id="formTitle">
+
       چوونەژوورەوە
+
     </h2>
+
 
     <div
       id="errorMessage"
-      class="error-message">
+      class="message error-message">
     </div>
+
 
     <div
       id="successMessage"
-      class="success-message">
+      class="message success-message">
     </div>
+
 
     <input
       id="name"
@@ -523,12 +579,14 @@ footer strong{
       style="display:none;"
     >
 
+
     <input
       id="email"
       type="email"
       placeholder="Email"
       autocomplete="email"
     >
+
 
     <input
       id="password"
@@ -537,17 +595,24 @@ footer strong{
       autocomplete="current-password"
     >
 
+
     <button
       id="authButton"
       onclick="handleAuth()">
+
       چوونەژوورەوە
+
     </button>
+
 
     <div
       class="switch"
       id="switchText"
       onclick="switchMode()">
-      هەژمارت نییە؟ هەژمار دروست بکە
+
+      هەژمارت نییە؟
+      هەژمار دروست بکە
+
     </div>
 
   </div>
@@ -555,11 +620,18 @@ footer strong{
 </div>
 
 
+
 <!-- SUPABASE -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+
 <script>
+
+
+/* =========================
+   SUPABASE
+========================= */
 
 const SUPABASE_URL =
 "https://wpjqvpcqaufrpstnziad.supabase.co";
@@ -577,51 +649,51 @@ supabase.createClient(
 let register = false;
 
 
+
 /* =========================
-   HELPERS
+   MESSAGES
 ========================= */
+
+function clearMessages(){
+
+  document.getElementById(
+    "errorMessage"
+  ).style.display = "none";
+
+  document.getElementById(
+    "successMessage"
+  ).style.display = "none";
+
+}
+
 
 function showError(message){
 
   const box =
-    document.getElementById("errorMessage");
-
-  const success =
-    document.getElementById("successMessage");
-
-  success.style.display = "none";
+    document.getElementById(
+      "errorMessage"
+    );
 
   box.innerText = message;
 
   box.style.display = "block";
+
 }
 
 
 function showSuccess(message){
 
   const box =
-    document.getElementById("successMessage");
-
-  const error =
-    document.getElementById("errorMessage");
-
-  error.style.display = "none";
+    document.getElementById(
+      "successMessage"
+    );
 
   box.innerText = message;
 
   box.style.display = "block";
-}
-
-
-function clearMessages(){
-
-  document.getElementById("errorMessage").style.display =
-    "none";
-
-  document.getElementById("successMessage").style.display =
-    "none";
 
 }
+
 
 
 /* =========================
@@ -632,10 +704,12 @@ function openLogin(){
 
   clearMessages();
 
-  document.getElementById("loginModal").style.display =
-    "flex";
+  document.getElementById(
+    "loginModal"
+  ).style.display = "flex";
 
 }
+
 
 
 /* =========================
@@ -644,14 +718,16 @@ function openLogin(){
 
 function closeLogin(){
 
-  document.getElementById("loginModal").style.display =
-    "none";
+  document.getElementById(
+    "loginModal"
+  ).style.display = "none";
 
 }
 
 
+
 /* =========================
-   SWITCH LOGIN / REGISTER
+   SWITCH MODE
 ========================= */
 
 function switchMode(){
@@ -713,47 +789,65 @@ function switchMode(){
 }
 
 
+
 /* =========================
-   RESET FORM TO LOGIN
+   RESET LOGIN
 ========================= */
 
 function resetToLogin(){
 
   register = false;
 
-  document.getElementById("name").style.display =
-    "none";
+  document.getElementById(
+    "name"
+  ).style.display = "none";
 
-  document.getElementById("formTitle").innerText =
+  document.getElementById(
+    "formTitle"
+  ).innerText =
     "چوونەژوورەوە";
 
-  document.getElementById("authButton").innerText =
+  document.getElementById(
+    "authButton"
+  ).innerText =
     "چوونەژوورەوە";
 
-  document.getElementById("switchText").innerText =
+  document.getElementById(
+    "switchText"
+  ).innerText =
     "هەژمارت نییە؟ هەژمار دروست بکە";
 
 }
 
 
+
 /* =========================
-   AUTH
+   AUTHENTICATION
 ========================= */
 
 async function handleAuth(){
 
   clearMessages();
 
+
   const email =
-    document.getElementById("email").value
+    document
+    .getElementById("email")
+    .value
     .trim()
     .toLowerCase();
 
+
   const password =
-    document.getElementById("password").value;
+    document.getElementById(
+      "password"
+    ).value;
+
 
   const button =
-    document.getElementById("authButton");
+    document.getElementById(
+      "authButton"
+    );
 
 
   if(!email || !password){
@@ -763,6 +857,7 @@ async function handleAuth(){
     );
 
     return;
+
   }
 
 
@@ -773,6 +868,7 @@ async function handleAuth(){
     );
 
     return;
+
   }
 
 
@@ -782,6 +878,7 @@ async function handleAuth(){
     "چاوەڕوان بە...";
 
 
+
   /* =========================
      REGISTER
   ========================= */
@@ -789,7 +886,8 @@ async function handleAuth(){
   if(register){
 
     const name =
-      document.getElementById("name")
+      document
+      .getElementById("name")
       .value
       .trim();
 
@@ -806,10 +904,20 @@ async function handleAuth(){
       );
 
       return;
+
     }
 
 
-    const { data, error } =
+    /*
+      ئەمە URL ـی پەڕەی ئێستایە.
+    */
+
+    const redirectUrl =
+      window.location.origin +
+      window.location.pathname;
+
+
+    const result =
       await supabaseClient.auth.signUp({
 
         email: email,
@@ -822,11 +930,21 @@ async function handleAuth(){
 
             full_name: name
 
-          }
+          },
+
+          emailRedirectTo:
+            redirectUrl
 
         }
 
       });
+
+
+    const data =
+      result.data;
+
+    const error =
+      result.error;
 
 
     button.disabled = false;
@@ -838,66 +956,86 @@ async function handleAuth(){
         "دروستکردنی هەژمار";
 
       showError(
-        "هەڵە لە دروستکردنی هەژمار:\n" +
+        "هەڵە لە دروستکردنی هەژمار:\n\n" +
         error.message
       );
 
       return;
+
     }
 
 
     /*
-      ئەگەر Email Confirmation چالاک بێت
+      Email Confirmation
     */
 
-    if(data.user && !data.session){
+    if(
+      data.user &&
+      !data.session
+    ){
 
       showSuccess(
         "هەژمارەکەت دروست کرا ✅\n\n" +
-        "تکایە Email ـەکەت بپشکنە و لینکەکەی پشتڕاستکردنەوە بکەرەوە."
+        "لینکی پشتڕاستکردنەوەمان بۆ Email ـەکەت ناردووە.\n\n" +
+        "Email ـەکەت بکەرەوە و کرتە لەسەر لینکەکە بکە."
       );
 
+
     }else{
+
 
       showSuccess(
         "هەژمارەکەت بە سەرکەوتوویی دروست کرا ✅"
       );
 
-      updateUserUI(data.user);
 
-      setTimeout(function(){
+      updateUserUI(
+        data.user
+      );
 
-        closeLogin();
 
-      },1000);
+      setTimeout(
+        function(){
+
+          closeLogin();
+
+        },
+        1200
+      );
 
     }
 
-
-    /*
-      گەڕانەوە بۆ Login
-    */
 
     resetToLogin();
 
     button.disabled = false;
 
     return;
+
   }
+
 
 
   /* =========================
      LOGIN
   ========================= */
 
-  const { data, error } =
-    await supabaseClient.auth.signInWithPassword({
+  const result =
+    await supabaseClient.auth
+    .signInWithPassword({
 
       email: email,
 
       password: password
 
     });
+
+
+  const data =
+    result.data;
+
+  const error =
+    result.error;
 
 
   button.disabled = false;
@@ -908,33 +1046,34 @@ async function handleAuth(){
 
   if(error){
 
-    console.log(
-      "LOGIN ERROR:",
-      error
-    );
+    const message =
+      error.message.toLowerCase();
 
 
     if(
-      error.message
-      .toLowerCase()
-      .includes("email not confirmed")
+      message.includes(
+        "email not confirmed"
+      )
     ){
 
       showError(
         "Email ـەکەت هێشتا پشتڕاست نەکراوەتەوە.\n\n" +
-        "تکایە بچۆ ناو Email ـەکەت و لینکەکەی Confirm بکەرەوە."
+        "تکایە بچۆ ناو Email ـەکەت و لینکەکەی Verify بکە."
       );
+
 
     }else{
 
+
       showError(
         "Email یان وشەی نهێنی هەڵەیە.\n\n" +
-        "تکایە دڵنیابە لە Email و Password ـەکەت."
+        "تکایە زانیارییەکانت بپشکنە."
       );
 
     }
 
     return;
+
   }
 
 
@@ -943,16 +1082,22 @@ async function handleAuth(){
   );
 
 
-  updateUserUI(data.user);
+  updateUserUI(
+    data.user
+  );
 
 
-  setTimeout(function(){
+  setTimeout(
+    function(){
 
-    closeLogin();
+      closeLogin();
 
-  },800);
+    },
+    800
+  );
 
 }
+
 
 
 /* =========================
@@ -961,28 +1106,31 @@ async function handleAuth(){
 
 async function logout(){
 
-  const { error } =
+  const result =
     await supabaseClient.auth.signOut();
 
 
-  if(error){
+  if(result.error){
 
     alert(
       "هەڵە لە دەرچوون:\n" +
-      error.message
+      result.error.message
     );
 
     return;
+
   }
 
 
   updateUserUI(null);
+
 
   alert(
     "بە سەرکەوتوویی دەرچوویت."
   );
 
 }
+
 
 
 /* =========================
@@ -992,13 +1140,19 @@ async function logout(){
 function updateUserUI(user){
 
   const loginButton =
-    document.getElementById("loginButton");
+    document.getElementById(
+      "loginButton"
+    );
 
   const userInfo =
-    document.getElementById("userInfo");
+    document.getElementById(
+      "userInfo"
+    );
 
   const userEmail =
-    document.getElementById("userEmail");
+    document.getElementById(
+      "userEmail"
+    );
 
 
   if(user){
@@ -1011,6 +1165,7 @@ function updateUserUI(user){
 
     userEmail.innerText =
       user.email || "";
+
 
   }else{
 
@@ -1028,34 +1183,33 @@ function updateUserUI(user){
 }
 
 
+
 /* =========================
-   CHECK CURRENT USER
+   CHECK SESSION
 ========================= */
 
 async function checkUser(){
 
-  const { data, error } =
-    await supabaseClient.auth.getSession();
+  const result =
+    await supabaseClient.auth
+    .getSession();
 
 
-  if(error){
-
-    console.log(
-      "SESSION ERROR:",
-      error
-    );
+  if(result.error){
 
     updateUserUI(null);
 
     return;
+
   }
 
 
   updateUserUI(
-    data.session?.user || null
+    result.data.session?.user || null
   );
 
 }
+
 
 
 /* =========================
@@ -1073,6 +1227,7 @@ supabaseClient.auth.onAuthStateChange(
 );
 
 
+
 /* =========================
    SEARCH
 ========================= */
@@ -1081,7 +1236,9 @@ function searchProduct(){
 
   const value =
     document
-    .getElementById("searchInput")
+    .getElementById(
+      "searchInput"
+    )
     .value
     .trim();
 
@@ -1093,6 +1250,7 @@ function searchProduct(){
     );
 
     return;
+
   }
 
 
@@ -1105,11 +1263,13 @@ function searchProduct(){
 }
 
 
+
 /* =========================
    START
 ========================= */
 
 checkUser();
+
 
 </script>
 
