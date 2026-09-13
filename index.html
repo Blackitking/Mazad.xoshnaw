@@ -3,16 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>XOSHNAW MARKET</title>
 
 <style>
-
 *{
   box-sizing:border-box;
   margin:0;
   padding:0;
-  font-family:Tahoma,Arial,sans-serif;
+  font-family:Tahoma,Arial,sans-serif
 }
 
 body{
@@ -23,7 +21,7 @@ body{
 header{
   background:#111;
   color:white;
-  height:70px;
+  min-height:70px;
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -58,6 +56,26 @@ nav a{
   padding:11px 20px;
   border-radius:25px;
   font-weight:bold;
+  cursor:pointer;
+}
+
+#userInfo{
+  display:none;
+  align-items:center;
+  gap:10px;
+}
+
+#userEmail{
+  color:white;
+  font-size:13px;
+}
+
+.logout-btn{
+  background:#ff3b30;
+  color:white;
+  border:0;
+  padding:9px 14px;
+  border-radius:20px;
   cursor:pointer;
 }
 
@@ -120,6 +138,7 @@ nav a{
   border-radius:25px;
   white-space:nowrap;
   box-shadow:0 3px 10px #0001;
+  cursor:pointer;
 }
 
 section{
@@ -130,6 +149,52 @@ section{
   display:flex;
   justify-content:space-between;
   margin-bottom:20px;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:20px;
+}
+
+.product{
+  background:white;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 3px 15px #0001;
+}
+
+.product-image{
+  width:100%;
+  height:190px;
+  background:#eee;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:55px;
+  color:#aaa;
+  object-fit:cover;
+}
+
+.product-info{
+  padding:17px;
+}
+
+.product-info h3{
+  margin-bottom:8px;
+}
+
+.product-info p{
+  color:#777;
+  font-size:14px;
+  line-height:1.7;
+}
+
+.price{
+  color:#00a94f;
+  font-size:20px;
+  font-weight:bold;
+  margin-top:12px;
 }
 
 .empty{
@@ -187,10 +252,12 @@ section{
 .modal-box{
   background:white;
   width:100%;
-  max-width:420px;
+  max-width:430px;
   border-radius:20px;
   padding:30px;
   position:relative;
+  max-height:90vh;
+  overflow:auto;
 }
 
 .close{
@@ -205,7 +272,9 @@ section{
   margin-bottom:20px;
 }
 
-.modal-box input{
+.modal-box input,
+.modal-box textarea,
+.modal-box select{
   width:100%;
   padding:14px;
   margin-bottom:13px;
@@ -214,7 +283,14 @@ section{
   outline:none;
 }
 
-.modal-box input:focus{
+.modal-box textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
+.modal-box input:focus,
+.modal-box textarea:focus,
+.modal-box select:focus{
   border-color:#00e676;
 }
 
@@ -262,24 +338,32 @@ section{
   color:#00843d;
 }
 
-#userInfo{
+.product-message{
   display:none;
-  align-items:center;
-  gap:10px;
+  padding:12px;
+  border-radius:10px;
+  margin-bottom:15px;
+  text-align:center;
+  line-height:1.7;
 }
 
-#userEmail{
-  color:#fff;
-  font-size:13px;
+.product-error{
+  background:#ffecec;
+  color:#c40000;
 }
 
-.logout-btn{
-  background:#ff3b30;
-  color:white;
-  border:0;
-  padding:9px 14px;
-  border-radius:20px;
-  cursor:pointer;
+.product-success{
+  background:#eafff2;
+  color:#00843d;
+}
+
+#imagePreview{
+  width:100%;
+  height:180px;
+  border-radius:12px;
+  object-fit:cover;
+  display:none;
+  margin-bottom:12px;
 }
 
 footer{
@@ -312,326 +396,376 @@ footer strong{
     display:none;
   }
 
-}
+  .products{
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+  }
 
+  .product-image{
+    height:140px;
+  }
+}
 </style>
 </head>
 
-
 <body>
-
 
 <header>
 
-  <div class="logo">
-    XOSHNAW <span>MARKET</span>
-  </div>
+<div class="logo">
+XOSHNAW <span>MARKET</span>
+</div>
 
-  <nav>
-    <a href="#home">سەرەکی</a>
-    <a href="#auction">مەزاد</a>
-    <a href="#shop">فرۆشتن</a>
-    <a href="#live">🔴 Live</a>
-  </nav>
+<nav>
+<a href="#home">سەرەکی</a>
+<a href="#auction">مەزاد</a>
+<a href="#shop">فرۆشتن</a>
+<a href="#live">🔴 Live</a>
+</nav>
 
-  <button
-    class="login-btn"
-    id="loginButton"
-    onclick="openLogin()">
+<button
+class="login-btn"
+id="loginButton"
+onclick="openLogin()">
+چوونەژوورەوە
+</button>
 
-    چوونەژوورەوە
+<div id="userInfo">
 
-  </button>
+<span id="userEmail"></span>
 
-  <div id="userInfo">
+<button
+class="logout-btn"
+onclick="logout()">
+دەرچوون
+</button>
 
-    <span id="userEmail"></span>
-
-    <button
-      class="logout-btn"
-      onclick="logout()">
-
-      دەرچوون
-
-    </button>
-
-  </div>
+</div>
 
 </header>
 
 
-
 <section class="hero" id="home">
 
-  <h1>
+<h1>
+بەخێربێیت بۆ
+<span>XOSHNAW MARKET</span>
+</h1>
 
-    بەخێربێیت بۆ
-    <span>XOSHNAW MARKET</span>
+<p>
+کڕین • فرۆشتن • مەزاد • Live
+</p>
 
-  </h1>
+<div class="search">
 
-  <p>
-    کڕین • فرۆشتن • مەزاد • Live
-  </p>
+<input
+id="searchInput"
+type="text"
+placeholder="ناوی کاڵا بگەڕێ..."
+oninput="searchProduct()">
 
-  <div class="search">
+<button onclick="searchProduct()">
+گەڕان
+</button>
 
-    <input
-      id="searchInput"
-      type="text"
-      placeholder="ناوی کاڵا بگەڕێ..."
-    >
-
-    <button onclick="searchProduct()">
-
-      گەڕان
-
-    </button>
-
-  </div>
+</div>
 
 </section>
-
 
 
 <div class="categories">
 
-  <div class="category">📱 ئەلیکترۆنیات</div>
-  <div class="category">🚗 ئۆتۆمبێل</div>
-  <div class="category">💻 کۆمپیوتەر</div>
-  <div class="category">👕 جل و بەرگ</div>
-  <div class="category">🏠 ماڵ</div>
-  <div class="category">🎮 یاری</div>
-
+<div
+class="category"
+onclick="filterCategory('ئەلیکترۆنیات')">
+📱 ئەلیکترۆنیات
 </div>
 
+<div
+class="category"
+onclick="filterCategory('ئۆتۆمبێل')">
+🚗 ئۆتۆمبێل
+</div>
+
+<div
+class="category"
+onclick="filterCategory('کۆمپیوتەر')">
+💻 کۆمپیوتەر
+</div>
+
+<div
+class="category"
+onclick="filterCategory('جل و بەرگ')">
+👕 جل و بەرگ
+</div>
+
+<div
+class="category"
+onclick="filterCategory('ماڵ')">
+🏠 ماڵ
+</div>
+
+<div
+class="category"
+onclick="filterCategory('یاری')">
+🎮 یاری
+</div>
+
+</div>
 
 
 <section id="auction">
 
-  <div class="title">
+<div class="title">
+<h2>🔨 مەزادی چالاک</h2>
+</div>
 
-    <h2>
-      🔨 مەزادی چالاک
-    </h2>
+<div class="empty">
 
-  </div>
+<div class="icon">🔨</div>
 
-  <div class="empty">
+<h3>
+هێشتا هیچ مەزادێک نییە
+</h3>
 
-    <div class="icon">
-      🔨
-    </div>
+<p>
+کاتێک مەزاد زیاد بکرێت لێرە دەردەکەوێت.
+</p>
 
-    <h3>
-      هێشتا هیچ مەزادێک نییە
-    </h3>
-
-    <p>
-      کاتێک فرۆشیار مەزادێک دابنێت،
-      لێرە پیشان دەدرێت.
-    </p>
-
-  </div>
+</div>
 
 </section>
-
 
 
 <section id="shop">
 
-  <div class="title">
+<div class="title">
+<h2>🛒 بەرهەمەکان</h2>
+</div>
 
-    <h2>
-      🛒 فرۆشتنی ڕاستەوخۆ
-    </h2>
-
-  </div>
-
-  <div class="empty">
-
-    <div class="icon">
-      🛒
-    </div>
-
-    <h3>
-      هێشتا هیچ کاڵایەک نییە
-    </h3>
-
-    <p>
-      کاڵاکان لەلایەن فرۆشیارانەوە زیاد دەکرێن.
-    </p>
-
-  </div>
+<div
+id="productsContainer"
+class="products">
+</div>
 
 </section>
-
 
 
 <section id="live">
 
-  <div class="title">
+<div class="title">
+<h2>🔴 Live</h2>
+</div>
 
-    <h2>
-      🔴 Live
-    </h2>
+<div class="empty">
 
-  </div>
+<div class="icon">🔴</div>
 
-  <div class="empty">
+<h3>
+هیچ Live ـێک ئێستا نییە
+</h3>
 
-    <div class="icon">
-      🔴
-    </div>
+<p>
+کاتێک بەکارهێنەر Live بکاتەوە، لێرە دەردەکەوێت.
+</p>
 
-    <h3>
-      هیچ Live ـێک ئێستا نییە
-    </h3>
-
-    <p>
-      کاتێک بەکارهێنەر Live بکاتەوە،
-      لێرە دەردەکەوێت.
-    </p>
-
-  </div>
+</div>
 
 </section>
 
 
-
 <div class="sell">
 
-  <h2>
-    📦 کاڵاکەت بفرۆشە
-  </h2>
+<h2>
+📦 کاڵاکەت بفرۆشە
+</h2>
 
-  <p>
-    دەتوانیت کاڵاکەت بە نرخی جێگیر بفرۆشیت
-    یان بیخەیتە مەزاد.
-  </p>
+<p>
+کاڵاکەت زیاد بکە و بۆ هەموو بەکارهێنەرانی XOSHNAW MARKET پیشانی بدە.
+</p>
 
-  <button onclick="openLogin()">
-
-    دەستپێکردنی فرۆشتن
-
-  </button>
+<button onclick="openProductForm()">
+➕ زیادکردنی بەرهەم
+</button>
 
 </div>
 
 
-
 <footer>
 
-  <strong>
-    XOSHNAW MARKET
-  </strong>
+<strong>XOSHNAW MARKET</strong>
 
-  <p style="margin-top:10px;">
-
-    کڕین • فرۆشتن • مەزاد • Live
-
-  </p>
+<p style="margin-top:10px;">
+کڕین • فرۆشتن • مەزاد • Live
+</p>
 
 </footer>
-
 
 
 <!-- LOGIN MODAL -->
 
 <div
-  class="modal"
-  id="loginModal">
+class="modal"
+id="loginModal">
 
-  <div class="modal-box">
+<div class="modal-box">
 
-    <div
-      class="close"
-      onclick="closeLogin()">
+<div
+class="close"
+onclick="closeLogin()">
+×
+</div>
 
-      ×
+<h2 id="formTitle">
+چوونەژوورەوە
+</h2>
 
-    </div>
+<div
+id="errorMessage"
+class="message error-message">
+</div>
 
+<div
+id="successMessage"
+class="message success-message">
+</div>
 
-    <h2 id="formTitle">
+<input
+id="name"
+type="text"
+placeholder="ناوی تەواو"
+style="display:none;">
 
-      چوونەژوورەوە
+<input
+id="email"
+type="email"
+placeholder="Email"
+autocomplete="email">
 
-    </h2>
+<input
+id="password"
+type="password"
+placeholder="وشەی نهێنی"
+autocomplete="current-password">
 
+<button
+id="authButton"
+onclick="handleAuth()">
+چوونەژوورەوە
+</button>
 
-    <div
-      id="errorMessage"
-      class="message error-message">
-    </div>
+<div
+class="switch"
+id="switchText"
+onclick="switchMode()">
+هەژمارت نییە؟ هەژمار دروست بکە
+</div>
 
-
-    <div
-      id="successMessage"
-      class="message success-message">
-    </div>
-
-
-    <input
-      id="name"
-      type="text"
-      placeholder="ناوی تەواو"
-      style="display:none;"
-    >
-
-
-    <input
-      id="email"
-      type="email"
-      placeholder="Email"
-      autocomplete="email"
-    >
-
-
-    <input
-      id="password"
-      type="password"
-      placeholder="وشەی نهێنی"
-      autocomplete="current-password"
-    >
-
-
-    <button
-      id="authButton"
-      onclick="handleAuth()">
-
-      چوونەژوورەوە
-
-    </button>
-
-
-    <div
-      class="switch"
-      id="switchText"
-      onclick="switchMode()">
-
-      هەژمارت نییە؟
-      هەژمار دروست بکە
-
-    </div>
-
-  </div>
+</div>
 
 </div>
 
 
+<!-- PRODUCT MODAL -->
 
-<!-- SUPABASE -->
+<div
+class="modal"
+id="productModal">
+
+<div class="modal-box">
+
+<div
+class="close"
+onclick="closeProductForm()">
+×
+</div>
+
+<h2>
+📦 زیادکردنی بەرهەم
+</h2>
+
+<div
+id="productError"
+class="product-message product-error">
+</div>
+
+<div
+id="productSuccess"
+class="product-message product-success">
+</div>
+
+<input
+id="productTitle"
+type="text"
+placeholder="ناوی بەرهەم">
+
+<textarea
+id="productDescription"
+placeholder="وەسفی بەرهەم...">
+</textarea>
+
+<input
+id="productPrice"
+type="number"
+min="0"
+step="0.01"
+placeholder="نرخ">
+
+<select id="productCategory">
+
+<option value="">
+جۆری بەرهەم هەڵبژێرە
+</option>
+
+<option value="ئەلیکترۆنیات">
+📱 ئەلیکترۆنیات
+</option>
+
+<option value="ئۆتۆمبێل">
+🚗 ئۆتۆمبێل
+</option>
+
+<option value="کۆمپیوتەر">
+💻 کۆمپیوتەر
+</option>
+
+<option value="جل و بەرگ">
+👕 جل و بەرگ
+</option>
+
+<option value="ماڵ">
+🏠 ماڵ
+</option>
+
+<option value="یاری">
+🎮 یاری
+</option>
+
+</select>
+
+<input
+id="productImage"
+type="file"
+accept="image/*"
+onchange="previewImage(event)">
+
+<img
+id="imagePreview">
+
+<button
+id="productButton"
+onclick="addProduct()">
+زیادکردنی بەرهەم
+</button>
+
+</div>
+
+</div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-
 <script>
-
-
-/* =========================
-   SUPABASE
-========================= */
 
 const SUPABASE_URL =
 "https://wpjqvpcqaufrpstnziad.supabase.co";
@@ -641,635 +775,909 @@ const SUPABASE_PUBLISHABLE_KEY =
 
 const supabaseClient =
 supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_PUBLISHABLE_KEY
+SUPABASE_URL,
+SUPABASE_PUBLISHABLE_KEY
 );
 
+let register=false;
+let allProducts=[];
 
-let register = false;
 
-
-
-/* =========================
-   MESSAGES
-========================= */
+/* LOGIN MESSAGES */
 
 function clearMessages(){
 
-  document.getElementById(
-    "errorMessage"
-  ).style.display = "none";
+document.getElementById("errorMessage")
+.style.display="none";
 
-  document.getElementById(
-    "successMessage"
-  ).style.display = "none";
+document.getElementById("successMessage")
+.style.display="none";
 
 }
-
 
 function showError(message){
 
-  const box =
-    document.getElementById(
-      "errorMessage"
-    );
+const box =
+document.getElementById("errorMessage");
 
-  box.innerText = message;
-
-  box.style.display = "block";
+box.innerText=message;
+box.style.display="block";
 
 }
-
 
 function showSuccess(message){
 
-  const box =
-    document.getElementById(
-      "successMessage"
-    );
+const box =
+document.getElementById("successMessage");
 
-  box.innerText = message;
-
-  box.style.display = "block";
+box.innerText=message;
+box.style.display="block";
 
 }
 
 
-
-/* =========================
-   OPEN LOGIN
-========================= */
+/* LOGIN */
 
 function openLogin(){
 
-  clearMessages();
+clearMessages();
 
-  document.getElementById(
-    "loginModal"
-  ).style.display = "flex";
+document.getElementById("loginModal")
+.style.display="flex";
 
 }
-
-
-
-/* =========================
-   CLOSE LOGIN
-========================= */
 
 function closeLogin(){
 
-  document.getElementById(
-    "loginModal"
-  ).style.display = "none";
+document.getElementById("loginModal")
+.style.display="none";
 
 }
 
-
-
-/* =========================
-   SWITCH MODE
-========================= */
 
 function switchMode(){
 
-  register = !register;
+register=!register;
 
-  clearMessages();
+clearMessages();
 
-  const name =
-    document.getElementById("name");
+const name =
+document.getElementById("name");
 
-  const title =
-    document.getElementById("formTitle");
+const title =
+document.getElementById("formTitle");
 
-  const button =
-    document.getElementById("authButton");
+const button =
+document.getElementById("authButton");
 
-  const text =
-    document.getElementById("switchText");
+const text =
+document.getElementById("switchText");
 
-  const password =
-    document.getElementById("password");
+const password =
+document.getElementById("password");
 
 
-  if(register){
+if(register){
 
-    name.style.display = "block";
+name.style.display="block";
 
-    title.innerText =
-      "دروستکردنی هەژمار";
+title.innerText=
+"دروستکردنی هەژمار";
 
-    button.innerText =
-      "دروستکردنی هەژمار";
+button.innerText=
+"دروستکردنی هەژمار";
 
-    text.innerText =
-      "هەژمارت هەیە؟ بچۆ ژوورەوە";
+text.innerText=
+"هەژمارت هەیە؟ بچۆ ژوورەوە";
 
-    password.autocomplete =
-      "new-password";
+password.autocomplete=
+"new-password";
 
-  }else{
+}else{
 
-    name.style.display = "none";
+name.style.display="none";
 
-    title.innerText =
-      "چوونەژوورەوە";
+title.innerText=
+"چوونەژوورەوە";
 
-    button.innerText =
-      "چوونەژوورەوە";
+button.innerText=
+"چوونەژوورەوە";
 
-    text.innerText =
-      "هەژمارت نییە؟ هەژمار دروست بکە";
+text.innerText=
+"هەژمارت نییە؟ هەژمار دروست بکە";
 
-    password.autocomplete =
-      "current-password";
-
-  }
+password.autocomplete=
+"current-password";
 
 }
 
+}
 
-
-/* =========================
-   RESET LOGIN
-========================= */
 
 function resetToLogin(){
 
-  register = false;
+register=false;
 
-  document.getElementById(
-    "name"
-  ).style.display = "none";
+document.getElementById("name")
+.style.display="none";
 
-  document.getElementById(
-    "formTitle"
-  ).innerText =
-    "چوونەژوورەوە";
+document.getElementById("formTitle")
+.innerText="چوونەژوورەوە";
 
-  document.getElementById(
-    "authButton"
-  ).innerText =
-    "چوونەژوورەوە";
+document.getElementById("authButton")
+.innerText="چوونەژوورەوە";
 
-  document.getElementById(
-    "switchText"
-  ).innerText =
-    "هەژمارت نییە؟ هەژمار دروست بکە";
+document.getElementById("switchText")
+.innerText=
+"هەژمارت نییە؟ هەژمار دروست بکە";
 
 }
 
-
-
-/* =========================
-   AUTHENTICATION
-========================= */
 
 async function handleAuth(){
 
-  clearMessages();
+clearMessages();
 
+const email =
+document.getElementById("email")
+.value.trim().toLowerCase();
 
-  const email =
-    document
-    .getElementById("email")
-    .value
-    .trim()
-    .toLowerCase();
+const password =
+document.getElementById("password")
+.value;
 
+const button =
+document.getElementById("authButton");
 
-  const password =
-    document.getElementById(
-      "password"
-    ).value;
 
+if(!email || !password){
 
-  const button =
-    document.getElementById(
-      "authButton"
-    );
+showError(
+"تکایە Email و وشەی نهێنی پڕ بکەرەوە."
+);
 
+return;
 
-  if(!email || !password){
+}
 
-    showError(
-      "تکایە Email و وشەی نهێنی پڕ بکەرەوە."
-    );
+if(password.length<6){
 
-    return;
+showError(
+"وشەی نهێنی دەبێت لانیکەم 6 پیت بێت."
+);
 
-  }
+return;
 
+}
 
-  if(password.length < 6){
+button.disabled=true;
+button.innerText="چاوەڕوان بە...";
 
-    showError(
-      "وشەی نهێنی دەبێت لانیکەم 6 پیت بێت."
-    );
 
-    return;
+if(register){
 
-  }
+const name =
+document.getElementById("name")
+.value.trim();
 
+if(!name){
 
-  button.disabled = true;
+button.disabled=false;
 
-  button.innerText =
-    "چاوەڕوان بە...";
+button.innerText=
+"دروستکردنی هەژمار";
 
+showError(
+"تکایە ناوی تەواوت بنووسە."
+);
 
+return;
 
-  /* =========================
-     REGISTER
-  ========================= */
+}
 
-  if(register){
+const redirectUrl =
+window.location.origin+
+window.location.pathname;
 
-    const name =
-      document
-      .getElementById("name")
-      .value
-      .trim();
+const result =
+await supabaseClient.auth.signUp({
 
+email:email,
 
-    if(!name){
+password:password,
 
-      button.disabled = false;
+options:{
+data:{
+full_name:name
+},
+emailRedirectTo:redirectUrl
+}
 
-      button.innerText =
-        "دروستکردنی هەژمار";
+});
 
-      showError(
-        "تکایە ناوی تەواوت بنووسە."
-      );
+const data=result.data;
+const error=result.error;
 
-      return;
+button.disabled=false;
 
-    }
+if(error){
 
+button.innerText=
+"دروستکردنی هەژمار";
 
-    /*
-      ئەمە URL ـی پەڕەی ئێستایە.
-    */
+showError(
+"هەڵە لە دروستکردنی هەژمار:\n\n"+
+error.message
+);
 
-    const redirectUrl =
-      window.location.origin +
-      window.location.pathname;
+return;
 
+}
 
-    const result =
-      await supabaseClient.auth.signUp({
+if(data.user && !data.session){
 
-        email: email,
+showSuccess(
+"هەژمارەکەت دروست کرا ✅\n\n"+
+"لینکی پشتڕاستکردنەوەمان بۆ Email ـەکەت ناردووە.\n\n"+
+"Email ـەکەت بکەرەوە و لینکەکە بکەوە."
+);
 
-        password: password,
+}else{
 
-        options: {
+showSuccess(
+"هەژمارەکەت بە سەرکەوتوویی دروست کرا ✅"
+);
 
-          data: {
+updateUserUI(data.user);
 
-            full_name: name
+setTimeout(
+function(){
+closeLogin();
+},
+1000
+);
 
-          },
+}
 
-          emailRedirectTo:
-            redirectUrl
+resetToLogin();
 
-        }
-
-      });
-
-
-    const data =
-      result.data;
-
-    const error =
-      result.error;
-
-
-    button.disabled = false;
-
-
-    if(error){
-
-      button.innerText =
-        "دروستکردنی هەژمار";
-
-      showError(
-        "هەڵە لە دروستکردنی هەژمار:\n\n" +
-        error.message
-      );
-
-      return;
-
-    }
-
-
-    /*
-      Email Confirmation
-    */
-
-    if(
-      data.user &&
-      !data.session
-    ){
-
-      showSuccess(
-        "هەژمارەکەت دروست کرا ✅\n\n" +
-        "لینکی پشتڕاستکردنەوەمان بۆ Email ـەکەت ناردووە.\n\n" +
-        "Email ـەکەت بکەرەوە و کرتە لەسەر لینکەکە بکە."
-      );
-
-
-    }else{
-
-
-      showSuccess(
-        "هەژمارەکەت بە سەرکەوتوویی دروست کرا ✅"
-      );
-
-
-      updateUserUI(
-        data.user
-      );
-
-
-      setTimeout(
-        function(){
-
-          closeLogin();
-
-        },
-        1200
-      );
-
-    }
-
-
-    resetToLogin();
-
-    button.disabled = false;
-
-    return;
-
-  }
-
-
-
-  /* =========================
-     LOGIN
-  ========================= */
-
-  const result =
-    await supabaseClient.auth
-    .signInWithPassword({
-
-      email: email,
-
-      password: password
-
-    });
-
-
-  const data =
-    result.data;
-
-  const error =
-    result.error;
-
-
-  button.disabled = false;
-
-  button.innerText =
-    "چوونەژوورەوە";
-
-
-  if(error){
-
-    const message =
-      error.message.toLowerCase();
-
-
-    if(
-      message.includes(
-        "email not confirmed"
-      )
-    ){
-
-      showError(
-        "Email ـەکەت هێشتا پشتڕاست نەکراوەتەوە.\n\n" +
-        "تکایە بچۆ ناو Email ـەکەت و لینکەکەی Verify بکە."
-      );
-
-
-    }else{
-
-
-      showError(
-        "Email یان وشەی نهێنی هەڵەیە.\n\n" +
-        "تکایە زانیارییەکانت بپشکنە."
-      );
-
-    }
-
-    return;
-
-  }
-
-
-  showSuccess(
-    "بەخێربێیتەوە لە XOSHNAW MARKET ✅"
-  );
-
-
-  updateUserUI(
-    data.user
-  );
-
-
-  setTimeout(
-    function(){
-
-      closeLogin();
-
-    },
-    800
-  );
+return;
 
 }
 
 
+const result =
+await supabaseClient.auth.signInWithPassword({
 
-/* =========================
-   LOGOUT
-========================= */
+email:email,
+password:password
+
+});
+
+const data=result.data;
+const error=result.error;
+
+button.disabled=false;
+
+button.innerText=
+"چوونەژوورەوە";
+
+
+if(error){
+
+const message =
+error.message.toLowerCase();
+
+if(message.includes("email not confirmed")){
+
+showError(
+"Email ـەکەت هێشتا پشتڕاست نەکراوەتەوە.\n\n"+
+"تکایە بچۆ ناو Email ـەکەت و لینکەکەی Verify بکە."
+);
+
+}else{
+
+showError(
+"Email یان وشەی نهێنی هەڵەیە.\n\n"+
+"تکایە زانیارییەکانت بپشکنە."
+);
+
+}
+
+return;
+
+}
+
+updateUserUI(data.user);
+
+showSuccess(
+"بەخێربێیتەوە لە XOSHNAW MARKET ✅"
+);
+
+setTimeout(
+function(){
+closeLogin();
+},
+800
+);
+
+}
+
+
+/* USER */
 
 async function logout(){
 
-  const result =
-    await supabaseClient.auth.signOut();
+await supabaseClient.auth.signOut();
 
+updateUserUI(null);
 
-  if(result.error){
-
-    alert(
-      "هەڵە لە دەرچوون:\n" +
-      result.error.message
-    );
-
-    return;
-
-  }
-
-
-  updateUserUI(null);
-
-
-  alert(
-    "بە سەرکەوتوویی دەرچوویت."
-  );
+alert(
+"بە سەرکەوتوویی دەرچوویت."
+);
 
 }
 
-
-
-/* =========================
-   USER UI
-========================= */
 
 function updateUserUI(user){
 
-  const loginButton =
-    document.getElementById(
-      "loginButton"
-    );
+const loginButton =
+document.getElementById("loginButton");
 
-  const userInfo =
-    document.getElementById(
-      "userInfo"
-    );
+const userInfo =
+document.getElementById("userInfo");
 
-  const userEmail =
-    document.getElementById(
-      "userEmail"
-    );
+const userEmail =
+document.getElementById("userEmail");
 
 
-  if(user){
+if(user){
 
-    loginButton.style.display =
-      "none";
+loginButton.style.display="none";
 
-    userInfo.style.display =
-      "flex";
+userInfo.style.display="flex";
 
-    userEmail.innerText =
-      user.email || "";
+userEmail.innerText=
+user.email||"";
 
+}else{
 
-  }else{
+loginButton.style.display="block";
 
-    loginButton.style.display =
-      "block";
+userInfo.style.display="none";
 
-    userInfo.style.display =
-      "none";
+userEmail.innerText="";
 
-    userEmail.innerText =
-      "";
-
-  }
+}
 
 }
 
 
+/* CHECK USER */
 
-/* =========================
-   CHECK SESSION
-========================= */
+async function getCurrentUser(){
+
+const result =
+await supabaseClient.auth.getUser();
+
+if(result.error){
+
+return null;
+
+}
+
+return result.data.user;
+
+}
+
 
 async function checkUser(){
 
-  const result =
-    await supabaseClient.auth
-    .getSession();
+const user =
+await getCurrentUser();
 
-
-  if(result.error){
-
-    updateUserUI(null);
-
-    return;
-
-  }
-
-
-  updateUserUI(
-    result.data.session?.user || null
-  );
+updateUserUI(user);
 
 }
 
 
-
-/* =========================
-   AUTH STATE
-========================= */
-
 supabaseClient.auth.onAuthStateChange(
-  function(event, session){
+function(event,session){
 
-    updateUserUI(
-      session?.user || null
-    );
+updateUserUI(
+session ? session.user:null
+);
 
-  }
+}
 );
 
 
+/* PRODUCT FORM */
 
-/* =========================
-   SEARCH
-========================= */
+async function openProductForm(){
 
-function searchProduct(){
+const user =
+await getCurrentUser();
 
-  const value =
-    document
-    .getElementById(
-      "searchInput"
-    )
-    .value
-    .trim();
+if(!user){
 
+openLogin();
 
-  if(!value){
+showError(
+"بۆ زیادکردنی بەرهەم پێویستە سەرەتا بچیتە ژوورەوە."
+);
 
-    alert(
-      "تکایە ناوی کاڵا بنووسە."
-    );
+return;
 
-    return;
+}
 
-  }
+clearProductMessages();
 
-
-  alert(
-    "گەڕان بۆ: " +
-    value +
-    "\n\nهێشتا هیچ کاڵایەک نەدۆزرایەوە."
-  );
+document.getElementById("productModal")
+.style.display="flex";
 
 }
 
 
+function closeProductForm(){
 
-/* =========================
-   START
-========================= */
+document.getElementById("productModal")
+.style.display="none";
+
+}
+
+
+function clearProductMessages(){
+
+document.getElementById("productError")
+.style.display="none";
+
+document.getElementById("productSuccess")
+.style.display="none";
+
+}
+
+
+function showProductError(message){
+
+const box =
+document.getElementById("productError");
+
+box.innerText=message;
+box.style.display="block";
+
+}
+
+
+function showProductSuccess(message){
+
+const box =
+document.getElementById("productSuccess");
+
+box.innerText=message;
+box.style.display="block";
+
+}
+
+
+/* IMAGE PREVIEW */
+
+function previewImage(event){
+
+const file =
+event.target.files[0];
+
+const preview =
+document.getElementById("imagePreview");
+
+if(!file){
+
+preview.style.display="none";
+preview.src="";
+
+return;
+
+}
+
+const reader =
+new FileReader();
+
+reader.onload=
+function(e){
+
+preview.src=e.target.result;
+
+preview.style.display="block";
+
+};
+
+reader.readAsDataURL(file);
+
+}
+
+
+/* ADD PRODUCT */
+
+async function addProduct(){
+
+clearProductMessages();
+
+const user =
+await getCurrentUser();
+
+if(!user){
+
+closeProductForm();
+
+openLogin();
+
+showError(
+"هەژمارەکەت پەیوەندی بە سایتەکەوە نەماوە. تکایە دوبارە بچۆ ژوورەوە."
+);
+
+return;
+
+}
+
+
+const title =
+document.getElementById("productTitle")
+.value.trim();
+
+const description =
+document.getElementById("productDescription")
+.value.trim();
+
+const price =
+document.getElementById("productPrice")
+.value;
+
+const category =
+document.getElementById("productCategory")
+.value;
+
+
+if(!title){
+
+showProductError(
+"تکایە ناوی بەرهەم بنووسە."
+);
+
+return;
+
+}
+
+
+if(!price || Number(price)<0){
+
+showProductError(
+"تکایە نرخێکی دروست بنووسە."
+);
+
+return;
+
+}
+
+
+if(!category){
+
+showProductError(
+"تکایە جۆری بەرهەم هەڵبژێرە."
+);
+
+return;
+
+}
+
+
+const button =
+document.getElementById("productButton");
+
+button.disabled=true;
+
+button.innerText=
+"لە پاشەکەوتکردندایە...";
+
+
+const productData={
+
+user_id:user.id,
+
+title:title,
+
+description:description||null,
+
+price:Number(price),
+
+category:category,
+
+image_url:null
+
+};
+
+
+const result =
+await supabaseClient
+.from("products")
+.insert(productData)
+.select()
+.single();
+
+
+button.disabled=false;
+
+button.innerText=
+"زیادکردنی بەرهەم";
+
+
+if(result.error){
+
+showProductError(
+"نەتوانرا بەرهەمەکە زیاد بکرێت.\n\n"+
+result.error.message
+);
+
+return;
+
+}
+
+
+showProductSuccess(
+"بەرهەمەکەت بە سەرکەوتوویی زیاد کرا ✅"
+);
+
+
+document.getElementById("productTitle")
+.value="";
+
+document.getElementById("productDescription")
+.value="";
+
+document.getElementById("productPrice")
+.value="";
+
+document.getElementById("productCategory")
+.value="";
+
+document.getElementById("productImage")
+.value="";
+
+document.getElementById("imagePreview")
+.style.display="none";
+
+
+await loadProducts();
+
+
+setTimeout(
+function(){
+closeProductForm();
+},
+1000
+);
+
+}
+
+
+/* LOAD PRODUCTS */
+
+async function loadProducts(){
+
+const container =
+document.getElementById("productsContainer");
+
+container.innerHTML=
+"<div class='empty'><div class='icon'>⏳</div><h3>چاوەڕوان بە...</h3></div>";
+
+
+const result =
+await supabaseClient
+.from("products")
+.select("*")
+.order("created_at",{ascending:false});
+
+
+if(result.error){
+
+container.innerHTML=
+"<div class='empty' style='grid-column:1/-1;'>"+
+"<div class='icon'>⚠️</div>"+
+"<h3>هەڵە لە بارکردنی بەرهەمەکان</h3>"+
+"<p>"+escapeHTML(result.error.message)+"</p>"+
+"</div>";
+
+return;
+
+}
+
+
+allProducts=result.data||[];
+
+renderProducts(allProducts);
+
+}
+
+
+/* RENDER PRODUCTS */
+
+function renderProducts(products){
+
+const container =
+document.getElementById("productsContainer");
+
+
+if(!products.length){
+
+container.innerHTML=
+"<div class='empty' style='grid-column:1/-1;'>"+
+"<div class='icon'>🛒</div>"+
+"<h3>هێشتا هیچ بەرهەمێک نییە</h3>"+
+"<p>یەکەم کەس بەرهەمەکەت زیاد بکە.</p>"+
+"</div>";
+
+return;
+
+}
+
+
+container.innerHTML="";
+
+
+products.forEach(function(product){
+
+const card =
+document.createElement("div");
+
+card.className="product";
+
+let imageHTML=
+"<div class='product-image'>📦</div>";
+
+
+if(product.image_url){
+
+imageHTML=
+"<img src='"+
+escapeHTML(product.image_url)+
+"' class='product-image' alt='بەرهەم'>";
+
+}
+
+
+card.innerHTML=
+
+imageHTML+
+
+"<div class='product-info'>"+
+
+"<h3>"+
+escapeHTML(product.title)+
+"</h3>"+
+
+"<p>"+
+escapeHTML(
+product.description||"بێ وەسف"
+)+
+"</p>"+
+
+"<p style='margin-top:7px;'>"+
+escapeHTML(
+product.category||""
+)+
+"</p>"+
+
+"<div class='price'>"+
+formatPrice(product.price)+
+"</div>"+
+
+"</div>";
+
+container.appendChild(card);
+
+});
+
+}
+
+
+function escapeHTML(value){
+
+return String(value)
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+function formatPrice(price){
+
+return Number(price)
+.toLocaleString("en-US")+
+" IQD";
+
+}
+
+
+/* SEARCH */
+
+function searchProduct(){
+
+const value =
+document.getElementById("searchInput")
+.value
+.trim()
+.toLowerCase();
+
+
+if(!value){
+
+renderProducts(allProducts);
+
+return;
+
+}
+
+
+const filtered =
+allProducts.filter(function(product){
+
+return(
+
+String(product.title||"")
+.toLowerCase()
+.includes(value)
+
+||
+
+String(product.description||"")
+.toLowerCase()
+.includes(value)
+
+||
+
+String(product.category||"")
+.toLowerCase()
+.includes(value)
+
+);
+
+});
+
+
+renderProducts(filtered);
+
+}
+
+
+/* CATEGORY */
+
+function filterCategory(category){
+
+const filtered =
+allProducts.filter(function(product){
+
+return product.category===category;
+
+});
+
+
+renderProducts(filtered);
+
+document.getElementById("shop")
+.scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+
+/* START */
 
 checkUser();
 
+loadProducts();
 
 </script>
 
