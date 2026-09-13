@@ -1,60 +1,472 @@
-<!-- XOSHNAW MARKET
-     Super Admin: lawaking24@gmail.com
-     Front-end version
--->
 <!DOCTYPE html>
 <html lang="ku" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>XOSHNAW MARKET</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,Tahoma,sans-serif}
-body{background:#f3f4f6;color:#111827;padding-bottom:70px}
-header{background:#111827;color:white;padding:15px;position:sticky;top:0;z-index:1000}
-.header{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:10px}
-.logo{font-size:22px;font-weight:bold;color:#facc15}
-button{border:0;border-radius:10px;padding:11px 15px;cursor:pointer;font-weight:bold}
-.loginBtn{background:#facc15;color:#111827}
-.logoutBtn{background:#ef4444;color:white}
-.adminBtn{background:#7c3aed;color:white}
-.container{max-width:1100px;margin:auto;padding:20px 14px}
-.hero{background:linear-gradient(135deg,#111827,#374151);color:white;border-radius:20px;padding:28px 20px;margin-bottom:20px}
-.hero h1{font-size:29px;margin-bottom:8px}
-.nav{display:flex;gap:8px;overflow-x:auto;margin-bottom:20px}
-.nav button{background:white;border:1px solid #ddd;white-space:nowrap}
-.nav button.active{background:#111827;color:white}
-.section{display:none}.section.active{display:block}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:15px}
-.card{background:white;border-radius:16px;overflow:hidden;box-shadow:0 3px 15px #00000012;border:1px solid #e5e7eb}
-.productImg{height:180px;display:flex;align-items:center;justify-content:center;font-size:65px;background:#e5e7eb}
-.cardBody{padding:15px}
-.card h3{margin-bottom:8px}
-.price{color:#16a34a;font-size:20px;font-weight:bold;margin:8px 0}
-.buyBtn{width:100%;background:#16a34a;color:white}
-.auctionBtn{width:100%;background:#7c3aed;color:white}
-.formBox{max-width:500px;margin:20px auto;background:white;padding:22px;border-radius:18px;box-shadow:0 3px 15px #0001}
-input,select,textarea{width:100%;padding:12px;margin:7px 0 12px;border:1px solid #d1d5db;border-radius:10px;font-size:15px}
-textarea{min-height:90px;resize:vertical}
-.submit{width:100%;background:#111827;color:white}
-.notice{padding:12px;border-radius:10px;background:#fef3c7;margin-bottom:12px;display:none}
-.account,.adminBox{background:white;padding:20px;border-radius:18px;margin-bottom:15px}
-.adminBox{border-right:5px solid #7c3aed}
-.badge{display:inline-block;padding:5px 9px;border-radius:20px;font-size:12px;background:#e5e7eb}
-.pending{background:#fef3c7}.approved{background:#dcfce7}.rejected{background:#fee2e2}
-.modal{position:fixed;inset:0;background:#0008;display:none;align-items:center;justify-content:center;z-index:3000;padding:15px}
-.modal.show{display:flex}
-.modalBox{background:white;width:100%;max-width:500px;border-radius:18px;padding:22px;position:relative;max-height:90vh;overflow:auto}
-.close{position:absolute;left:12px;top:12px;background:#ef4444;color:white;padding:5px 10px}
-footer{position:fixed;bottom:0;left:0;right:0;background:#111827;color:white;text-align:center;padding:12px;z-index:900}
-.productActions{display:flex;gap:7px;margin-top:10px}
-.productActions button{flex:1}
-.small{font-size:13px;color:#6b7280}
-.hidden{display:none!important}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Tahoma,Arial,sans-serif;
+}
+
+body{
+  background:#f4f5f7;
+  color:#151515;
+  padding-bottom:85px;
+}
+
+button,input,select,textarea{
+  font-family:inherit;
+}
+
+button{
+  cursor:pointer;
+  border:0;
+}
+
+header{
+  background:#111;
+  color:#fff;
+  padding:16px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
+
+.logo{
+  font-size:21px;
+  font-weight:bold;
+  color:#ffd400;
+}
+
+.header-user{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.header-user button{
+  background:#ffd400;
+  color:#111;
+  padding:8px 13px;
+  border-radius:8px;
+  font-weight:bold;
+}
+
+.container{
+  width:min(1100px,94%);
+  margin:20px auto;
+}
+
+.section{
+  display:none;
+}
+
+.section.active{
+  display:block;
+}
+
+.hero{
+  background:linear-gradient(135deg,#111,#292929);
+  color:white;
+  padding:30px 20px;
+  border-radius:18px;
+  margin-bottom:20px;
+}
+
+.hero h1{
+  color:#ffd400;
+  margin-bottom:10px;
+}
+
+.hero p{
+  line-height:1.9;
+  color:#ddd;
+}
+
+.section-title{
+  margin:22px 0 14px;
+  font-size:21px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;
+}
+
+.card{
+  background:white;
+  border-radius:15px;
+  overflow:hidden;
+  box-shadow:0 3px 14px rgba(0,0,0,.08);
+}
+
+.product-image{
+  width:100%;
+  height:190px;
+  object-fit:cover;
+  background:#ddd;
+}
+
+.product-body{
+  padding:15px;
+}
+
+.product-body h3{
+  margin-bottom:8px;
+}
+
+.product-body p{
+  color:#666;
+  line-height:1.7;
+  min-height:42px;
+}
+
+.price{
+  font-size:19px;
+  font-weight:bold;
+  color:#111;
+  margin:10px 0;
+}
+
+.badge{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:12px;
+  background:#eee;
+  margin-bottom:8px;
+}
+
+.badge.auction{
+  background:#fff0b0;
+}
+
+.badge.sale{
+  background:#d9f8df;
+}
+
+.badge.pending{
+  background:#ffe3a3;
+}
+
+.badge.approved{
+  background:#c9f7d0;
+}
+
+.badge.rejected{
+  background:#ffd0d0;
+}
+
+.actions{
+  display:flex;
+  gap:8px;
+  margin-top:12px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  padding:10px 14px;
+  border-radius:9px;
+  font-weight:bold;
+}
+
+.btn-primary{
+  background:#ffd400;
+  color:#111;
+}
+
+.btn-dark{
+  background:#111;
+  color:#fff;
+}
+
+.btn-danger{
+  background:#e53935;
+  color:#fff;
+}
+
+.btn-green{
+  background:#19a64a;
+  color:#fff;
+}
+
+.btn-light{
+  background:#eee;
+  color:#111;
+}
+
+.form-box{
+  background:white;
+  padding:20px;
+  border-radius:16px;
+  box-shadow:0 3px 15px rgba(0,0,0,.07);
+  margin-bottom:20px;
+}
+
+.form-group{
+  margin-bottom:15px;
+}
+
+.form-group label{
+  display:block;
+  margin-bottom:7px;
+  font-weight:bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+  width:100%;
+  padding:12px;
+  border:1px solid #ddd;
+  border-radius:9px;
+  outline:none;
+  background:#fff;
+}
+
+.form-group textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+  border-color:#ffd400;
+}
+
+.notice{
+  padding:14px;
+  border-radius:10px;
+  background:#fff4c2;
+  margin-bottom:15px;
+  line-height:1.8;
+}
+
+.success{
+  background:#d9f8df;
+}
+
+.error{
+  background:#ffd7d7;
+}
+
+.profile-box{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:14px;
+  margin-bottom:20px;
+}
+
+.stat{
+  background:#fff;
+  padding:18px;
+  border-radius:14px;
+  box-shadow:0 3px 12px rgba(0,0,0,.06);
+}
+
+.stat strong{
+  display:block;
+  font-size:25px;
+  margin-top:8px;
+}
+
+.profile-header{
+  background:#111;
+  color:white;
+  border-radius:17px;
+  padding:22px;
+  margin-bottom:18px;
+}
+
+.profile-header h2{
+  color:#ffd400;
+  margin-bottom:7px;
+}
+
+.verify-box{
+  border:2px solid #eee;
+  border-radius:14px;
+  padding:18px;
+  margin-top:15px;
+}
+
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  right:0;
+  left:0;
+  height:72px;
+  background:#111;
+  display:flex;
+  justify-content:center;
+  z-index:2000;
+  box-shadow:0 -3px 15px rgba(0,0,0,.2);
+}
+
+.nav-inner{
+  width:min(700px,100%);
+  display:flex;
+  justify-content:space-around;
+}
+
+.nav-item{
+  flex:1;
+  background:none;
+  color:#aaa;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:4px;
+  font-size:11px;
+}
+
+.nav-item span{
+  font-size:21px;
+}
+
+.nav-item.active{
+  color:#ffd400;
+}
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.65);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:15px;
+  z-index:3000;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  background:white;
+  width:min(450px,100%);
+  max-height:90vh;
+  overflow:auto;
+  border-radius:18px;
+  padding:22px;
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
+}
+
+.close{
+  background:#eee;
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  font-size:20px;
+}
+
+.tabs{
+  display:flex;
+  gap:8px;
+  margin-bottom:15px;
+}
+
+.tabs button{
+  flex:1;
+  padding:10px;
+  border-radius:8px;
+  background:#eee;
+}
+
+.tabs button.active{
+  background:#111;
+  color:#ffd400;
+}
+
+.hidden{
+  display:none!important;
+}
+
+.admin-box{
+  background:#111;
+  color:white;
+  padding:20px;
+  border-radius:16px;
+  margin-top:20px;
+}
+
+.admin-box h3{
+  color:#ffd400;
+  margin-bottom:15px;
+}
+
+.admin-item{
+  background:#222;
+  border-radius:12px;
+  padding:15px;
+  margin-bottom:12px;
+}
+
+.admin-item p{
+  line-height:1.8;
+  color:#ddd;
+}
+
+.favorite{
+  background:#ffeded!important;
+}
+
+.empty{
+  background:white;
+  padding:30px;
+  border-radius:15px;
+  text-align:center;
+  color:#777;
+}
+
+.file-note{
+  font-size:12px;
+  color:#777;
+  margin-top:5px;
+  line-height:1.7;
+}
+
+footer{
+  text-align:center;
+  color:#777;
+  padding:25px 10px;
+}
+
 @media(max-width:600px){
- .hero h1{font-size:23px}
- .productImg{height:150px}
+  header{
+    padding:13px;
+  }
+
+  .logo{
+    font-size:17px;
+  }
+
+  .hero{
+    padding:23px 16px;
+  }
+
+  .product-image{
+    height:170px;
+  }
 }
 </style>
 </head>
@@ -62,656 +474,2613 @@ footer{position:fixed;bottom:0;left:0;right:0;background:#111827;color:white;tex
 <body>
 
 <header>
-<div class="header">
-<div class="logo">XOSHNAW MARKET</div>
-<div>
-<span id="userName">میوان</span>
-<button id="loginButton" class="loginBtn" onclick="openAuth()">چوونەژوورەوە</button>
-<button id="logoutButton" class="logoutBtn hidden" onclick="logout()">دەرچوون</button>
-</div>
-</div>
+  <div class="logo">XOSHNAW MARKET</div>
+
+  <div class="header-user">
+    <span id="headerUser">میوان</span>
+    <button id="authButton" onclick="openAuth()">چوونەژوورەوە</button>
+  </div>
 </header>
+
 
 <main class="container">
 
-<div class="hero">
-<h1>بەخێربێیت بۆ XOSHNAW MARKET</h1>
-<p>بازاڕی فرۆشتن و مزایدە</p>
-</div>
+  <!-- HOME -->
+  <section id="home" class="section active">
 
-<div class="nav">
-<button class="active" onclick="showSection('home',this)">🏠 سەرەکی</button>
-<button onclick="showSection('market',this)">🛒 بازاڕ</button>
-<button onclick="showSection('sell',this)">➕ دانانی کاڵا</button>
-<button onclick="showSection('account',this)">👤 هەژمار</button>
-<button id="adminNav" class="hidden" onclick="showSection('admin',this)">🛡️ بەڕێوەبردن</button>
-</div>
+    <div class="hero">
+      <h1>بەخێربێیت بۆ XOSHNAW MARKET</h1>
+      <p>
+        شوێنێک بۆ کڕین، فرۆشتن و مەزادی کاڵاکان.
+        کاڵاکانت زیاد بکە و بە شێوەی فرۆشتنی ڕاستەوخۆ یان مەزاد بفرۆشە.
+      </p>
+    </div>
 
-<section id="home" class="section active">
-<h2 style="margin-bottom:15px">🔥 XOSHNAW MARKET</h2>
-<div class="grid">
-<div class="card">
-<div class="productImg">🛒</div>
-<div class="cardBody">
-<h3>فرۆشتنی ڕاستەوخۆ</h3>
-<p>کاڵاکانت بە نرخی دیاریکراو بفرۆشە.</p>
-</div>
-</div>
+    <h2 class="section-title">نوێترین کاڵاکان</h2>
+    <div id="homeProducts" class="grid"></div>
 
-<div class="card">
-<div class="productImg">🔨</div>
-<div class="cardBody">
-<h3>مزایدە</h3>
-<p>کاڵاکانت بۆ مزایدە دابنێ.</p>
-</div>
-</div>
+    <div id="liveBox" class="form-box" style="margin-top:20px">
+      <h2>🔴 Live</h2>
+      <p style="margin-top:8px;line-height:1.8">
+        بەشی Live ـی XOSHNAW MARKET بە زوویی چالاک دەکرێت.
+      </p>
+      <div style="margin-top:10px">
+        👁️ بینەر: <strong id="viewerCount">0</strong>
+      </div>
+    </div>
 
-<div class="card">
-<div class="productImg">🪪</div>
-<div class="cardBody">
-<h3>پشتڕاستکردنەوە</h3>
-<p>بۆ فرۆشتن، پێویستە هەژمارەکەت پشتڕاست بکرێتەوە.</p>
-</div>
-</div>
-</div>
-</section>
+  </section>
 
-<section id="market" class="section">
-<h2 style="margin-bottom:15px">🛒 بازاڕ</h2>
-<div id="productsGrid" class="grid"></div>
-</section>
 
-<section id="sell" class="section">
+  <!-- MARKET -->
+  <section id="market" class="section">
 
-<div id="verificationRequired" class="formBox">
-<h2>🪪 پشتڕاستکردنەوەی فرۆشیار</h2>
-<p style="margin:10px 0">
-پێش دانانی کاڵا، هەژمارەکەت دەبێت پشتڕاست بکرێتەوە.
-</p>
+    <h2 class="section-title">🛒 بازاڕ</h2>
 
-<select id="documentType">
-<option value="">جۆری بەڵگە هەڵبژێرە</option>
-<option value="national">کارتی نیشتیمانی</option>
-<option value="passport">پاسپۆرت</option>
-</select>
+    <div class="form-box">
+      <div class="form-group">
+        <label>گەڕان بۆ کاڵا</label>
+        <input id="marketSearch"
+               type="text"
+               placeholder="ناوی کاڵا بنووسە..."
+               oninput="renderMarket()">
+      </div>
+    </div>
 
-<input id="documentNumber" placeholder="ژمارەی بەڵگەنامە">
-<input id="documentFile" type="file" accept="image/*,.pdf">
+    <div id="marketProducts" class="grid"></div>
 
-<button class="submit" onclick="submitVerification()">
-ناردن بۆ پشکنین
-</button>
+  </section>
 
-<div id="verificationNotice" class="notice"></div>
-</div>
 
-<div id="sellForm" class="formBox hidden">
-<h2>➕ دانانی کاڵا</h2>
+  <!-- ADD PRODUCT -->
+  <section id="addProduct" class="section">
 
-<input id="productName" placeholder="ناوی کاڵا">
-<input id="productPrice" type="number" placeholder="نرخ">
+    <h2 class="section-title">➕ دانانی کاڵا</h2>
 
-<select id="saleType">
-<option value="direct">🛒 فرۆشتنی ڕاستەوخۆ</option>
-<option value="auction">🔨 مزایدە</option>
-</select>
+    <div id="addProductMessage"></div>
 
-<select id="productIcon">
-<option value="📱">📱 مۆبایل</option>
-<option value="💻">💻 کۆمپیوتەر</option>
-<option value="🚗">🚗 ئۆتۆمبێل</option>
-<option value="🎧">🎧 کۆڵەپشتی گوێ</option>
-<option value="📦">📦 کاڵا</option>
-</select>
+    <div id="addProductFormBox" class="form-box">
 
-<textarea id="productDescription" placeholder="وەسفی کاڵا"></textarea>
+      <div class="notice">
+        تێبینی: بۆ دانانی کاڵا، ناسنامە لێرە داوا ناکرێت.
+        تەنها ئەگەر هەژمارەکەت پشتڕاست نەکرابێتەوە، دەبێت لە Profile پشتڕاستکردنەوەکە تەواو بکەیت.
+      </div>
 
-<button class="submit" onclick="addProduct()">
-دانانی کاڵا
-</button>
+      <form id="productForm">
 
-<div id="productNotice" class="notice"></div>
-</div>
+        <div class="form-group">
+          <label>ناوی کاڵا</label>
+          <input id="productName" required placeholder="بۆ نموونە iPhone 15">
+        </div>
 
-</section>
+        <div class="form-group">
+          <label>وەسفی کاڵا</label>
+          <textarea id="productDescription"
+                    required
+                    placeholder="زانیارییەکانی کاڵا..."></textarea>
+        </div>
 
-<section id="account" class="section">
-<div id="guestAccount" class="account">
-<h2>👤 هەژمار</h2>
-<p style="margin:12px 0">تکایە سەرەتا بچۆ ژوورەوە.</p>
-<button class="loginBtn" onclick="openAuth()">چوونەژوورەوە</button>
-</div>
+        <div class="form-group">
+          <label>جۆری فرۆشتن</label>
+          <select id="productType" onchange="toggleAuctionFields()">
+            <option value="sale">فرۆشتنی ڕاستەوخۆ</option>
+            <option value="auction">مەزاد</option>
+          </select>
+        </div>
 
-<div id="userAccount" class="account hidden">
-<h2>👤 هەژماری من</h2>
-<h3 id="accountName" style="margin-top:15px"></h3>
-<p id="accountEmail" class="small"></p>
-<p id="verificationStatus" style="margin-top:12px"></p>
-</div>
-</section>
+        <div class="form-group">
+          <label id="priceLabel">نرخ</label>
+          <input id="productPrice"
+                 type="number"
+                 min="0"
+                 required
+                 placeholder="0">
+        </div>
 
-<section id="admin" class="section">
-<h2 style="margin-bottom:15px">🛡️ بەڕێوەبردن</h2>
+        <div id="auctionFields" class="hidden">
 
-<div class="adminBox">
-<h3>👑 Super Admin</h3>
-<p style="margin-top:8px">lawaking24@gmail.com</p>
-</div>
+          <div class="form-group">
+            <label>کۆتایی مەزاد</label>
+            <input id="auctionEnd" type="datetime-local">
+          </div>
 
-<div class="adminBox">
-<h3>🪪 داواکارییەکانی پشتڕاستکردنەوە</h3>
-<div id="verificationList"></div>
-</div>
+        </div>
 
-<div class="adminBox">
-<h3>📦 کاڵاکانی پشکنین</h3>
-<div id="adminProducts"></div>
-</div>
-</section>
+        <div class="form-group">
+          <label>وێنەی کاڵا</label>
+          <input id="productImage"
+                 type="file"
+                 accept="image/*">
+          <div class="file-note">
+            وێنەی کاڵاکە هەڵبژێرە.
+          </div>
+        </div>
+
+        <button class="btn btn-primary" type="submit">
+          دانانی کاڵا بۆ پەسەندکردن
+        </button>
+
+      </form>
+
+    </div>
+
+  </section>
+
+
+  <!-- FAVORITES -->
+  <section id="favorites" class="section">
+
+    <h2 class="section-title">❤️ Favorites</h2>
+
+    <div id="favoriteProducts" class="grid"></div>
+
+  </section>
+
+
+  <!-- PROFILE -->
+  <section id="profile" class="section">
+
+    <div id="profileContent"></div>
+
+  </section>
+
+
+  <!-- ADMIN -->
+  <section id="admin" class="section">
+
+    <h2 class="section-title">🛡️ Super Admin</h2>
+
+    <div id="adminContent"></div>
+
+  </section>
 
 </main>
 
-<footer>XOSHNAW MARKET © 2026</footer>
 
+<footer>
+  XOSHNAW MARKET © 2026
+</footer>
+
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+
+  <div class="nav-inner">
+
+    <button class="nav-item active" data-section="home" onclick="showSection('home')">
+      <span>🏠</span>
+      سەرەتا
+    </button>
+
+    <button class="nav-item" data-section="market" onclick="showSection('market')">
+      <span>🛒</span>
+      بازاڕ
+    </button>
+
+    <button class="nav-item" data-section="addProduct" onclick="showSection('addProduct')">
+      <span>➕</span>
+      دانانی کاڵا
+    </button>
+
+    <button class="nav-item" data-section="favorites" onclick="showSection('favorites')">
+      <span>❤️</span>
+      دڵخوازەکان
+    </button>
+
+    <button class="nav-item" data-section="profile" onclick="showSection('profile')">
+      <span>👤</span>
+      Profile
+    </button>
+
+  </div>
+
+</nav>
+
+
+<!-- AUTH MODAL -->
 <div id="authModal" class="modal">
-<div class="modalBox">
-<button class="close" onclick="closeAuth()">×</button>
 
-<h2 id="authTitle">دروستکردنی هەژمار</h2>
+  <div class="modal-box">
 
-<div id="authNotice" class="notice"></div>
+    <div class="modal-head">
+      <h2>هەژماری XOSHNAW</h2>
+      <button class="close" onclick="closeAuth()">×</button>
+    </div>
 
-<input id="authName" placeholder="ناوی تەواو">
-<input id="authEmail" type="email" placeholder="ئیمەیڵ">
-<input id="authPassword" type="password" placeholder="وشەی نهێنی">
+    <div class="tabs">
+      <button id="loginTab"
+              class="active"
+              onclick="showAuthTab('login')">
+        چوونەژوورەوە
+      </button>
 
-<button id="authSubmit" class="submit" onclick="register()">
-دروستکردنی هەژمار
-</button>
+      <button id="registerTab"
+              onclick="showAuthTab('register')">
+        دروستکردنی هەژمار
+      </button>
+    </div>
 
-<p style="text-align:center;margin-top:15px">
-هەژمارت هەیە؟
-<button onclick="loginMode()" style="background:none;color:#2563eb;padding:4px">
-چوونەژوورەوە
-</button>
-</p>
+
+    <!-- LOGIN -->
+    <form id="loginForm">
+
+      <div class="form-group">
+        <label>ئیمەیڵ</label>
+        <input id="loginEmail"
+               type="email"
+               required
+               placeholder="example@email.com">
+      </div>
+
+      <div class="form-group">
+        <label>وشەی نهێنی</label>
+        <input id="loginPassword"
+               type="password"
+               required>
+      </div>
+
+      <button class="btn btn-dark" style="width:100%">
+        چوونەژوورەوە
+      </button>
+
+    </form>
+
+
+    <!-- REGISTER -->
+    <form id="registerForm" class="hidden">
+
+      <div class="form-group">
+        <label>ناو</label>
+        <input id="registerName"
+               required
+               placeholder="ناوی تەواو">
+      </div>
+
+      <div class="form-group">
+        <label>ئیمەیڵ</label>
+        <input id="registerEmail"
+               type="email"
+               required
+               placeholder="example@email.com">
+      </div>
+
+      <div class="form-group">
+        <label>ژمارەی مۆبایل</label>
+        <input id="registerPhone"
+               type="tel"
+               placeholder="07xxxxxxxxx">
+      </div>
+
+      <div class="form-group">
+        <label>وشەی نهێنی</label>
+        <input id="registerPassword"
+               type="password"
+               minlength="6"
+               required>
+      </div>
+
+      <div class="form-group">
+        <label>دووبارەی وشەی نهێنی</label>
+        <input id="registerPassword2"
+               type="password"
+               minlength="6"
+               required>
+      </div>
+
+      <button class="btn btn-primary" style="width:100%">
+        دروستکردنی هەژمار
+      </button>
+
+    </form>
+
+    <div id="authMessage" style="margin-top:12px"></div>
+
+  </div>
+
 </div>
+
+
+<!-- VERIFICATION MODAL -->
+<div id="verificationModal" class="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+      <h2>🪪 پشتڕاستکردنەوەی ناسنامە</h2>
+      <button class="close" onclick="closeVerification()">×</button>
+    </div>
+
+    <div class="notice">
+      بۆ پاراستنی بازاڕ و بەکارهێنەران، تکایە ناسنامەکەت پشتڕاست بکەرەوە.
+    </div>
+
+    <form id="verificationForm">
+
+      <div class="form-group">
+        <label>جۆری بەڵگەنامە</label>
+
+        <select id="documentType"
+                onchange="toggleDocumentType()">
+
+          <option value="national_id">
+            ناسنامەی عێراقی
+          </option>
+
+          <option value="passport">
+            پاسپۆرت
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div id="nationalIdFields">
+
+        <div class="form-group">
+          <label>ناسنامە - ڕووی پێشەوە</label>
+          <input id="idFront"
+                 type="file"
+                 accept="image/*">
+        </div>
+
+        <div class="form-group">
+          <label>ناسنامە - ڕووی دواوە</label>
+          <input id="idBack"
+                 type="file"
+                 accept="image/*">
+        </div>
+
+      </div>
+
+
+      <div id="passportFields" class="hidden">
+
+        <div class="form-group">
+          <label>وێنەی پاسپۆرت</label>
+          <input id="passport"
+                 type="file"
+                 accept="image/*">
+        </div>
+
+      </div>
+
+      <div class="file-note">
+        لە وەشانی ڕاستەقینەی سایتدا ئەم بەڵگەنامانە دەبێت بە شێوەی پارێزراو لە سێرڤەر هەڵبگیرێن.
+      </div>
+
+      <button class="btn btn-primary"
+              style="width:100%;margin-top:15px">
+        ناردنی بۆ پشتڕاستکردنەوە
+      </button>
+
+    </form>
+
+  </div>
+
 </div>
+
 
 <script>
 
-const SUPER_ADMIN="lawaking24@gmail.com";
+const SUPER_ADMIN_EMAIL = "lawaking24@gmail.com";
 
-let user=JSON.parse(localStorage.getItem("xoshUser")||"null");
-
-let products=JSON.parse(localStorage.getItem("xoshProducts")||"[]");
-
-let verification=JSON.parse(
-localStorage.getItem("xoshVerification")||"[]"
-);
-
-function save(){
-localStorage.setItem("xoshProducts",JSON.stringify(products));
-localStorage.setItem("xoshVerification",JSON.stringify(verification));
-}
-
-function showSection(id,btn){
-
-document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));
-document.getElementById(id).classList.add("active");
-
-document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));
-if(btn)btn.classList.add("active");
-
-renderProducts();
-renderAdmin();
-}
-
-function openAuth(){
-document.getElementById("authModal").classList.add("show");
-}
-
-function closeAuth(){
-document.getElementById("authModal").classList.remove("show");
-}
-
-function notice(id,text){
-let n=document.getElementById(id);
-n.innerText=text;
-n.style.display="block";
-}
-
-function register(){
-
-let name=document.getElementById("authName").value.trim();
-let email=document.getElementById("authEmail").value.trim().toLowerCase();
-let password=document.getElementById("authPassword").value;
-
-if(!name||!email||!password){
-notice("authNotice","تکایە هەموو خانەکان پڕ بکەرەوە.");
-return;
-}
-
-user={
-name:name,
-email:email,
-role:email===SUPER_ADMIN?"superadmin":"user",
-verified:email===SUPER_ADMIN
+const KEYS = {
+  users: "xoshUsers",
+  currentUser: "xoshCurrentUser",
+  products: "xoshProducts",
+  bids: "xoshBids",
+  winners: "xoshWinners"
 };
 
-localStorage.setItem("xoshUser",JSON.stringify(user));
 
-closeAuth();
-updateUser();
-
-alert("هەژمارەکەت بە سەرکەوتوویی دروست کرا ✅");
+function getData(key){
+  try{
+    return JSON.parse(localStorage.getItem(key) || "[]");
+  }catch(e){
+    return [];
+  }
 }
 
-function loginMode(){
 
-document.getElementById("authTitle").innerText="چوونەژوورەوە";
-document.getElementById("authName").classList.add("hidden");
-
-let btn=document.getElementById("authSubmit");
-
-btn.innerText="چوونەژوورەوە";
-btn.onclick=login;
+function saveData(key,data){
+  localStorage.setItem(key,JSON.stringify(data));
 }
 
-function login(){
 
-let email=document.getElementById("authEmail").value.trim().toLowerCase();
-let password=document.getElementById("authPassword").value;
+function getCurrentUser(){
+  const id = localStorage.getItem(KEYS.currentUser);
 
-if(!email||!password){
-notice("authNotice","ئیمەیڵ و وشەی نهێنی بنووسە.");
-return;
+  if(!id) return null;
+
+  const users = getData(KEYS.users);
+
+  return users.find(u => u.id === id) || null;
 }
 
-user={
-name:email===SUPER_ADMIN?"Super Admin":email.split("@")[0],
-email:email,
-role:email===SUPER_ADMIN?"superadmin":"user",
-verified:email===SUPER_ADMIN
-};
 
-localStorage.setItem("xoshUser",JSON.stringify(user));
-
-closeAuth();
-updateUser();
-
-alert("بە سەرکەوتوویی چوویتە ژوورەوە ✅");
+function setCurrentUser(id){
+  localStorage.setItem(KEYS.currentUser,id);
 }
+
 
 function logout(){
+  localStorage.removeItem(KEYS.currentUser);
 
-localStorage.removeItem("xoshUser");
-user=null;
-
-updateUser();
-showSection("home",document.querySelector(".nav button"));
+  updateHeader();
+  renderProfile();
+  showSection("home");
 }
 
-function updateUser(){
 
-let loginBtn=document.getElementById("loginButton");
-let logoutBtn=document.getElementById("logoutButton");
-let admin=document.getElementById("adminNav");
-
-if(user){
-
-document.getElementById("userName").innerText=user.name;
-loginBtn.classList.add("hidden");
-logoutBtn.classList.remove("hidden");
-
-if(user.role==="superadmin"||user.role==="admin")
-admin.classList.remove("hidden");
-else
-admin.classList.add("hidden");
-
-}else{
-
-document.getElementById("userName").innerText="میوان";
-loginBtn.classList.remove("hidden");
-logoutBtn.classList.add("hidden");
-admin.classList.add("hidden");
+function generateId(){
+  return Date.now().toString(36) + Math.random().toString(36).substring(2,8);
 }
 
-updateAccount();
-updateSellAccess();
-renderProducts();
-renderAdmin();
+
+function escapeHtml(value){
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 }
 
-function updateAccount(){
 
-let guest=document.getElementById("guestAccount");
-let account=document.getElementById("userAccount");
-
-if(!user){
-guest.classList.remove("hidden");
-account.classList.add("hidden");
-return;
+function formatMoney(number){
+  return Number(number || 0).toLocaleString("en-US") + " $";
 }
 
-guest.classList.add("hidden");
-account.classList.remove("hidden");
 
-document.getElementById("accountName").innerText=user.name;
-document.getElementById("accountEmail").innerText=user.email;
+function formatDate(date){
+  if(!date) return "-";
 
-if(user.verified){
-document.getElementById("verificationStatus").innerHTML=
-"🟢 هەژمارەکەت پشتڕاستکراوەتەوە.";
-}else{
-document.getElementById("verificationStatus").innerHTML=
-"🟡 هێشتا پشتڕاست نەکراوەتەوە.";
-}
+  return new Date(date).toLocaleString("ku-IQ");
 }
 
-function updateSellAccess(){
 
-let required=document.getElementById("verificationRequired");
-let form=document.getElementById("sellForm");
+/* =========================
+   NAVIGATION
+========================= */
 
-if(!user){
-required.classList.remove("hidden");
-form.classList.add("hidden");
-return;
+function showSection(id){
+
+  if(id === "addProduct"){
+
+    const user = getCurrentUser();
+
+    if(!user){
+      openAuth();
+      return;
+    }
+
+    if(!user.verified){
+      document.getElementById("addProductMessage").innerHTML = `
+        <div class="notice">
+          بۆ دانانی کاڵا، پێویستە یەکەم جار هەژمارەکەت پشتڕاست بکەیتەوە.
+          <br><br>
+          <button class="btn btn-primary"
+                  onclick="openVerification()">
+            پشتڕاستکردنەوەی ناسنامە
+          </button>
+        </div>
+      `;
+    }else{
+      document.getElementById("addProductMessage").innerHTML = "";
+    }
+  }
+
+  if(id === "profile"){
+    renderProfile();
+  }
+
+  if(id === "market"){
+    renderMarket();
+  }
+
+  if(id === "favorites"){
+    renderFavorites();
+  }
+
+  if(id === "admin"){
+    renderAdmin();
+  }
+
+  document.querySelectorAll(".section")
+    .forEach(s => s.classList.remove("active"));
+
+  const target = document.getElementById(id);
+
+  if(target){
+    target.classList.add("active");
+  }
+
+  document.querySelectorAll(".nav-item")
+    .forEach(btn => {
+
+      btn.classList.remove("active");
+
+      if(btn.dataset.section === id){
+        btn.classList.add("active");
+      }
+
+    });
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 }
 
-if(user.verified){
-required.classList.add("hidden");
-form.classList.remove("hidden");
-}else{
-required.classList.remove("hidden");
-form.classList.add("hidden");
-}
-}
 
-function submitVerification(){
+/* =========================
+   AUTH
+========================= */
 
-if(!user){
-openAuth();
-return;
+function openAuth(){
+  document.getElementById("authModal").classList.add("show");
+  showAuthTab("login");
 }
 
-let type=document.getElementById("documentType").value;
-let number=document.getElementById("documentNumber").value.trim();
-let file=document.getElementById("documentFile").files[0];
 
-if(!type||!number||!file){
-notice("verificationNotice",
-"جۆری بەڵگە، ژمارە و فایلەکە پڕ بکەرەوە.");
-return;
+function closeAuth(){
+  document.getElementById("authModal").classList.remove("show");
 }
 
-let exists=verification.find(x=>x.email===user.email);
 
-if(exists){
-notice("verificationNotice",
-"داواکارییەکەت پێشتر نێردراوە.");
-return;
+function showAuthTab(tab){
+
+  const login = document.getElementById("loginForm");
+  const register = document.getElementById("registerForm");
+
+  const loginTab = document.getElementById("loginTab");
+  const registerTab = document.getElementById("registerTab");
+
+  if(tab === "login"){
+
+    login.classList.remove("hidden");
+    register.classList.add("hidden");
+
+    loginTab.classList.add("active");
+    registerTab.classList.remove("active");
+
+  }else{
+
+    login.classList.add("hidden");
+    register.classList.remove("hidden");
+
+    loginTab.classList.remove("active");
+    registerTab.classList.add("active");
+
+  }
+
+  document.getElementById("authMessage").innerHTML = "";
 }
 
-verification.push({
-id:Date.now(),
-name:user.name,
-email:user.email,
-type:type,
-number:number,
-fileName:file.name,
-status:"pending"
+
+async function hashPassword(password){
+
+  const data = new TextEncoder().encode(password);
+
+  const hash = await crypto.subtle.digest(
+    "SHA-256",
+    data
+  );
+
+  return Array.from(new Uint8Array(hash))
+    .map(b => b.toString(16).padStart(2,"0"))
+    .join("");
+}
+
+
+/* REGISTER */
+
+document.getElementById("registerForm")
+.addEventListener("submit",async function(e){
+
+  e.preventDefault();
+
+  const name =
+    document.getElementById("registerName").value.trim();
+
+  const email =
+    document.getElementById("registerEmail").value.trim().toLowerCase();
+
+  const phone =
+    document.getElementById("registerPhone").value.trim();
+
+  const password =
+    document.getElementById("registerPassword").value;
+
+  const password2 =
+    document.getElementById("registerPassword2").value;
+
+  const message =
+    document.getElementById("authMessage");
+
+
+  if(password !== password2){
+
+    message.innerHTML =
+      `<div class="notice error">وشە نهێنییەکان یەکسان نین.</div>`;
+
+    return;
+  }
+
+
+  const users = getData(KEYS.users);
+
+
+  if(users.some(u => u.email === email)){
+
+    message.innerHTML =
+      `<div class="notice error">ئەم ئیمەیڵە پێشتر بەکارهاتووە.</div>`;
+
+    return;
+  }
+
+
+  const passwordHash =
+    await hashPassword(password);
+
+
+  const isSuperAdmin =
+    email === SUPER_ADMIN_EMAIL;
+
+
+  const user = {
+
+    id: generateId(),
+
+    name,
+
+    email,
+
+    phone,
+
+    passwordHash,
+
+    role: isSuperAdmin
+      ? "superadmin"
+      : "user",
+
+    verified: isSuperAdmin,
+
+    verificationStatus:
+      isSuperAdmin
+        ? "approved"
+        : "required",
+
+    verification: null,
+
+    favorites: [],
+
+    createdAt: new Date().toISOString()
+
+  };
+
+
+  users.push(user);
+
+  saveData(KEYS.users,users);
+
+  setCurrentUser(user.id);
+
+  closeAuth();
+
+  updateHeader();
+
+  renderProfile();
+
+  showSection("profile");
+
+
+  if(!isSuperAdmin){
+
+    setTimeout(() => {
+
+      alert(
+        "هەژمارەکەت دروستکرا. ئێستا تکایە ناسنامەکەت پشتڕاست بکەرەوە."
+      );
+
+      openVerification();
+
+    },300);
+
+  }else{
+
+    alert("بەخێربێیت Super Admin.");
+
+  }
+
 });
 
-save();
 
-notice("verificationNotice",
-"داواکارییەکەت نێردرا و لە چاوەڕوانی پشکنینی Admin ـە.");
+/* LOGIN */
 
-renderAdmin();
-}
+document.getElementById("loginForm")
+.addEventListener("submit",async function(e){
 
-function addProduct(){
+  e.preventDefault();
 
-if(!user||!user.verified){
-alert("سەرەتا دەبێت هەژمارەکەت پشتڕاست بکرێتەوە.");
-return;
-}
+  const email =
+    document.getElementById("loginEmail")
+      .value.trim()
+      .toLowerCase();
 
-let name=document.getElementById("productName").value.trim();
-let price=Number(document.getElementById("productPrice").value);
-let type=document.getElementById("saleType").value;
-let icon=document.getElementById("productIcon").value;
-let description=document.getElementById("productDescription").value.trim();
+  const password =
+    document.getElementById("loginPassword")
+      .value;
 
-if(!name||!price||!description){
-notice("productNotice","تکایە هەموو زانیارییەکان پڕ بکەرەوە.");
-return;
-}
+  const passwordHash =
+    await hashPassword(password);
 
-products.push({
-id:Date.now(),
-name:name,
-price:price,
-type:type,
-icon:icon,
-description:description,
-seller:user.email,
-status:"pending"
+  const users =
+    getData(KEYS.users);
+
+
+  let user =
+    users.find(u =>
+      u.email === email &&
+      u.passwordHash === passwordHash
+    );
+
+
+  /*
+    ئەگەر Super Admin یەکەم جارە
+    هەژمارەکەی نییە، لە Register دروستی بکە.
+  */
+
+  if(!user){
+
+    document.getElementById("authMessage").innerHTML =
+      `<div class="notice error">
+        ئیمەیڵ یان وشەی نهێنی هەڵەیە.
+      </div>`;
+
+    return;
+  }
+
+
+  setCurrentUser(user.id);
+
+  closeAuth();
+
+  updateHeader();
+
+  showSection("profile");
+
 });
 
-save();
 
-document.getElementById("productName").value="";
-document.getElementById("productPrice").value="";
-document.getElementById("productDescription").value="";
+/* =========================
+   HEADER
+========================= */
 
-notice("productNotice",
-"کاڵاکە نێردرا بۆ پشکنینی Admin. دوای قبوڵکردن لە بازاڕ دەردەکەوێت.");
+function updateHeader(){
 
-renderAdmin();
+  const user = getCurrentUser();
+
+  const headerUser =
+    document.getElementById("headerUser");
+
+  const authButton =
+    document.getElementById("authButton");
+
+
+  if(user){
+
+    headerUser.textContent =
+      user.name;
+
+    authButton.textContent =
+      "چوونەدەرەوە";
+
+    authButton.onclick =
+      logout;
+
+  }else{
+
+    headerUser.textContent =
+      "میوان";
+
+    authButton.textContent =
+      "چوونەژوورەوە";
+
+    authButton.onclick =
+      openAuth;
+
+  }
+
 }
 
-function renderProducts(){
 
-let grid=document.getElementById("productsGrid");
+/* =========================
+   VERIFICATION
+========================= */
 
-let approved=products.filter(x=>x.status==="approved");
+function openVerification(){
 
-if(!approved.length){
-grid.innerHTML=
-'<div class="card"><div class="cardBody"><h3>هیچ کاڵایەکی قبوڵکراو نییە</h3><p class="small">کاڵاکان دوای پشکنینی Admin لێرە دەردەکەون.</p></div></div>';
-return;
+  const user = getCurrentUser();
+
+  if(!user){
+
+    openAuth();
+    return;
+
+  }
+
+  document.getElementById("verificationModal")
+    .classList.add("show");
+
 }
 
-grid.innerHTML=approved.map(p=>`
 
-<div class="card">
+function closeVerification(){
 
-<div class="productImg">${p.icon}</div>
+  document.getElementById("verificationModal")
+    .classList.remove("show");
 
-<div class="cardBody">
-
-<h3>${escapeHtml(p.name)}</h3>
-
-<p>${escapeHtml(p.description)}</p>
-
-<div class="price">$${p.price}</div>
-
-<div class="badge approved">
-${p.type==="auction"?"🔨 مزایدە":"🛒 فرۆشتنی ڕاستەوخۆ"}
-</div>
-
-<div class="productActions">
-
-<button class="buyBtn"
-onclick="buyProduct(${p.id})">
-${p.type==="auction"?"🔨 بەشداری مزایدە":"🛒 کڕین"}
-</button>
-
-</div>
-
-</div>
-</div>
-
-`).join("");
 }
 
-function buyProduct(id){
 
-let p=products.find(x=>x.id===id);
+function toggleDocumentType(){
 
-if(!user){
-openAuth();
-return;
+  const type =
+    document.getElementById("documentType").value;
+
+  document
+    .getElementById("nationalIdFields")
+    .classList.toggle(
+      "hidden",
+      type !== "national_id"
+    );
+
+  document
+    .getElementById("passportFields")
+    .classList.toggle(
+      "hidden",
+      type !== "passport"
+    );
+
 }
 
-if(p.type==="auction")
-alert("داواکاری بەشداری مزایدە بۆ "+p.name+" تۆمار کرا.");
-else
-alert("داواکاری کڕینی "+p.name+" تۆمار کرا.");
+
+/* VERIFICATION SUBMIT */
+
+document.getElementById("verificationForm")
+.addEventListener("submit",function(e){
+
+  e.preventDefault();
+
+  const user = getCurrentUser();
+
+  if(!user){
+
+    closeVerification();
+    openAuth();
+    return;
+
+  }
+
+
+  const type =
+    document.getElementById("documentType").value;
+
+
+  let valid = false;
+
+  let files = {};
+
+
+  if(type === "national_id"){
+
+    const front =
+      document.getElementById("idFront").files[0];
+
+    const back =
+      document.getElementById("idBack").files[0];
+
+
+    if(front && back){
+
+      valid = true;
+
+      files = {
+        front: front.name,
+        back: back.name
+      };
+
+    }
+
+  }else{
+
+    const passport =
+      document.getElementById("passport").files[0];
+
+
+    if(passport){
+
+      valid = true;
+
+      files = {
+        passport: passport.name
+      };
+
+    }
+
+  }
+
+
+  if(!valid){
+
+    alert(
+      "تکایە هەموو بەڵگەنامە پێویستەکان هەڵبژێرە."
+    );
+
+    return;
+
+  }
+
+
+  const users =
+    getData(KEYS.users);
+
+  const index =
+    users.findIndex(u => u.id === user.id);
+
+
+  users[index].verification = {
+
+    type,
+
+    files,
+
+    submittedAt:
+      new Date().toISOString()
+
+  };
+
+
+  users[index].verificationStatus =
+    "pending";
+
+  users[index].verified =
+    false;
+
+
+  saveData(KEYS.users,users);
+
+
+  closeVerification();
+
+  renderProfile();
+
+  alert(
+    "داواکاری پشتڕاستکردنەوەکەت نێردرا بۆ Super Admin."
+  );
+
+});
+
+
+/* =========================
+   PRODUCTS
+========================= */
+
+function getProducts(){
+  return getData(KEYS.products);
 }
+
+
+function getApprovedProducts(){
+
+  return getProducts()
+    .filter(p =>
+      p.status === "approved" &&
+      p.closed !== true
+    );
+
+}
+
+
+function renderProductCard(product){
+
+  const user =
+    getCurrentUser();
+
+  const favorites =
+    user?.favorites || [];
+
+  const isFavorite =
+    favorites.includes(product.id);
+
+
+  const bids =
+    getData(KEYS.bids)
+      .filter(b => b.productId === product.id);
+
+
+  const highestBid =
+    bids.length
+      ? Math.max(...bids.map(b => Number(b.amount)))
+      : Number(product.price);
+
+
+  const image =
+    product.image ||
+    "https://via.placeholder.com/600x400?text=XOSHNAW+MARKET";
+
+
+  let priceText = "";
+
+  if(product.type === "auction"){
+
+    priceText =
+      `نرخی ئێستا: ${formatMoney(highestBid)}`;
+
+  }else{
+
+    priceText =
+      formatMoney(product.price);
+
+  }
+
+
+  return `
+
+    <div class="card">
+
+      <img
+        class="product-image"
+        src="${image}"
+        alt="${escapeHtml(product.name)}"
+      >
+
+      <div class="product-body">
+
+        <span class="badge ${product.type}">
+          ${
+            product.type === "auction"
+              ? "مەزاد"
+              : "فرۆشتنی ڕاستەوخۆ"
+          }
+        </span>
+
+        <h3>${escapeHtml(product.name)}</h3>
+
+        <p>
+          ${escapeHtml(product.description)}
+        </p>
+
+        <div class="price">
+          ${priceText}
+        </div>
+
+        ${
+          product.type === "auction"
+          ? `
+            <div style="font-size:13px;color:#777">
+              کۆتایی: ${formatDate(product.auctionEnd)}
+            </div>
+          `
+          : ""
+        }
+
+        <div class="actions">
+
+          ${
+            product.type === "auction"
+            ? `
+              <button
+                class="btn btn-primary"
+                onclick="placeBid('${product.id}')">
+                🔨 مەزاد
+              </button>
+            `
+            : `
+              <button
+                class="btn btn-primary"
+                onclick="buyProduct('${product.id}')">
+                🛒 کڕین
+              </button>
+            `
+          }
+
+
+          <button
+            class="btn btn-light ${isFavorite ? "favorite" : ""}"
+            onclick="toggleFavorite('${product.id}')">
+
+            ${isFavorite ? "❤️" : "🤍"}
+            ${isFavorite ? "دڵخوازە" : "دڵخواز"}
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+function renderHome(){
+
+  const products =
+    getApprovedProducts();
+
+  const container =
+    document.getElementById("homeProducts");
+
+
+  if(!products.length){
+
+    container.innerHTML =
+      `<div class="empty">هێشتا هیچ کاڵایەکی پەسەندکراو نییە.</div>`;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    products
+      .slice(0,6)
+      .map(renderProductCard)
+      .join("");
+
+}
+
+
+function renderMarket(){
+
+  const search =
+    document.getElementById("marketSearch")
+      ?.value
+      .trim()
+      .toLowerCase() || "";
+
+
+  let products =
+    getApprovedProducts();
+
+
+  if(search){
+
+    products =
+      products.filter(p =>
+        p.name.toLowerCase().includes(search) ||
+        p.description.toLowerCase().includes(search)
+      );
+
+  }
+
+
+  const container =
+    document.getElementById("marketProducts");
+
+
+  if(!products.length){
+
+    container.innerHTML =
+      `<div class="empty">هیچ کاڵایەک نەدۆزرایەوە.</div>`;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    products.map(renderProductCard).join("");
+
+}
+
+
+/* =========================
+   ADD PRODUCT
+========================= */
+
+function toggleAuctionFields(){
+
+  const type =
+    document.getElementById("productType").value;
+
+  const fields =
+    document.getElementById("auctionFields");
+
+  const label =
+    document.getElementById("priceLabel");
+
+
+  if(type === "auction"){
+
+    fields.classList.remove("hidden");
+
+    label.textContent =
+      "نرخی دەستپێکردنی مەزاد";
+
+    document.getElementById("auctionEnd").required = true;
+
+  }else{
+
+    fields.classList.add("hidden");
+
+    label.textContent =
+      "نرخ";
+
+    document.getElementById("auctionEnd").required = false;
+
+  }
+
+}
+
+
+document.getElementById("productForm")
+.addEventListener("submit",function(e){
+
+  e.preventDefault();
+
+  const user = getCurrentUser();
+
+
+  if(!user){
+
+    openAuth();
+    return;
+
+  }
+
+
+  if(!user.verified){
+
+    document.getElementById("addProductMessage").innerHTML = `
+      <div class="notice error">
+        هەژمارەکەت هێشتا پشتڕاست نەکراوەتەوە.
+        <br><br>
+        <button class="btn btn-primary"
+                onclick="openVerification()">
+          پشتڕاستکردنەوەی ناسنامە
+        </button>
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  const name =
+    document.getElementById("productName")
+      .value.trim();
+
+  const description =
+    document.getElementById("productDescription")
+      .value.trim();
+
+  const type =
+    document.getElementById("productType")
+      .value;
+
+  const price =
+    Number(document.getElementById("productPrice")
+      .value);
+
+  const auctionEnd =
+    document.getElementById("auctionEnd")
+      .value;
+
+
+  const imageFile =
+    document.getElementById("productImage")
+      .files[0];
+
+
+  function saveProduct(image){
+
+    const products =
+      getProducts();
+
+
+    products.push({
+
+      id: generateId(),
+
+      sellerId: user.id,
+
+      sellerName: user.name,
+
+      name,
+
+      description,
+
+      type,
+
+      price,
+
+      auctionEnd:
+        type === "auction"
+          ? auctionEnd
+          : null,
+
+      image:
+
+        image ||
+        "https://via.placeholder.com/600x400?text=XOSHNAW+MARKET",
+
+      status:"pending",
+
+      closed:false,
+
+      createdAt:
+        new Date().toISOString()
+
+    });
+
+
+    saveData(KEYS.products,products);
+
+
+    document.getElementById("productForm").reset();
+
+    toggleAuctionFields();
+
+
+    document.getElementById("addProductMessage").innerHTML = `
+      <div class="notice success">
+        کاڵاکەت بە سەرکەوتوویی نێردرا بۆ پەسەندکردنی Super Admin.
+      </div>
+    `;
+
+  }
+
+
+  if(imageFile){
+
+    const reader =
+      new FileReader();
+
+    reader.onload =
+      function(){
+
+        saveProduct(reader.result);
+
+      };
+
+    reader.readAsDataURL(imageFile);
+
+  }else{
+
+    saveProduct(null);
+
+  }
+
+});
+
+
+/* =========================
+   FAVORITES
+========================= */
+
+function toggleFavorite(productId){
+
+  const user = getCurrentUser();
+
+
+  if(!user){
+
+    openAuth();
+    return;
+
+  }
+
+
+  const users =
+    getData(KEYS.users);
+
+  const index =
+    users.findIndex(u => u.id === user.id);
+
+
+  if(index === -1) return;
+
+
+  if(!Array.isArray(users[index].favorites)){
+    users[index].favorites = [];
+  }
+
+
+  const position =
+    users[index].favorites.indexOf(productId);
+
+
+  if(position === -1){
+
+    users[index].favorites.push(productId);
+
+  }else{
+
+    users[index].favorites.splice(position,1);
+
+  }
+
+
+  saveData(KEYS.users,users);
+
+
+  renderHome();
+  renderMarket();
+  renderFavorites();
+
+}
+
+
+function renderFavorites(){
+
+  const user = getCurrentUser();
+
+  const container =
+    document.getElementById("favoriteProducts");
+
+
+  if(!user){
+
+    container.innerHTML = `
+      <div class="empty">
+        بۆ بینینی دڵخوازەکانت، یەکەم جار بچۆ ژوورەوە.
+        <br><br>
+        <button class="btn btn-primary"
+                onclick="openAuth()">
+          چوونەژوورەوە
+        </button>
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  const ids =
+    user.favorites || [];
+
+
+  const products =
+    getApprovedProducts()
+      .filter(p => ids.includes(p.id));
+
+
+  if(!products.length){
+
+    container.innerHTML =
+      `<div class="empty">
+        هێشتا هیچ کاڵایەکت لە دڵخوازەکان نییە.
+      </div>`;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    products.map(renderProductCard).join("");
+
+}
+
+
+/* =========================
+   BIDS
+========================= */
+
+function placeBid(productId){
+
+  const user = getCurrentUser();
+
+
+  if(!user){
+
+    openAuth();
+    return;
+
+  }
+
+
+  if(!user.verified){
+
+    alert(
+      "بۆ بەشداری لە مەزاد، پێویستە هەژمارەکەت پشتڕاست بکرێتەوە."
+    );
+
+    showSection("profile");
+    return;
+
+  }
+
+
+  const product =
+    getProducts()
+      .find(p => p.id === productId);
+
+
+  if(!product) return;
+
+
+  const bids =
+    getData(KEYS.bids)
+      .filter(b => b.productId === productId);
+
+
+  const current =
+    bids.length
+      ? Math.max(...bids.map(b => Number(b.amount)))
+      : Number(product.price);
+
+
+  const answer =
+    prompt(
+      `نرخی ئێستا ${formatMoney(current)} ـە.\nنرخی بەیدەکەت بنووسە:`
+    );
+
+
+  if(answer === null) return;
+
+
+  const amount =
+    Number(answer);
+
+
+  if(!amount || amount <= current){
+
+    alert(
+      "نرخەکەت دەبێت لە نرخی ئێستا زیاتر بێت."
+    );
+
+    return;
+
+  }
+
+
+  bids.push({
+
+    id:generateId(),
+
+    productId,
+
+    userId:user.id,
+
+    userName:user.name,
+
+    amount,
+
+    createdAt:
+      new Date().toISOString()
+
+  });
+
+
+  /*
+    چونکە لێرە تەنها demo ـە،
+    هەموو bids ـەکە دەخەینەوە.
+  */
+
+  const allBids =
+    getData(KEYS.bids);
+
+  allBids.push(bids[bids.length - 1]);
+
+  saveData(KEYS.bids,allBids);
+
+
+  alert(
+    "بەیدەکەت بە سەرکەوتوویی تۆمارکرا."
+  );
+
+
+  renderHome();
+  renderMarket();
+
+}
+
+
+/* =========================
+   BUY
+========================= */
+
+function buyProduct(productId){
+
+  const user = getCurrentUser();
+
+
+  if(!user){
+
+    openAuth();
+    return;
+
+  }
+
+
+  const product =
+    getProducts()
+      .find(p => p.id === productId);
+
+
+  if(!product) return;
+
+
+  alert(
+    `داواکاری کڕینی "${product.name}" تۆمارکرا.\n\nلە وەشانی سێرڤەری سایتدا ئەمە دەبێت بە سیستەمی پارەدان و Order تەواو بکرێت.`
+  );
+
+}
+
+
+/* =========================
+   PROFILE
+========================= */
+
+function renderProfile(){
+
+  const container =
+    document.getElementById("profileContent");
+
+  const user =
+    getCurrentUser();
+
+
+  if(!user){
+
+    container.innerHTML = `
+      <div class="empty">
+
+        <h2>👤 Profile</h2>
+
+        <p style="margin:12px 0">
+          بۆ بینینی Profile ـەکەت دەبێت بچیتە ژوورەوە.
+        </p>
+
+        <button class="btn btn-primary"
+                onclick="openAuth()">
+          چوونەژوورەوە
+        </button>
+
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  const products =
+    getProducts()
+      .filter(p => p.sellerId === user.id);
+
+
+  const bids =
+    getData(KEYS.bids)
+      .filter(b => b.userId === user.id);
+
+
+  const winners =
+    getData(KEYS.winners)
+      .filter(w => w.userId === user.id);
+
+
+  let verificationText = "";
+
+  if(user.verificationStatus === "approved"){
+
+    verificationText =
+      `<span class="badge approved">پشتڕاستکراوە ✓</span>`;
+
+  }else if(user.verificationStatus === "pending"){
+
+    verificationText =
+      `<span class="badge pending">لە چاوەڕوانیدایە ⏳</span>`;
+
+  }else if(user.verificationStatus === "rejected"){
+
+    verificationText =
+      `<span class="badge rejected">ڕەتکراوەتەوە ✕</span>`;
+
+  }else{
+
+    verificationText =
+      `<span class="badge rejected">پشتڕاست نەکراوەتەوە</span>`;
+
+  }
+
+
+  container.innerHTML = `
+
+    <div class="profile-header">
+
+      <h2>${escapeHtml(user.name)}</h2>
+
+      <p>${escapeHtml(user.email)}</p>
+
+      <p style="margin-top:5px">
+        ${user.role === "superadmin"
+          ? "🛡️ Super Admin"
+          : user.role === "admin"
+            ? "👨‍💼 Admin"
+            : "👤 User"}
+      </p>
+
+      <div style="margin-top:12px">
+        ${verificationText}
+      </div>
+
+    </div>
+
+
+    <div class="profile-box">
+
+      <div class="stat">
+        کاڵاکان
+        <strong>${products.length}</strong>
+      </div>
+
+      <div class="stat">
+        مەزادەکان
+        <strong>${bids.length}</strong>
+      </div>
+
+      <div class="stat">
+        براوەکان
+        <strong>${winners.length}</strong>
+      </div>
+
+      <div class="stat">
+        دڵخوازەکان
+        <strong>${(user.favorites || []).length}</strong>
+      </div>
+
+    </div>
+
+
+    <div class="form-box">
+
+      <h2>🪪 پشتڕاستکردنەوە</h2>
+
+      <p style="margin:10px 0;line-height:1.8">
+        دۆخی ناسنامە: ${verificationText}
+      </p>
+
+      ${
+        user.verified
+        ? `
+          <div class="notice success">
+            هەژمارەکەت پشتڕاستکراوەتەوە و دەتوانیت کاڵا دابنێیت.
+          </div>
+        `
+        : `
+          <button class="btn btn-primary"
+                  onclick="openVerification()">
+            ${user.verificationStatus === "pending"
+              ? "پشکنینی دۆخی پشتڕاستکردنەوە"
+              : "پشتڕاستکردنەوەی ناسنامە"}
+          </button>
+        `
+      }
+
+    </div>
+
+
+    <div class="form-box">
+
+      <h2>📦 کاڵاکانی من</h2>
+
+      <div style="margin-top:15px">
+
+        ${
+          products.length
+          ? products.map(p => `
+
+              <div class="admin-item"
+                   style="background:#f5f5f5;color:#111">
+
+                <strong>
+                  ${escapeHtml(p.name)}
+                </strong>
+
+                <p>
+                  دۆخ:
+                  ${
+                    p.status === "approved"
+                      ? "پەسەندکراوە"
+                      : p.status === "rejected"
+                        ? "ڕەتکراوەتەوە"
+                        : "لە چاوەڕوانی پەسەندکردندایە"
+                  }
+                </p>
+
+              </div>
+
+            `).join("")
+          : `<div class="empty">هێشتا کاڵات نییە.</div>`
+        }
+
+      </div>
+
+    </div>
+
+
+    <div class="form-box">
+
+      <h2>🔨 مەزادەکانی من</h2>
+
+      <div style="margin-top:15px">
+
+        ${
+          bids.length
+          ? renderMyAuctions(bids)
+          : `<div class="empty">هێشتا هیچ بەیدێکت نییە.</div>`
+        }
+
+      </div>
+
+    </div>
+
+
+    <div class="form-box">
+
+      <h2>🏆 براوەکان</h2>
+
+      <div style="margin-top:15px">
+
+        ${
+          winners.length
+          ? winners.map(w => `
+
+              <div class="notice success">
+
+                <strong>
+                  ${escapeHtml(w.productName)}
+                </strong>
+
+                <br>
+
+                نرخی بردن:
+                ${formatMoney(w.amount)}
+
+                <br>
+
+                ${formatDate(w.closedAt)}
+
+              </div>
+
+            `).join("")
+          : `<div class="empty">هێشتا هیچ مەزادێکت نەبردووە.</div>`
+        }
+
+      </div>
+
+    </div>
+
+
+    ${
+      user.role === "superadmin" || user.role === "admin"
+      ? `
+        <div class="admin-box">
+
+          <h3>🛡️ بەشی بەڕێوەبەر</h3>
+
+          <p style="line-height:1.8;color:#ddd">
+            لێرە دەتوانیت پشتڕاستکردنەوەی بەکارهێنەران،
+            پەسەندکردنی کاڵاکان و بەڕێوەبردنی هەژمارەکان بکەیت.
+          </p>
+
+          <button class="btn btn-primary"
+                  style="margin-top:12px"
+                  onclick="showSection('admin')">
+            کردنەوەی Admin Panel
+          </button>
+
+        </div>
+      `
+      : ""
+    }
+
+
+    <button class="btn btn-danger"
+            style="margin-top:20px"
+            onclick="logout()">
+      چوونەدەرەوە
+    </button>
+
+  `;
+
+}
+
+
+function renderMyAuctions(bids){
+
+  const products =
+    getProducts();
+
+
+  const grouped = {};
+
+
+  bids.forEach(b => {
+
+    if(!grouped[b.productId]){
+      grouped[b.productId] = b;
+    }
+
+    if(b.amount > grouped[b.productId].amount){
+      grouped[b.productId] = b;
+    }
+
+  });
+
+
+  return Object.values(grouped)
+    .map(b => {
+
+      const product =
+        products.find(p => p.id === b.productId);
+
+      if(!product) return "";
+
+
+      const allBids =
+        getData(KEYS.bids)
+          .filter(x => x.productId === b.productId);
+
+
+      const highest =
+        Math.max(
+          ...allBids.map(x => Number(x.amount)),
+          Number(product.price)
+        );
+
+
+      const isWinner =
+        Number(b.amount) === highest;
+
+
+      return `
+
+        <div class="notice">
+
+          <strong>
+            ${escapeHtml(product.name)}
+          </strong>
+
+          <br>
+
+          بەیدی من:
+          ${formatMoney(b.amount)}
+
+          <br>
+
+          نرخی ئێستا:
+          ${formatMoney(highest)}
+
+          <br><br>
+
+          ${
+            isWinner
+              ? `<span class="badge approved">تۆ ئێستا پێشەنگیت 🏆</span>`
+              : `<span class="badge">کەسێکی تر پێشەنگە</span>`
+          }
+
+        </div>
+
+      `;
+
+    })
+    .join("");
+
+}
+
+
+/* =========================
+   ADMIN PANEL
+========================= */
 
 function renderAdmin(){
 
-let list=document.getElementById("verificationList");
-let productList=document.getElementById("adminProducts");
+  const container =
+    document.getElementById("adminContent");
 
-if(!user||(user.role!=="superadmin"&&user.role!=="admin")){
-list.innerHTML="";
-productList.innerHTML="";
-return;
+  const user =
+    getCurrentUser();
+
+
+  if(!user ||
+     (user.role !== "superadmin" &&
+      user.role !== "admin")){
+
+    container.innerHTML =
+      `<div class="empty">
+        دەستگەیشتنت بۆ ئەم بەشە نییە.
+      </div>`;
+
+    return;
+
+  }
+
+
+  const products =
+    getProducts();
+
+
+  const users =
+    getData(KEYS.users);
+
+
+  const pendingProducts =
+    products.filter(p =>
+      p.status === "pending"
+    );
+
+
+  const pendingUsers =
+    users.filter(u =>
+      u.verificationStatus === "pending"
+    );
+
+
+  container.innerHTML = `
+
+    <div class="admin-box">
+
+      <h3>📦 کاڵاکانی چاوەڕوانی</h3>
+
+      ${
+        pendingProducts.length
+        ? pendingProducts.map(p => `
+
+            <div class="admin-item">
+
+              <strong>
+                ${escapeHtml(p.name)}
+              </strong>
+
+              <p>
+                فرۆشیار:
+                ${escapeHtml(p.sellerName)}
+              </p>
+
+              <p>
+                جۆر:
+                ${
+                  p.type === "auction"
+                    ? "مەزاد"
+                    : "فرۆشتنی ڕاستەوخۆ"
+                }
+              </p>
+
+              <p>
+                نرخ:
+                ${formatMoney(p.price)}
+              </p>
+
+              <div class="actions">
+
+                <button
+                  class="btn btn-green"
+                  onclick="approveProduct('${p.id}')">
+                  ✓ پەسەندکردن
+                </button>
+
+                <button
+                  class="btn btn-danger"
+                  onclick="rejectProduct('${p.id}')">
+                  ✕ ڕەتکردنەوە
+                </button>
+
+              </div>
+
+            </div>
+
+          `).join("")
+        : `<div class="admin-item">هیچ کاڵایەکی چاوەڕوان نییە.</div>`
+      }
+
+    </div>
+
+
+    <div class="admin-box">
+
+      <h3>🪪 داواکارییەکانی پشتڕاستکردنەوە</h3>
+
+      ${
+        pendingUsers.length
+        ? pendingUsers.map(u => `
+
+            <div class="admin-item">
+
+              <strong>
+                ${escapeHtml(u.name)}
+              </strong>
+
+              <p>
+                ${escapeHtml(u.email)}
+              </p>
+
+              <p>
+                جۆری بەڵگە:
+                ${
+                  u.verification?.type === "passport"
+                    ? "پاسپۆرت"
+                    : "ناسنامەی عێراقی"
+                }
+              </p>
+
+              <p>
+                فایلەکان:
+                ${
+                  Object.values(
+                    u.verification?.files || {}
+                  )
+                  .map(escapeHtml)
+                  .join(" ، ")
+                }
+              </p>
+
+              <div class="actions">
+
+                <button
+                  class="btn btn-green"
+                  onclick="approveVerification('${u.id}')">
+                  ✓ پەسەندکردن
+                </button>
+
+                <button
+                  class="btn btn-danger"
+                  onclick="rejectVerification('${u.id}')">
+                  ✕ ڕەتکردنەوە
+                </button>
+
+              </div>
+
+            </div>
+
+          `).join("")
+        : `<div class="admin-item">هیچ داواکارییەکی نوێ نییە.</div>`
+      }
+
+    </div>
+
+
+    ${
+      user.role === "superadmin"
+      ? `
+
+        <div class="admin-box">
+
+          <h3>👥 بەکارهێنەران</h3>
+
+          ${
+            users.map(u => `
+
+              <div class="admin-item">
+
+                <strong>
+                  ${escapeHtml(u.name)}
+                </strong>
+
+                <p>
+                  ${escapeHtml(u.email)}
+                </p>
+
+                <p>
+                  Role:
+                  ${u.role}
+                </p>
+
+                <p>
+                  Verification:
+                  ${
+                    u.verified
+                      ? "✓"
+                      : u.verificationStatus
+                  }
+                </p>
+
+                ${
+                  u.email !== SUPER_ADMIN_EMAIL
+                  ? `
+                    <div class="actions">
+
+                      <button
+                        class="btn btn-primary"
+                        onclick="toggleAdminRole('${u.id}')">
+
+                        ${
+                          u.role === "admin"
+                            ? "کردن بە User"
+                            : "کردن بە Admin"
+                        }
+
+                      </button>
+
+                    </div>
+                  `
+                  : `
+                    <span class="badge approved">
+                      Super Admin
+                    </span>
+                  `
+                }
+
+              </div>
+
+            `).join("")
+          }
+
+        </div>
+
+      `
+      : ""
+    }
+
+
+    <div class="admin-box">
+
+      <h3>🔨 کۆتاییهێنان بە مەزاد</h3>
+
+      ${
+        products.filter(p =>
+          p.type === "auction" &&
+          p.status === "approved" &&
+          !p.closed
+        ).map(p => `
+
+          <div class="admin-item">
+
+            <strong>
+              ${escapeHtml(p.name)}
+            </strong>
+
+            <p>
+              نرخ:
+              ${formatMoney(getHighestBid(p.id))}
+            </p>
+
+            <button
+              class="btn btn-primary"
+              onclick="closeAuction('${p.id}')">
+
+              کۆتاییهێنان بە مەزاد
+
+            </button>
+
+          </div>
+
+        `).join("")
+        ||
+        `<div class="admin-item">
+          هیچ مەزادێکی کراوە نییە.
+        </div>`
+      }
+
+    </div>
+
+  `;
+
 }
 
-let pendingVerification=verification.filter(x=>x.status==="pending");
-
-list.innerHTML=pendingVerification.length?
-pendingVerification.map(v=>`
-
-<div style="padding:12px;border-bottom:1px solid #eee">
-
-<b>${escapeHtml(v.name)}</b>
-<p class="small">${escapeHtml(v.email)}</p>
-<p>بەڵگە: ${v.type==="passport"?"پاسپۆرت":"کارتی نیشتیمانی"}</p>
-<p>ژمارە: ${escapeHtml(v.number)}</p>
-<p class="small">فایل: ${escapeHtml(v.fileName)}</p>
-
-<button style="background:#16a34a;color:white"
-onclick="approveVerification(${v.id})">
-قبوڵکردن
-</button>
-
-<button style="background:#ef4444;color:white"
-onclick="rejectVerification(${v.id})">
-ڕەتکردنەوە
-</button>
-
-</div>
-
-`).join("")
-:"هیچ داواکارییەکی نوێ نییە.";
-
-let pendingProducts=products.filter(x=>x.status==="pending");
-
-productList.innerHTML=pendingProducts.length?
-pendingProducts.map(p=>`
-
-<div style="padding:12px;border-bottom:1px solid #eee">
-
-<h3>${escapeHtml(p.name)}</h3>
-<p>${escapeHtml(p.description)}</p>
-<p>نرخ: $${p.price}</p>
-<p>فرۆشیار: ${escapeHtml(p.seller)}</p>
-
-<button style="background:#16a34a;color:white"
-onclick="approveProduct(${p.id})">
-قبوڵکردن
-</button>
-
-<button style="background:#ef4444;color:white"
-onclick="rejectProduct(${p.id})">
-ڕەتکردنەوە
-</button>
-
-</div>
-
-`).join("")
-:"هیچ کاڵایەکی چاوەڕوان نییە.";
-}
-
-function approveVerification(id){
-
-let v=verification.find(x=>x.id===id);
-if(!v)return;
-
-v.status="approved";
-
-if(user.email===v.email){
-user.verified=true;
-localStorage.setItem("xoshUser",JSON.stringify(user));
-}
-
-save();
-renderAdmin();
-updateSellAccess();
-
-alert("پشتڕاستکردنەوە قبوڵ کرا ✅");
-}
-
-function rejectVerification(id){
-
-let v=verification.find(x=>x.id===id);
-if(!v)return;
-
-v.status="rejected";
-
-save();
-renderAdmin();
-
-alert("داواکارییەکە ڕەتکرایەوە.");
-}
 
 function approveProduct(id){
 
-let p=products.find(x=>x.id===id);
-if(!p)return;
+  const products =
+    getProducts();
 
-p.status="approved";
+  const index =
+    products.findIndex(p => p.id === id);
 
-save();
-renderProducts();
-renderAdmin();
+  if(index === -1) return;
 
-alert("کاڵاکە بڵاوکرایەوە ✅");
+  products[index].status =
+    "approved";
+
+  saveData(KEYS.products,products);
+
+  renderAdmin();
+  renderHome();
+  renderMarket();
+
 }
+
 
 function rejectProduct(id){
 
-let p=products.find(x=>x.id===id);
-if(!p)return;
+  const products =
+    getProducts();
 
-p.status="rejected";
+  const index =
+    products.findIndex(p => p.id === id);
 
-save();
-renderProducts();
-renderAdmin();
+  if(index === -1) return;
 
-alert("کاڵاکە ڕەتکرایەوە.");
+  products[index].status =
+    "rejected";
+
+  saveData(KEYS.products,products);
+
+  renderAdmin();
+
 }
 
-function escapeHtml(text){
 
-return String(text)
-.replaceAll("&","&amp;")
-.replaceAll("<","&lt;")
-.replaceAll(">","&gt;")
-.replaceAll('"',"&quot;")
-.replaceAll("'","&#039;");
+function approveVerification(userId){
+
+  const users =
+    getData(KEYS.users);
+
+  const index =
+    users.findIndex(u => u.id === userId);
+
+  if(index === -1) return;
+
+
+  users[index].verified =
+    true;
+
+  users[index].verificationStatus =
+    "approved";
+
+
+  saveData(KEYS.users,users);
+
+  renderAdmin();
+  renderProfile();
+
 }
 
-updateUser();
+
+function rejectVerification(userId){
+
+  const users =
+    getData(KEYS.users);
+
+  const index =
+    users.findIndex(u => u.id === userId);
+
+  if(index === -1) return;
+
+
+  users[index].verified =
+    false;
+
+  users[index].verificationStatus =
+    "rejected";
+
+
+  saveData(KEYS.users,users);
+
+  renderAdmin();
+
+}
+
+
+function toggleAdminRole(userId){
+
+  const current =
+    getCurrentUser();
+
+  if(!current ||
+     current.role !== "superadmin"){
+
+    return;
+
+  }
+
+
+  const users =
+    getData(KEYS.users);
+
+  const index =
+    users.findIndex(u => u.id === userId);
+
+
+  if(index === -1) return;
+
+
+  users[index].role =
+    users[index].role === "admin"
+      ? "user"
+      : "admin";
+
+
+  saveData(KEYS.users,users);
+
+  renderAdmin();
+
+}
+
+
+/* =========================
+   AUCTION WINNER
+========================= */
+
+function getHighestBid(productId){
+
+  const product =
+    getProducts()
+      .find(p => p.id === productId);
+
+
+  const bids =
+    getData(KEYS.bids)
+      .filter(b => b.productId === productId);
+
+
+  if(!bids.length){
+    return Number(product?.price || 0);
+  }
+
+
+  return Math.max(
+    Number(product?.price || 0),
+    ...bids.map(b => Number(b.amount))
+  );
+
+}
+
+
+function closeAuction(productId){
+
+  const current =
+    getCurrentUser();
+
+
+  if(!current ||
+     (current.role !== "superadmin" &&
+      current.role !== "admin")){
+
+    return;
+
+  }
+
+
+  const products =
+    getProducts();
+
+  const index =
+    products.findIndex(p => p.id === productId);
+
+
+  if(index === -1) return;
+
+
+  const product =
+    products[index];
+
+
+  const bids =
+    getData(KEYS.bids)
+      .filter(b => b.productId === productId);
+
+
+  if(!bids.length){
+
+    product.closed = true;
+
+    saveData(KEYS.products,products);
+
+    renderAdmin();
+
+    return;
+
+  }
+
+
+  const winner =
+    bids.reduce((a,b) =>
+      Number(a.amount) > Number(b.amount)
+        ? a
+        : b
+    );
+
+
+  product.closed = true;
+
+
+  saveData(KEYS.products,products);
+
+
+  const winners =
+    getData(KEYS.winners);
+
+
+  winners.push({
+
+    id:generateId(),
+
+    productId,
+
+    productName:product.name,
+
+    userId:winner.userId,
+
+    userName:winner.userName,
+
+    amount:Number(winner.amount),
+
+    closedAt:
+      new Date().toISOString()
+
+  });
+
+
+  saveData(KEYS.winners,winners);
+
+
+  renderAdmin();
+  renderHome();
+  renderMarket();
+
+  alert(
+    `مەزاد کۆتایی هات.\nبراوە: ${winner.userName}\nنرخ: ${formatMoney(winner.amount)}`
+  );
+
+}
+
+
+/* =========================
+   LIVE VIEWERS
+========================= */
+
+let viewers =
+  Math.floor(Math.random() * 80) + 20;
+
+
+function updateViewers(){
+
+  viewers +=
+    Math.floor(Math.random() * 7) - 3;
+
+  if(viewers < 1){
+    viewers = 1;
+  }
+
+  document.getElementById("viewerCount")
+    .textContent = viewers;
+
+}
+
+
+setInterval(updateViewers,3000);
+
+
+/* =========================
+   INIT
+========================= */
+
+function init(){
+
+  /*
+    تەنها Super Admin email ـەکە
+    دیاریکراوە.
+    Password لە کاتی دروستکردنی
+    هەژمارەکە دیاری دەکرێت.
+  */
+
+  updateHeader();
+
+  renderHome();
+
+  renderMarket();
+
+  renderFavorites();
+
+  renderProfile();
+
+}
+
+
+init();
 
 </script>
+
 </body>
 </html>
