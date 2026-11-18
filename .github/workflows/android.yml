@@ -1,0 +1,81 @@
+
+name: KURDISTAN DRIVE Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Download game files from Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir release-assets
+          gh release download v1.0 \
+            --repo "$GITHUB_REPOSITORY" \
+            --dir release-assets
+
+      - name: Extract game files
+        run: |
+          find release-assets -type f -name "*.zip" \
+            -exec unzip -oq {} -d release-assets/unpacked \;
+
+          INDEX=$(find release-assets -type f \
+            -name "index.html" -print -quit)
+
+          if [ -z "$INDEX" ]; then
+            echo "ERROR: index.html was not found!"
+            exit 1
+          fi
+
+          mkdir www
+          cp -R "$(dirname "$INDEX")"/. www/
+
+      - name: Create Android project
+        run: |
+          npm init -y
+          npm install @capacitor/core@7 @capacitor/android@7
+          npm install -D @capacitor/cli@7
+
+          cat > capacitor.config.json <<'EOF'
+          {
+            "appId": "com.kurdistandrive.game",
+            "appName": "KURDISTAN DRIVE",
+            "webDir": "www"
+          }
+          EOF
+
+          npx cap add android
+          npx cap sync android
+
+      - name: Build APK
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: KURDISTAN-DRIVE-APK
+          path: android/app/build/outputs/apk/debug/app-debug.apk
