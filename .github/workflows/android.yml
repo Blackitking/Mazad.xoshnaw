@@ -1,4 +1,3 @@
-
 name: KURDISTAN DRIVE Android APK
 
 on:
@@ -30,13 +29,15 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          mkdir release-assets
+          mkdir -p release-assets
           gh release download v1.0 \
             --repo "$GITHUB_REPOSITORY" \
             --dir release-assets
 
-      - name: Extract game files
+      - name: Extract game files and collect 3D models
         run: |
+          set -e
+
           find release-assets -type f -name "*.zip" \
             -exec unzip -oq {} -d release-assets/unpacked \;
 
@@ -44,12 +45,30 @@ jobs:
             -name "index.html" -print -quit)
 
           if [ -z "$INDEX" ]; then
-            echo "ERROR: index.html was not found!"
+            echo "ERROR: index.html was not found in Release assets!"
             exit 1
           fi
 
-          mkdir www
+          mkdir -p www
           cp -R "$(dirname "$INDEX")"/. www/
+
+          # Copy separately attached GLB files into the same folder as index.html.
+          find release-assets -type f -iname "*.glb" -print0 | \
+            while IFS= read -r -d '' MODEL; do
+              cp -f "$MODEL" "www/$(basename "$MODEL")"
+            done
+
+          RAPTOR="www/ford_f150_raptor (2).glb"
+          if [ ! -s "$RAPTOR" ]; then
+            echo "ERROR: Ford Raptor GLB is missing from the v1.0 Release assets."
+            echo "Attach ford_f150_raptor (2).glb to Release v1.0 and run this workflow again."
+            echo "Available GLB files:"
+            find www -maxdepth 1 -type f -iname "*.glb" -printf '%f\n' || true
+            exit 1
+          fi
+
+          echo "Game files prepared:"
+          ls -lh www/index.html "$RAPTOR"
 
       - name: Create Android project
         run: |
@@ -79,4 +98,3 @@ jobs:
         with:
           name: KURDISTAN-DRIVE-APK
           path: android/app/build/outputs/apk/debug/app-debug.apk
-          # Rebuild APK after adding Ford Raptor
