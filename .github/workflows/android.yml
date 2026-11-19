@@ -58,10 +58,18 @@ jobs:
               cp -f "$MODEL" "www/$(basename "$MODEL")"
             done
 
+          # Release may store the same Raptor model with a slightly different filename.
           RAPTOR="www/ford_f150_raptor (2).glb"
           if [ ! -s "$RAPTOR" ]; then
+            FOUND_RAPTOR=$(find www -maxdepth 1 -type f -iname 'ford_f150_raptor*.glb' -print -quit)
+            if [ -n "$FOUND_RAPTOR" ] && [ -s "$FOUND_RAPTOR" ]; then
+              cp -f "$FOUND_RAPTOR" "$RAPTOR"
+              echo "Raptor model normalized from: $(basename "$FOUND_RAPTOR")"
+            fi
+          fi
+
+          if [ ! -s "$RAPTOR" ]; then
             echo "ERROR: Ford Raptor GLB is missing from the v1.0 Release assets."
-            echo "Attach ford_f150_raptor (2).glb to Release v1.0 and run this workflow again."
             echo "Available GLB files:"
             find www -maxdepth 1 -type f -iname "*.glb" -printf '%f\n' || true
             exit 1
