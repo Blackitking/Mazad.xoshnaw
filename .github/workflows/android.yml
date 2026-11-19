@@ -8,7 +8,6 @@ on:
       - published
 name: KURDISTAN DRIVE Android APK
 
-on:
   workflow_dispatch:
   push:
     branches:
