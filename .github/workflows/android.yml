@@ -5,6 +5,13 @@ on:
   push:
     branches:
       - main
+  release:
+    types:
+      - published
+      - edited
+
+permissions:
+  contents: read
 
 jobs:
   build:
@@ -29,6 +36,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          set -e
           mkdir -p release-assets
           gh release download v1.0 \
             --repo "$GITHUB_REPOSITORY" \
@@ -41,24 +49,24 @@ jobs:
           find release-assets -type f -name "*.zip" \
             -exec unzip -oq {} -d release-assets/unpacked \;
 
-          INDEX=$(find release-assets -type f \
-            -name "index.html" -print -quit)
+          INDEX=$(find release-assets -type f -name "index.html" -print -quit)
 
           if [ -z "$INDEX" ]; then
-            echo "ERROR: index.html was not found in Release assets!"
+            echo "ERROR: index.html was not found in Release v1.0 assets."
             exit 1
           fi
 
           mkdir -p www
           cp -R "$(dirname "$INDEX")"/. www/
 
-          # Copy separately attached GLB files into the same folder as index.html.
-          find release-assets -type f -iname "*.glb" -print0 | \
+          # Copy every separately attached GLB model beside index.html.
+          find release-assets -type f -iname "*.glb" -print0 |
             while IFS= read -r -d '' MODEL; do
               cp -f "$MODEL" "www/$(basename "$MODEL")"
             done
 
-          # Release may store the same Raptor model with a slightly different filename.
+          # Accept the Raptor filename currently used in the Release:
+          # ford_f150_raptor.2.glb
           RAPTOR="www/ford_f150_raptor (2).glb"
           if [ ! -s "$RAPTOR" ]; then
             FOUND_RAPTOR=$(find www -maxdepth 1 -type f -iname 'ford_f150_raptor*.glb' -print -quit)
@@ -69,9 +77,9 @@ jobs:
           fi
 
           if [ ! -s "$RAPTOR" ]; then
-            echo "ERROR: Ford Raptor GLB is missing from the v1.0 Release assets."
+            echo "ERROR: Ford Raptor GLB is missing from Release v1.0."
             echo "Available GLB files:"
-            find www -maxdepth 1 -type f -iname "*.glb" -printf '%f\n' || true
+            find www -maxdepth 1 -type f -iname "*.glb" -printf '%f\\n' || true
             exit 1
           fi
 
@@ -80,17 +88,18 @@ jobs:
 
       - name: Create Android project
         run: |
+          set -e
           npm init -y
           npm install @capacitor/core@7 @capacitor/android@7
           npm install -D @capacitor/cli@7
 
-          cat > capacitor.config.json <<'EOF'
+          cat > capacitor.config.json <<'JSON'
           {
             "appId": "com.kurdistandrive.game",
             "appName": "KURDISTAN DRIVE",
             "webDir": "www"
           }
-          EOF
+          JSON
 
           npx cap add android
           npx cap sync android
