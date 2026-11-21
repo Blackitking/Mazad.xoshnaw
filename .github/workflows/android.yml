@@ -43,33 +43,60 @@ jobs:
             --dir release-assets
 
       - name: Extract game files and collect 3D models
+        shell: bash
         run: |
-          set -e
+          set -euo pipefail
 
-          find release-assets -type f -name "*.zip" \
-            -exec unzip -oq {} -d release-assets/unpacked \;
+          mkdir -p release-assets/unpacked www
 
-          INDEX=$(find release-assets -type f -name "index.html" -print -quit)
+          echo "Downloaded Release assets:"
+          find release-assets -maxdepth 2 -type f -printf '%p (%s bytes)\n' || true
+
+          # Extract every ZIP asset, including archives with nested folders.
+          while IFS= read -r -d '' ARCHIVE; do
+            DEST="release-assets/unpacked/$(basename "$ARCHIVE" .zip)"
+            mkdir -p "$DEST"
+            unzip -oq "$ARCHIVE" -d "$DEST"
+          done < <(find release-assets -type f -iname "*.zip" -print0)
+
+          # Prefer index.html; otherwise accept another HTML asset name.
+          # Prefer the new index.html inside the uploaded game ZIP over any old loose HTML asset.
+          INDEX=$(find release-assets/unpacked -type f -iname "index.html" -print -quit || true)
+          if [ -z "$INDEX" ]; then
+            INDEX=$(find release-assets -maxdepth 1 -type f -iname "index.html" -print -quit || true)
+          fi
+          if [ -z "$INDEX" ]; then
+            INDEX=$(find release-assets/unpacked -type f \( -iname "*.html" -o -iname "*.htm" \) -print -quit || true)
+          fi
+          if [ -z "$INDEX" ]; then
+            INDEX=$(find release-assets -maxdepth 1 -type f \( -iname "*.html" -o -iname "*.htm" \) -print -quit || true)
+          fi
 
           if [ -z "$INDEX" ]; then
-            echo "ERROR: index.html was not found in Release v1.0 assets."
+            echo "ERROR: No HTML game file was found in Release v1.0 assets."
+            echo "All downloaded files:"
+            find release-assets -type f -printf '%p (%s bytes)\n' || true
             exit 1
           fi
 
-          mkdir -p www
-          cp -R "$(dirname "$INDEX")"/. www/
+          echo "Using game HTML: $INDEX"
+          cp "$INDEX" www/index.html
 
-          # Copy every separately attached GLB model beside index.html.
-          find release-assets -type f -iname "*.glb" -print0 |
+          # Copy loose companion files beside the selected HTML.
+          HTML_DIR="$(dirname "$INDEX")"
+          find "$HTML_DIR" -mindepth 1 -maxdepth 1 -type f ! -iname "*.html" ! -iname "*.htm" \
+            -exec cp -f {} www/ \\;
+
+          # Copy all separately attached 3D models beside index.html.
+          find release-assets -type f -iname "*.glb" -print0 | \
             while IFS= read -r -d '' MODEL; do
               cp -f "$MODEL" "www/$(basename "$MODEL")"
             done
 
-          # Accept the Raptor filename currently used in the Release:
-          # ford_f150_raptor.2.glb
+          # Support the known Raptor filename variants.
           RAPTOR="www/ford_f150_raptor (2).glb"
           if [ ! -s "$RAPTOR" ]; then
-            FOUND_RAPTOR=$(find www -maxdepth 1 -type f -iname 'ford_f150_raptor*.glb' -print -quit)
+            FOUND_RAPTOR=$(find www -maxdepth 1 -type f -iname 'ford_f150_raptor*.glb' -print -quit || true)
             if [ -n "$FOUND_RAPTOR" ] && [ -s "$FOUND_RAPTOR" ]; then
               cp -f "$FOUND_RAPTOR" "$RAPTOR"
               echo "Raptor model normalized from: $(basename "$FOUND_RAPTOR")"
@@ -77,9 +104,9 @@ jobs:
           fi
 
           if [ ! -s "$RAPTOR" ]; then
-            echo "ERROR: Ford Raptor GLB is missing from Release v1.0."
+            echo "ERROR: Ford Raptor GLB is missing from the v1.0 Release assets."
             echo "Available GLB files:"
-            find www -maxdepth 1 -type f -iname "*.glb" -printf '%f\\n' || true
+            find www -maxdepth 1 -type f -iname "*.glb" -printf '%f\n' || true
             exit 1
           fi
 
