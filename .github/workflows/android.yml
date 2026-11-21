@@ -1,13 +1,17 @@
-name: KURDISTAN DRIVE Android APK
+name: KURDISTAN DRIVE APK - Release Builder
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/build-apk.yml"
 
 permissions:
   contents: read
 
 jobs:
   build:
+    name: Build Android APK
     runs-on: ubuntu-latest
     timeout-minutes: 60
 
@@ -15,24 +19,43 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Download game HTML from latest GitHub Release
+      - name: Download game files from latest Release
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
           set -euo pipefail
+
           mkdir -p release-assets www
-          gh release download --repo "$GITHUB_REPOSITORY" --pattern 'KURDISTAN_DRIVE_FIXED.html' --dir release-assets
-          if [ ! -s release-assets/KURDISTAN_DRIVE_FIXED.html ]; then
-            echo 'ERROR: KURDISTAN_DRIVE_FIXED.html was not found in the latest GitHub Release.'
-            echo 'Upload the game HTML to Releases with this exact filename: KURDISTAN_DRIVE_FIXED.html'
+
+          echo "Downloading assets from the latest GitHub Release..."
+          gh release download --repo "$GITHUB_REPOSITORY" --dir release-assets
+
+          echo "Release assets found:"
+          find release-assets -maxdepth 1 -type f -printf '%f (%s bytes)\n' | sort
+
+          # Accept either filename used in the user's Release.
+          GAME_HTML=""
+          if [ -s "release-assets/index.html" ]; then
+            GAME_HTML="release-assets/index.html"
+          elif [ -s "release-assets/KURDISTAN_DRIVE_FIXED.html" ]; then
+            GAME_HTML="release-assets/KURDISTAN_DRIVE_FIXED.html"
+          else
+            echo "::error::No game HTML found in the latest Release."
+            echo "The Release must contain an asset named index.html or KURDISTAN_DRIVE_FIXED.html."
             exit 1
           fi
-          cp release-assets/KURDISTAN_DRIVE_FIXED.html www/index.html
+
+          cp "$GAME_HTML" www/index.html
+
+          # Include released 3D models alongside index.html so relative model paths can resolve.
+          find release-assets -maxdepth 1 -type f \( -iname '*.glb' -o -iname '*.gltf' -o -iname '*.bin' \) \
+            -exec cp -f {} www/ \;
+
           test -s www/index.html
-          echo 'Game HTML downloaded and prepared:'
-          ls -lh www/index.html
-          du -sh www
+          echo "Prepared game files:"
+          ls -lh www/
+          du -sh www/
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -43,7 +66,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '21'
+          java-version: "21"
 
       - name: Install Capacitor
         shell: bash
@@ -62,7 +85,9 @@ jobs:
             "appId": "com.kurdistandrive.game",
             "appName": "KURDISTAN DRIVE",
             "webDir": "www",
-            "server": { "androidScheme": "https" }
+            "server": {
+              "androidScheme": "https"
+            }
           }
           EOF_CONFIG
           npx cap add android
