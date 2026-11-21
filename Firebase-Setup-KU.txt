@@ -1,0 +1,24 @@
+KURDISTAN DRIVE — ڕێنمایی دامەزراندنی Firebase
+
+ئەم وەشانەی index_updated.html پەڕەی چوونەژوورەوە و پانێڵی ئەدمین و زیادکردنی ئۆتۆمبێلی وێنە + GLB ی تێدایە.
+بۆ کارکردنی ئۆنلاین، پێویستە Firebase ڕێکبخرێت. زانیارییەکانی Firebase Web config نهێنی نییە؛ بەڵام وشەی نهێنی هەژمارەکانت مەدە بە کەس.
+
+١) لە https://console.firebase.google.com پڕۆژەیەکی نوێ دروست بکە.
+٢) Authentication > Sign-in method > Email/Password چالاک بکە. یاریزانان دەبێت ئیمەیڵەکەیان پشتڕاست بکەنەوە.
+٣) Firestore Database دروست بکە.
+٤) Storage چالاک بکە.
+٥) Project settings > General > Your apps > Web app زیاد بکە و Firebase config ـەکە کۆپی بکە.
+٦) لە index_updated.html ئەم بەشە بدۆزەوە:
+   window.KD_FIREBASE_CONFIG
+   و نرخەکانی PASTE_FIREBASE_API_KEY و YOUR_PROJECT... بە زانیارییەکانی پڕۆژەکەت بگۆڕە.
+٧) لە Firestore > Rules ناوەڕۆکی firestore.rules دابنێ و Publish بکە.
+٨) لە Storage > Rules ناوەڕۆکی storage.rules دابنێ و Publish بکە.
+٩) هەژمارێک بە ئیمەیڵی lawaking24@gmail.com دروست بکە. ئەو ئیمەیڵە لە کۆدەکەدا سوپەر ئەدمینە؛ هەژمارەکە لە Firebase Authentication دروست بکە و ئیمەیڵەکە پشتڕاست بکەرەوە.
+١٠) فایلەکە لە GitHub Pages یان هاستێکی HTTPS دابنێ. پێویستە ئینتەرنێت هەبێت.
+
+تێبینی گرنگ:
+- لە پانێڵی ئەدمین، یاریزان پاش ئەوەی لانیکەم جارێک چووە ژوورەوە دەرکەوێت.
+- سوپەر ئەدمین دەتوانێت لە لیستی یاریزانەکان هەژمارێک بکات بە ئەدمین یان لایببات.
+- ئۆتۆمبێلی نوێ لە بنکەدراوە پاشەکەوت دەکرێت؛ بۆ جوڵەی 3D پێویستە GLB باربکرێت.
+- ئەم وەشانە پێویستی بە پڕۆژەی Firebase ـی خۆت هەیە؛ من ناتوانم لە جیاتی تۆ پڕۆژە دروست بکەم یان Firebase config ـی خۆت پێشبینی بکەم.
+- فایلە کۆنەکەی index.html بەجێهێشتراوە؛ وەشانی نوێ index_updated.html ـە.
