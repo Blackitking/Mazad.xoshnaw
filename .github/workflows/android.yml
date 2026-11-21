@@ -2,12 +2,6 @@ name: KURDISTAN DRIVE Android APK
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - '**'
-      - '.github/workflows/android.yml'
 
 permissions:
   contents: read
@@ -21,6 +15,25 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Download game HTML from latest GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p release-assets www
+          gh release download --repo "$GITHUB_REPOSITORY" --pattern 'KURDISTAN_DRIVE_FIXED.html' --dir release-assets
+          if [ ! -s release-assets/KURDISTAN_DRIVE_FIXED.html ]; then
+            echo 'ERROR: KURDISTAN_DRIVE_FIXED.html was not found in the latest GitHub Release.'
+            echo 'Upload the game HTML to Releases with this exact filename: KURDISTAN_DRIVE_FIXED.html'
+            exit 1
+          fi
+          cp release-assets/KURDISTAN_DRIVE_FIXED.html www/index.html
+          test -s www/index.html
+          echo 'Game HTML downloaded and prepared:'
+          ls -lh www/index.html
+          du -sh www
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -32,63 +45,6 @@ jobs:
           distribution: temurin
           java-version: '21'
 
-      - name: Prepare web files
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p www
-
-          GAME_HTML=""
-
-          # Prefer the standard filename, then the edited game filename.
-          for candidate in \
-            "index.html" \
-            "KURDISTAN_DRIVE_FIXED.html" \
-            "KURDISTAN_DRIVE.html" \
-            "KURDISTAN DRIVE.html" \
-            "www/index.html" \
-            "game/index.html" \
-            "game/index.htm"; do
-            if [ -s "$candidate" ]; then
-              GAME_HTML="$candidate"
-              break
-            fi
-          done
-
-          # If it is stored in another folder or has another .html filename,
-          # locate an HTML file without searching generated/dependency folders.
-          if [ -z "$GAME_HTML" ]; then
-            GAME_HTML="$(find . -type f \( -iname '*.html' -o -iname '*.htm' \) \
-              ! -path './.git/*' \
-              ! -path './.github/*' \
-              ! -path './node_modules/*' \
-              ! -path './android/*' \
-              ! -path './www/*' \
-              -print -quit || true)"
-          fi
-
-          if [ -z "$GAME_HTML" ] || [ ! -s "$GAME_HTML" ]; then
-            echo 'ERROR: No game HTML file was found in this repository.'
-            echo 'Upload the game file (for example KURDISTAN_DRIVE_FIXED.html) to the repository root, or put it in game/index.html.'
-            echo 'Repository files:'
-            find . -maxdepth 3 -type f | sort | head -200
-            exit 1
-          fi
-
-          echo "Using game HTML: $GAME_HTML"
-          cp "$GAME_HTML" www/index.html
-
-          # Copy common external game asset folders when present.
-          for item in assets models sounds textures audio; do
-            if [ -e "$item" ]; then
-              cp -R "$item" www/
-            fi
-          done
-
-          test -s www/index.html
-          echo 'Web files prepared successfully.'
-          du -sh www
-
       - name: Install Capacitor
         shell: bash
         run: |
@@ -97,7 +53,7 @@ jobs:
           npm install --save-exact @capacitor/core@7 @capacitor/android@7
           npm install --save-dev --save-exact @capacitor/cli@7
 
-      - name: Configure Capacitor
+      - name: Configure and sync Android
         shell: bash
         run: |
           set -euo pipefail
@@ -106,9 +62,7 @@ jobs:
             "appId": "com.kurdistandrive.game",
             "appName": "KURDISTAN DRIVE",
             "webDir": "www",
-            "server": {
-              "androidScheme": "https"
-            }
+            "server": { "androidScheme": "https" }
           }
           EOF_CONFIG
           npx cap add android
