@@ -1,0 +1,40 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null && request.auth.token.email_verified == true;
+    }
+    function superAdmin() {
+      return signedIn()
+        && request.auth.token.email == 'lawaking24@gmail.com';
+    }
+    function admin() {
+      return superAdmin()
+        || (signedIn()
+          && exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+          && get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.active == true);
+    }
+
+    match /cars/{carId} {
+      allow read: if signedIn();
+      allow create, update, delete: if admin();
+    }
+
+    match /players/{playerId} {
+      allow create, update: if signedIn() && (request.auth.uid == playerId || admin());
+      allow get: if signedIn() && (request.auth.uid == playerId || admin());
+      allow list: if admin();
+      allow delete: if superAdmin();
+    }
+
+    match /admins/{adminId} {
+      allow read: if admin() || (signedIn() && request.auth.uid == adminId);
+      allow create, update, delete: if superAdmin();
+    }
+
+    match /gameSettings/{settingsId} {
+      allow read: if signedIn();
+      allow create, update, delete: if admin();
+    }
+  }
+}

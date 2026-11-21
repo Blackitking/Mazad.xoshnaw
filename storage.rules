@@ -1,0 +1,26 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function signedIn() {
+      return request.auth != null && request.auth.token.email_verified == true;
+    }
+    function superAdmin() {
+      return signedIn()
+        && request.auth.token.email == 'lawaking24@gmail.com';
+    }
+    function admin() {
+      return superAdmin()
+        || (signedIn()
+          && firestore.exists(/databases/(default)/documents/admins/$(request.auth.uid))
+          && firestore.get(/databases/(default)/documents/admins/$(request.auth.uid)).data.active == true);
+    }
+    match /cars/{carId}/{fileName} {
+      allow read: if signedIn();
+      allow write: if admin()
+        && request.resource.size < 100 * 1024 * 1024
+        && (request.resource.contentType.matches('image/.*')
+          || request.resource.contentType == 'model/gltf-binary'
+          || request.resource.contentType == 'application/octet-stream');
+    }
+  }
+}
