@@ -1,6 +1,6 @@
- name: KURDISTAN DRIVE Android APK
+name: KURDISTAN DRIVE Android APK
 
-on:
+"on":
   workflow_dispatch:
   push:
     branches:
@@ -10,13 +10,9 @@ on:
       - published
       - edited
 
-permissions:
-  contents: read
-
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -38,93 +34,66 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p release-assets
-          gh release download v1.0 \
-            --repo "$GITHUB_REPOSITORY" \
-            --dir release-assets
+          gh release download v1.0 --repo "$GITHUB_REPOSITORY" --dir release-assets
 
       - name: Extract game files and collect 3D models
         shell: bash
         run: |
           set -euo pipefail
-
-          rm -rf release-assets/unpacked www
           mkdir -p release-assets/unpacked www
 
-          echo "Downloaded Release assets:"
-          find release-assets -maxdepth 1 -type f -printf '%p (%s bytes)\n' || true
-
-          # Extract ZIP assets from the Release root.
-          while IFS= read -r -d '' ARCHIVE; do
-            ARCHIVE_NAME="$(basename "$ARCHIVE" .zip)"
-            DEST="release-assets/unpacked/$ARCHIVE_NAME"
-            mkdir -p "$DEST"
-            echo "Extracting: $ARCHIVE"
-            unzip -oq "$ARCHIVE" -d "$DEST"
+          # Extract ZIP files from the Release.
+          while IFS= read -r -d '' archive; do
+            folder="release-assets/unpacked/$(basename "$archive" .zip)"
+            mkdir -p "$folder"
+            unzip -oq "$archive" -d "$folder"
           done < <(find release-assets -maxdepth 1 -type f -iname '*.zip' -print0)
 
-          # Prefer index.html from the specifically uploaded game ZIP.
-          INDEX="release-assets/unpacked/KURDISTAN_DRIVE_UPDATED/index.html"
-
-          if [ ! -s "$INDEX" ]; then
-            INDEX="$(find release-assets/unpacked -type f -iname 'index.html' -print -quit || true)"
+          # Select the HTML file from the uploaded game ZIP first.
+          index_file="release-assets/unpacked/KURDISTAN_DRIVE_UPDATED/index.html"
+          if [ ! -s "$index_file" ]; then
+            index_file="$(find release-assets/unpacked -type f -iname 'index.html' -print -quit || true)"
           fi
-
-          if [ -z "$INDEX" ] || [ ! -s "$INDEX" ]; then
-            INDEX="$(find release-assets -maxdepth 1 -type f -iname 'index.html' -print -quit || true)"
+          if [ -z "$index_file" ] || [ ! -s "$index_file" ]; then
+            index_file="$(find release-assets -maxdepth 1 -type f -iname 'index.html' -print -quit || true)"
           fi
-
-          if [ -z "$INDEX" ] || [ ! -s "$INDEX" ]; then
-            INDEX="$(find release-assets/unpacked -type f \( -iname '*.html' -o -iname '*.htm' \) -print -quit || true)"
-          fi
-
-          if [ -z "$INDEX" ] || [ ! -s "$INDEX" ]; then
-            INDEX="$(find release-assets -maxdepth 1 -type f \( -iname '*.html' -o -iname '*.htm' \) -print -quit || true)"
-          fi
-
-          if [ -z "$INDEX" ] || [ ! -s "$INDEX" ]; then
-            echo "ERROR: No usable HTML game file was found in Release v1.0 assets."
-            echo "All downloaded files:"
+          if [ -z "$index_file" ] || [ ! -s "$index_file" ]; then
+            echo "ERROR: index.html was not found in Release v1.0 assets."
             find release-assets -type f -printf '%p (%s bytes)\n' || true
             exit 1
           fi
 
-          echo "Using game HTML: $INDEX"
-          cp -f "$INDEX" www/index.html
+          echo "Using game HTML: $index_file"
+          cp -f "$index_file" www/index.html
 
-          # Copy companion files from beside the selected HTML without find -exec.
-          HTML_DIR="$(dirname "$INDEX")"
-          while IFS= read -r -d '' FILE; do
-            cp -f "$FILE" www/
-          done < <(find "$HTML_DIR" -mindepth 1 -maxdepth 1 -type f ! -iname '*.html' ! -iname '*.htm' -print0)
+          # Copy any companion files beside the selected HTML.
+          html_dir="$(dirname "$index_file")"
+          while IFS= read -r -d '' file; do
+            cp -f "$file" www/
+          done < <(find "$html_dir" -mindepth 1 -maxdepth 1 -type f ! -iname '*.html' ! -iname '*.htm' -print0)
 
-          # Copy every GLB model from the Release assets beside index.html.
-          while IFS= read -r -d '' MODEL; do
-            cp -f "$MODEL" "www/$(basename "$MODEL")"
+          # Copy all GLB models from Release assets.
+          while IFS= read -r -d '' model; do
+            cp -f "$model" "www/$(basename "$model")"
           done < <(find release-assets -type f -iname '*.glb' -print0)
 
-          # The game may request this Raptor filename; create it from the actual Release model.
-          RAPTOR="www/ford_f150_raptor (2).glb"
-          if [ ! -s "$RAPTOR" ]; then
-            FOUND_RAPTOR="$(find www -maxdepth 1 -type f -iname 'ford_f150_raptor*.glb' -print -quit || true)"
-            if [ -n "$FOUND_RAPTOR" ] && [ -s "$FOUND_RAPTOR" ]; then
-              cp -f "$FOUND_RAPTOR" "$RAPTOR"
-              echo "Raptor model normalized from: $(basename "$FOUND_RAPTOR")"
+          # Create the filename expected by the game for the Raptor model.
+          expected_raptor="www/ford_f150_raptor (2).glb"
+          if [ ! -s "$expected_raptor" ]; then
+            source_raptor="$(find www -maxdepth 1 -type f -iname 'ford_f150_raptor*.glb' -print -quit || true)"
+            if [ -n "$source_raptor" ] && [ -s "$source_raptor" ]; then
+              cp -f "$source_raptor" "$expected_raptor"
             fi
           fi
 
-          if [ ! -s "$RAPTOR" ]; then
-            echo "ERROR: Ford Raptor GLB is missing from the v1.0 Release assets."
-            echo "Available GLB files:"
+          if [ ! -s "$expected_raptor" ]; then
+            echo "ERROR: Ford Raptor GLB is missing from Release v1.0."
             find www -maxdepth 1 -type f -iname '*.glb' -printf '%f\n' || true
             exit 1
           fi
 
-          if [ ! -s www/index.html ]; then
-            echo "ERROR: www/index.html is missing or empty."
-            exit 1
-          fi
-
-          echo "Prepared game files:"
+          test -s www/index.html
+          echo "Game HTML and models are ready:"
           ls -lh www/index.html
           find www -maxdepth 1 -type f -iname '*.glb' -printf '%f (%s bytes)\n' | sort
 
@@ -133,7 +102,7 @@ jobs:
           set -euo pipefail
           npm init -y
           npm install @capacitor/core@7 @capacitor/android@7
-          npm install -D @capacitor/cli@7
+          npm install --save-dev @capacitor/cli@7
 
           cat > capacitor.config.json <<'JSON'
           {
@@ -158,4 +127,3 @@ jobs:
         with:
           name: KURDISTAN-DRIVE-APK
           path: android/app/build/outputs/apk/debug/app-debug.apk
-    
