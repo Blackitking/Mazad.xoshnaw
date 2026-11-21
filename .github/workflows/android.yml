@@ -5,10 +5,9 @@ on:
   push:
     branches:
       - main
-  release:
-    types:
-      - published
-      - edited
+    paths:
+      - '**'
+      - '.github/workflows/android.yml'
 
 permissions:
   contents: read
@@ -22,7 +21,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -31,119 +30,57 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 21
+          java-version: '21'
 
-      - name: Download game files from Release
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          mkdir -p release-assets
-          gh release download v1.0 --repo "$GITHUB_REPOSITORY" --dir release-assets
-          echo "Downloaded Release v1.0 assets:"
-          find release-assets -maxdepth 1 -type f -printf '%f (%s bytes)\n' | sort
-
-      - name: Extract game files and collect 3D models
+      - name: Prepare web files
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p release-assets/unpacked www
+          mkdir -p www
 
-          # Unpack every ZIP asset, if the Release contains ZIP files.
-          while IFS= read -r -d '' archive; do
-            folder="release-assets/unpacked/$(basename "$archive" .zip)"
-            mkdir -p "$folder"
-            unzip -oq "$archive" -d "$folder"
-          done < <(find release-assets -maxdepth 1 -type f -iname '*.zip' -print0)
-
-          # Prefer the original game index.html when it exists.
-          index_file=""
-          preferred="release-assets/unpacked/KURDISTAN_DRIVE_UPDATED/index.html"
-          if [ -s "$preferred" ]; then
-            index_file="$preferred"
+          if [ -f index.html ]; then
+            cp index.html www/index.html
+          elif [ -f KURDISTAN_DRIVE_FIXED.html ]; then
+            cp KURDISTAN_DRIVE_FIXED.html www/index.html
           else
-            index_file="$(find release-assets/unpacked -type f -iname 'index.html' -print -quit || true)"
+            echo 'ERROR: Put the game HTML in the repository root as index.html.'
+            exit 1
           fi
 
-          # Some Releases contain the complete game HTML as a named .html asset,
-          # rather than an asset literally named index.html. Use it as the app entry.
-          if [ -z "$index_file" ] || [ ! -s "$index_file" ]; then
-            if [ -s "release-assets/index.html" ]; then
-              index_file="release-assets/index.html"
-            elif [ -s "release-assets/KURDISTAN-DRIVE-LOBBY-ANDROID.html" ]; then
-              index_file="release-assets/KURDISTAN-DRIVE-LOBBY-ANDROID.html"
-            else
-              index_file="$(find release-assets -maxdepth 1 -type f \( -iname '*.html' -o -iname '*.htm' \) ! -path '*/unpacked/*' -print -quit || true)"
+          # Copy game assets/folders if they exist (models, sounds, textures, etc.).
+          for item in assets models sounds textures; do
+            if [ -e "$item" ]; then
+              cp -R "$item" www/
             fi
-          fi
+          done
 
-          if [ -z "$index_file" ] || [ ! -s "$index_file" ]; then
-            echo "ERROR: No usable game HTML file was found in Release v1.0."
-            echo "Release assets and extracted files:"
-            find release-assets -type f -printf '%p (%s bytes)\n' | sort || true
-            exit 1
-          fi
+          test -s www/index.html
+          echo 'Web files prepared:'
+          du -sh www
 
-          echo "Using game HTML as www/index.html: $index_file"
-          cp -f "$index_file" www/index.html
-
-          # Copy companion files beside the selected HTML (excluding archives and HTML).
-          html_dir="$(dirname "$index_file")"
-          while IFS= read -r -d '' file; do
-            cp -f "$file" www/
-          done < <(find "$html_dir" -mindepth 1 -maxdepth 1 -type f \
-            ! -iname '*.html' ! -iname '*.htm' ! -iname '*.zip' -print0)
-
-          # Copy all GLB models from the Release, including models inside ZIPs.
-          while IFS= read -r -d '' model; do
-            cp -f "$model" "www/$(basename "$model")"
-          done < <(find release-assets -type f -iname '*.glb' -print0)
-
-          # Preserve the filename expected by the game for the Ford Raptor model.
-          expected_raptor="www/ford_f150_raptor (2).glb"
-          if [ ! -s "$expected_raptor" ]; then
-            source_raptor="$(find www -maxdepth 1 -type f -iname 'ford_f150_raptor*.glb' -print -quit || true)"
-            if [ -n "$source_raptor" ] && [ -s "$source_raptor" ]; then
-              cp -f "$source_raptor" "$expected_raptor"
-            fi
-          fi
-
-          if [ ! -s www/index.html ]; then
-            echo "ERROR: www/index.html is missing or empty after preparation."
-            exit 1
-          fi
-          if [ ! -s "$expected_raptor" ]; then
-            echo "ERROR: Ford Raptor GLB is missing from Release v1.0."
-            echo "Available GLB models:"
-            find www -maxdepth 1 -type f -iname '*.glb' -printf '%f (%s bytes)\n' | sort || true
-            exit 1
-          fi
-
-          echo "Game files are ready for Android build:"
-          ls -lh www/index.html
-          find www -maxdepth 1 -type f -iname '*.glb' -printf '%f (%s bytes)\n' | sort
-
-      - name: Create Android project
+      - name: Install Capacitor
         run: |
-          set -euo pipefail
           npm init -y
-          npm install @capacitor/core@7 @capacitor/android@7
-          npm install --save-dev @capacitor/cli@7
+          npm install --save-exact @capacitor/core@7 @capacitor/android@7
+          npm install --save-dev --save-exact @capacitor/cli@7
 
-          cat > capacitor.config.json <<'JSON'
+      - name: Configure Capacitor
+        run: |
+          cat > capacitor.config.json <<'EOF'
           {
             "appId": "com.kurdistandrive.game",
             "appName": "KURDISTAN DRIVE",
-            "webDir": "www"
+            "webDir": "www",
+            "server": {
+              "androidScheme": "https"
+            }
           }
-          JSON
-
+          EOF
           npx cap add android
           npx cap sync android
 
-      - name: Build APK
+      - name: Build Android APK
         run: |
-          set -euo pipefail
           cd android
           chmod +x gradlew
           ./gradlew assembleDebug --no-daemon
@@ -154,3 +91,4 @@ jobs:
           name: KURDISTAN-DRIVE-APK
           path: android/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
+          retention-days: 14
