@@ -6,6 +6,7 @@ on:
   push:
     paths:
       - ".github/workflows/build-apk.yml"
+      - ".github/workflows/android.yml"
 
 permissions:
   contents: write
@@ -30,7 +31,11 @@ jobs:
           mkdir -p release-assets www
 
           echo "Downloading latest Release assets..."
-          gh release download --repo "$GITHUB_REPOSITORY" --dir release-assets
+
+          gh release download \
+            --repo "$GITHUB_REPOSITORY" \
+            --dir release-assets \
+            --pattern "*"
 
           echo "Release assets:"
           ls -lh release-assets/
@@ -40,7 +45,7 @@ jobs:
           elif [ -s "release-assets/KURDISTAN_DRIVE_FIXED.html" ]; then
             GAME_HTML="release-assets/KURDISTAN_DRIVE_FIXED.html"
           else
-            echo "::error::Game HTML file not found."
+            echo "::error::Game HTML not found in Release."
             exit 1
           fi
 
@@ -52,7 +57,7 @@ jobs:
 
           test -s www/index.html
 
-          echo "Game files prepared:"
+          echo "Prepared game files:"
           ls -lh www/
           du -sh www/
 
@@ -68,6 +73,7 @@ jobs:
           java-version: "21"
 
       - name: Install Capacitor
+        shell: bash
         run: |
           set -euo pipefail
           npm init -y
@@ -75,6 +81,7 @@ jobs:
           npm install --save-dev --save-exact @capacitor/cli@7
 
       - name: Configure and sync Android
+        shell: bash
         run: |
           set -euo pipefail
 
@@ -93,12 +100,12 @@ jobs:
           npx cap sync android
 
       - name: Build Android APK
+        shell: bash
         run: |
           set -euo pipefail
           cd android
           chmod +x gradlew
           ./gradlew assembleDebug --no-daemon
-
           test -s app/build/outputs/apk/debug/app-debug.apk
 
       - name: Prepare APK
@@ -117,15 +124,14 @@ jobs:
       - name: Publish APK to Latest Release
         env:
           GH_TOKEN: ${{ github.token }}
+        shell: bash
         run: |
           set -euo pipefail
 
           RELEASE_TAG=$(gh release view --repo "$GITHUB_REPOSITORY" --json tagName --jq '.tagName')
 
-          echo "Publishing APK to Release: $RELEASE_TAG"
-
           gh release upload "$RELEASE_TAG" KURDISTAN-DRIVE.apk \
             --repo "$GITHUB_REPOSITORY" \
             --clobber
 
-          echo "APK successfully uploaded to Release."
+          echo "APK uploaded successfully."
