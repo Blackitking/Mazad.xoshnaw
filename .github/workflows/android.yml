@@ -15,7 +15,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
 
     steps:
       - name: Checkout repository
@@ -38,35 +38,70 @@ jobs:
           set -euo pipefail
           mkdir -p www
 
-          if [ -f index.html ]; then
-            cp index.html www/index.html
-          elif [ -f KURDISTAN_DRIVE_FIXED.html ]; then
-            cp KURDISTAN_DRIVE_FIXED.html www/index.html
-          else
-            echo 'ERROR: Put the game HTML in the repository root as index.html.'
+          GAME_HTML=""
+
+          # Prefer the standard filename, then the edited game filename.
+          for candidate in \
+            "index.html" \
+            "KURDISTAN_DRIVE_FIXED.html" \
+            "KURDISTAN_DRIVE.html" \
+            "KURDISTAN DRIVE.html" \
+            "www/index.html" \
+            "game/index.html" \
+            "game/index.htm"; do
+            if [ -s "$candidate" ]; then
+              GAME_HTML="$candidate"
+              break
+            fi
+          done
+
+          # If it is stored in another folder or has another .html filename,
+          # locate an HTML file without searching generated/dependency folders.
+          if [ -z "$GAME_HTML" ]; then
+            GAME_HTML="$(find . -type f \( -iname '*.html' -o -iname '*.htm' \) \
+              ! -path './.git/*' \
+              ! -path './.github/*' \
+              ! -path './node_modules/*' \
+              ! -path './android/*' \
+              ! -path './www/*' \
+              -print -quit || true)"
+          fi
+
+          if [ -z "$GAME_HTML" ] || [ ! -s "$GAME_HTML" ]; then
+            echo 'ERROR: No game HTML file was found in this repository.'
+            echo 'Upload the game file (for example KURDISTAN_DRIVE_FIXED.html) to the repository root, or put it in game/index.html.'
+            echo 'Repository files:'
+            find . -maxdepth 3 -type f | sort | head -200
             exit 1
           fi
 
-          # Copy game assets/folders if they exist (models, sounds, textures, etc.).
-          for item in assets models sounds textures; do
+          echo "Using game HTML: $GAME_HTML"
+          cp "$GAME_HTML" www/index.html
+
+          # Copy common external game asset folders when present.
+          for item in assets models sounds textures audio; do
             if [ -e "$item" ]; then
               cp -R "$item" www/
             fi
           done
 
           test -s www/index.html
-          echo 'Web files prepared:'
+          echo 'Web files prepared successfully.'
           du -sh www
 
       - name: Install Capacitor
+        shell: bash
         run: |
+          set -euo pipefail
           npm init -y
           npm install --save-exact @capacitor/core@7 @capacitor/android@7
           npm install --save-dev --save-exact @capacitor/cli@7
 
       - name: Configure Capacitor
+        shell: bash
         run: |
-          cat > capacitor.config.json <<'EOF'
+          set -euo pipefail
+          cat > capacitor.config.json <<'EOF_CONFIG'
           {
             "appId": "com.kurdistandrive.game",
             "appName": "KURDISTAN DRIVE",
@@ -75,12 +110,14 @@ jobs:
               "androidScheme": "https"
             }
           }
-          EOF
+          EOF_CONFIG
           npx cap add android
           npx cap sync android
 
       - name: Build Android APK
+        shell: bash
         run: |
+          set -euo pipefail
           cd android
           chmod +x gradlew
           ./gradlew assembleDebug --no-daemon
